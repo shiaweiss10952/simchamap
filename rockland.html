@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rockland County Venues & Halls — SimchaMap</title>
+<meta name="description" content="Browse kosher event halls and simcha venues in Rockland County, Monsey, Spring Valley, Suffern and surrounding areas. Real listings with phone numbers and addresses.">
+<meta name="keywords" content="kosher halls Monsey, simcha venues Rockland County, bar mitzvah halls Spring Valley, Jewish event spaces">
+<meta property="og:title" content="Rockland County Venues & Halls — SimchaMap">
+<meta property="og:description" content="Browse kosher event halls and simcha venues in Rockland County, Monsey, Spring Valley, Suffern and surrounding areas. Real listings with phone numbers and addresses.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://simchamap.com">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rockland County Venues & Halls — SimchaMap">
+<meta name="twitter:description" content="Browse kosher event halls and simcha venues in Rockland County, Monsey, Spring Valley, Suffern and surrounding areas. Real listings with phone numbers and addresses.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="shortcut icon" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F7EDD4;
+    --deep: #1A1209;
+    --cream: #FAF6EE;
+    --warm: #F2E8D0;
+    --text: #2C1F0A;
+    --muted: #8A7355;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(250,246,238,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--deep); text-decoration: none; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--gold); color: var(--deep); border: none; padding: 0.6rem 1.4rem; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; border-radius: 2px; cursor: pointer; text-decoration: none; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 2rem 4rem;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.1) 0%, transparent 70%), var(--deep);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(201,168,76,0.06) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; }
+  .breadcrumb { font-size: 0.8rem; color: rgba(250,246,238,0.4); margin-bottom: 1.5rem; }
+  .breadcrumb a { color: var(--gold); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .hero-eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1.1; color: var(--cream); margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-desc { font-size: 1.05rem; color: rgba(250,246,238,0.6); max-width: 580px; line-height: 1.7; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+
+  /* NEIGHBORHOODS */
+  .neighborhoods { display: flex; flex-wrap: wrap; gap: 0.6rem; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
+  .nbhd-pill { background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); color: var(--gold-light); padding: 0.35rem 1rem; border-radius: 100px; font-size: 0.8rem; }
+
+  /* TABS */
+  .tabs-section { background: var(--cream); padding: 3rem 2rem 0; }
+  .tabs-inner { max-width: 1200px; margin: 0 auto; }
+  .tabs-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  .tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; border-bottom: 1px solid rgba(201,168,76,0.2); padding-bottom: 0; }
+  .tab-btn {
+    background: none; border: none; padding: 0.75rem 1.4rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent;
+    margin-bottom: -1px; transition: all 0.2s; border-radius: 2px 2px 0 0;
+  }
+  .tab-btn:hover { color: var(--gold); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); background: rgba(201,168,76,0.05); }
+
+  /* CONTENT PANELS */
+  .panels { padding: 0 2rem 5rem; background: var(--cream); }
+  .panels-inner { max-width: 1200px; margin: 0 auto; padding-top: 3rem; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* VENUES GRID */
+  .section-intro { margin-bottom: 2.5rem; }
+  .section-intro h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--deep); margin-bottom: 0.4rem; }
+  .section-intro h2 em { font-style: italic; color: var(--gold); }
+  .section-intro p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+
+  .venues-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+  .venue-card {
+    background: white; border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 6px; overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .venue-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(201,168,76,0.12); }
+  .venue-header { background: var(--deep); padding: 1.5rem; position: relative; }
+  .venue-badge { position: absolute; top: 1rem; right: 1rem; background: var(--gold); color: var(--deep); font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 100px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .venue-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--cream); margin-bottom: 0.25rem; }
+  .venue-location { font-size: 0.8rem; color: rgba(250,246,238,0.5); }
+  .venue-body { padding: 1.5rem; }
+  .venue-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+  .venue-details { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
+  .venue-detail { }
+  .detail-label { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 0.2rem; }
+  .detail-value { font-size: 0.85rem; color: var(--text); font-weight: 500; }
+  .venue-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+  .venue-tag { background: var(--gold-pale); color: var(--muted); font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 100px; }
+  .venue-footer { display: flex; gap: 0.75rem; padding-top: 1.25rem; border-top: 1px solid rgba(201,168,76,0.1); }
+  .venue-phone { flex: 1; background: var(--deep); color: var(--cream); border: none; padding: 0.6rem 1rem; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none; text-align: center; display: block; transition: background 0.2s; }
+  .venue-phone:hover { background: #2C1F0A; }
+  .venue-more { background: var(--gold-pale); color: var(--deep); border: 1px solid rgba(201,168,76,0.3); padding: 0.6rem 1rem; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+  .venue-more:hover { background: var(--gold); }
+
+  /* CATEGORIES GRID (for non-venues) */
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+  .cat-card {
+    background: white; border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 4px; padding: 2rem 1.75rem;
+    transition: all 0.25s; cursor: pointer; position: relative; overflow: hidden;
+  }
+  .cat-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .cat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(201,168,76,0.12); }
+  .cat-card:hover::after { transform: scaleX(1); }
+  .cat-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .cat-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--deep); margin-bottom: 0.4rem; }
+  .cat-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+  .coming-soon { display: inline-block; margin-top: 1rem; font-size: 0.75rem; color: var(--gold); font-weight: 500; }
+
+  /* LIST YOUR BIZ */
+  .list-biz {
+    background: var(--deep); border-radius: 6px; padding: 2.5rem;
+    text-align: center; margin-top: 3rem;
+  }
+  .list-biz h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--cream); margin-bottom: 0.5rem; }
+  .list-biz h3 em { color: var(--gold); font-style: italic; }
+  .list-biz p { color: rgba(250,246,238,0.6); font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .btn-gold { background: var(--gold); color: var(--deep); border: none; padding: 0.8rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; border-radius: 2px; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer { background: var(--deep); border-top: 1px solid rgba(201,168,76,0.1); padding: 3rem 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; color: var(--cream); text-decoration: none; }
+  .footer-logo span { color: var(--gold); }
+  .footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+  .footer-links a { color: rgba(250,246,238,0.4); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { color: rgba(250,246,238,0.25); font-size: 0.8rem; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .nav-links { display: none; } .venue-details { grid-template-columns: 1fr; } }
+
+  .google-rating { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+  .stars { color:#F4B400; font-size:0.9rem; letter-spacing:1px; }
+  .rating-num { font-weight:700; font-size:0.9rem; color:#2C1F0A; }
+  .rating-count { font-size:0.75rem; color:#8A7355; }
+  .google-badge { font-size:0.65rem; color:#8A7355; background:#F2E8D0; padding:0.1rem 0.4rem; border-radius:100px; }
+  .review-snippet { background:#F9F5EE; border-radius:4px; padding:0.75rem; margin-bottom:0.5rem; font-size:0.78rem; color:#5A4A35; line-height:1.5; font-style:italic; }
+  .review-author { font-size:0.7rem; color:#8A7355; margin-top:0.3rem; font-style:normal; }
+  .reviews-toggle { font-size:0.75rem; color:#C9A84C; cursor:pointer; text-decoration:underline; margin-bottom:0.75rem; background:none; border:none; padding:0; font-family:inherit; }
+  .reviews-container { display:none; }
+  .rating-loading { font-size:0.75rem; color:#8A7355; animation:pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+</style>
+</head>
+<body>
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1.5rem;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,238,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);">
+
+  <!-- LOGO -->
+  <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.65rem;flex-shrink:0;">
+    <svg width="34" height="42" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg">
+      <path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/>
+      <path d="M44 0 C24 0 8 16 8 36 C8 48 16 58 26 66 C30 52 32 40 32 36 C32 18 37 4 44 0Z" fill="#E8C97A" opacity="0.45"/>
+      <circle cx="44" cy="34" r="14" fill="#FAF6EE"/>
+      <circle cx="44" cy="34" r="5" fill="#C9A84C"/>
+    </svg>
+    <div style="display:flex;flex-direction:column;justify-content:center;">
+      <span style="font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:900;color:#2C1F0A;letter-spacing:-0.02em;line-height:1.1;">SimchaMap</span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:0.55rem;font-weight:500;color:#C9A84C;letter-spacing:0.12em;text-transform:uppercase;line-height:1.3;">Every Detail. &nbsp;·&nbsp; One Place.</span>
+    </div>
+  </a>
+
+  <!-- DESKTOP LINKS -->
+  <ul id="nav-links" style="display:flex;gap:2rem;list-style:none;margin:0;padding:0;">
+    <li><a href="index.html#categories" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Services</a></li>
+    <li><a href="index.html#planner" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">AI Planner</a></li>
+    <li><a href="index.html#timeline" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Timeline</a></li>
+    <li><a href="about.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">About</a></li>
+  </ul>
+
+  <!-- DESKTOP CTA -->
+  <a href="index.html#planner" id="nav-cta" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
+
+  <!-- HAMBURGER (mobile only) -->
+  <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;cursor:pointer;padding:0.25rem;flex-direction:column;gap:5px;">
+    <span style="display:block;width:24px;height:2px;background:#2C1F0A;border-radius:2px;transition:all 0.3s;"></span>
+    <span style="display:block;width:24px;height:2px;background:#2C1F0A;border-radius:2px;transition:all 0.3s;"></span>
+    <span style="display:block;width:24px;height:2px;background:#2C1F0A;border-radius:2px;transition:all 0.3s;"></span>
+  </button>
+
+</nav>
+
+<!-- MOBILE MENU DROPDOWN -->
+<div id="mobile-menu" style="display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(250,246,238,0.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 1.5rem 1.5rem;flex-direction:column;gap:0;">
+  <a href="index.html#categories" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Services</a>
+  <a href="index.html#planner" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">AI Planner ✨</a>
+  <a href="index.html#timeline" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Planning Timeline</a>
+  <a href="about.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">About Us</a>
+  <a href="rockland.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">📍 Rockland County Venues</a>
+  <a href="index.html#planner" onclick="closeMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.85rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;">✨ Start Planning</a>
+</div>
+
+<style>
+@media (max-width: 768px) {
+  #nav-links { display: none !important; }
+  #nav-cta { display: none !important; }
+  #hamburger { display: flex !important; }
+}
+
+  .google-rating { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem; flex-wrap:wrap; }
+  .stars { color:#F4B400; font-size:0.9rem; letter-spacing:1px; }
+  .rating-num { font-weight:700; font-size:0.9rem; color:#2C1F0A; }
+  .rating-count { font-size:0.75rem; color:#8A7355; }
+  .google-badge { font-size:0.65rem; color:#8A7355; background:#F2E8D0; padding:0.1rem 0.4rem; border-radius:100px; }
+  .review-snippet { background:#F9F5EE; border-radius:4px; padding:0.75rem; margin-bottom:0.5rem; font-size:0.78rem; color:#5A4A35; line-height:1.5; font-style:italic; }
+  .review-author { font-size:0.7rem; color:#8A7355; margin-top:0.3rem; font-style:normal; }
+  .reviews-toggle { font-size:0.75rem; color:#C9A84C; cursor:pointer; text-decoration:underline; margin-bottom:0.75rem; background:none; border:none; padding:0; font-family:inherit; }
+  .reviews-container { display:none; }
+  .rating-loading { font-size:0.75rem; color:#8A7355; animation:pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+</style>
+
+<script>
+function toggleMenu() {
+  var menu = document.getElementById('mobile-menu');
+  var isOpen = menu.style.display === 'flex';
+  menu.style.display = isOpen ? 'none' : 'flex';
+}
+function closeMenu() {
+  document.getElementById('mobile-menu').style.display = 'none';
+}
+// Close menu when clicking outside
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('mobile-menu');
+  var hamburger = document.getElementById('hamburger');
+  if (menu.style.display === 'flex' && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+    menu.style.display = 'none';
+  }
+});
+</script>
+
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,238,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);">
+
+  <!-- LOGO -->
+  <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.75rem;flex-shrink:0;">
+    <svg width="38" height="46" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg">
+      <path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/>
+      <path d="M44 0 C24 0 8 16 8 36 C8 48 16 58 26 66 C30 52 32 40 32 36 C32 18 37 4 44 0Z" fill="#E8C97A" opacity="0.45"/>
+      <circle cx="44" cy="34" r="14" fill="#FAF6EE"/>
+      <circle cx="44" cy="34" r="5" fill="#C9A84C"/>
+    </svg>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:0;">
+      <span style="font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:900;color:#2C1F0A;letter-spacing:-0.02em;line-height:1.1;">SimchaMap</span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:0.58rem;font-weight:500;color:#C9A84C;letter-spacing:0.16em;text-transform:uppercase;line-height:1.4;">Every Detail. &nbsp;|&nbsp; One Place.</span>
+    </div>
+  </a>
+
+  <!-- NAV LINKS -->
+  <ul style="display:flex;gap:2.5rem;list-style:none;margin:0;padding:0;flex:1;justify-content:center;">
+    <li><a href="index.html#categories" style="text-decoration:none;color:#8A7355;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s;">Services</a></li>
+    <li><a href="index.html#planner" style="text-decoration:none;color:#8A7355;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s;">AI Planner</a></li>
+    <li><a href="index.html#timeline" style="text-decoration:none;color:#8A7355;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s;">Timeline</a></li>
+    <li><a href="about.html" style="text-decoration:none;color:#8A7355;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s;">About</a></li>
+  </ul>
+
+  <!-- CTA -->
+  <a href="index.html#planner" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.6rem 1.4rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;border-radius:2px;white-space:nowrap;transition:background 0.2s;">Start Planning</a>
+
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a> → <a href="index.html#areas">Areas</a> → Rockland County</div>
+    <p class="hero-eyebrow">✦ Rockland County, New York ✦</p>
+    <h1>Plan Your Simcha<br>in <em>Rockland County</em></h1>
+    <p class="hero-desc">Everything you need for a bar mitzvah, wedding, or any simcha — all in one place, serving the entire Rockland County Jewish community.</p>
+    <div class="neighborhoods">
+      <span class="nbhd-pill">📍 Monsey</span>
+      <span class="nbhd-pill">📍 Spring Valley</span>
+      <span class="nbhd-pill">📍 New Square</span>
+      <span class="nbhd-pill">📍 Suffern</span>
+      <span class="nbhd-pill">📍 Pomona</span>
+      <span class="nbhd-pill">📍 Nanuet</span>
+      <span class="nbhd-pill">📍 Pearl River</span>
+    </div>
+  </div>
+</section>
+
+<!-- TABS -->
+<div class="tabs-section">
+  <div class="tabs-inner">
+    <p class="tabs-label">Browse by category</p>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('venues', this)">🏛️ Venues & Halls</button>
+      <button class="tab-btn" onclick="switchTab('catering', this)">🍽️ Catering</button>
+      <button class="tab-btn" onclick="switchTab('photo', this)">📸 Photography</button>
+      <button class="tab-btn" onclick="switchTab('music', this)">🎵 Music & Entertainment</button>
+      <button class="tab-btn" onclick="switchTab('more', this)">✨ More Services</button>
+    </div>
+  </div>
+</div>
+
+<!-- PANELS -->
+<div class="panels">
+  <div class="panels-inner">
+
+    <!-- VENUES -->
+    
+        <div class="panel active" id="panel-venues">
+      <div class="section-intro">
+        <h2>Venues & <em>Halls</em></h2>
+        <p>Kosher event halls serving Rockland County — sorted A–Z. Filter by area using the sidebar.</p>
+      </div>
+      <div style="display:flex;gap:2rem;align-items:flex-start;flex-wrap:wrap;">
+
+        <!-- SIDEBAR FILTER -->
+        <div style="width:170px;flex-shrink:0;background:white;border:1px solid rgba(201,168,76,0.2);border-radius:6px;padding:1.25rem;position:sticky;top:7rem;">
+          <p style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:0.75rem;">Filter by Area</p>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
+            <button class="filter-btn" data-filter="all" style="text-align:left;background:var(--gold);color:var(--deep);border:none;padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;font-weight:600;">All Areas</button>
+            <button class="filter-btn" data-filter="Monsey" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">📍 Monsey</button>
+            <button class="filter-btn" data-filter="Spring Valley" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">📍 Spring Valley</button>
+            <button class="filter-btn" data-filter="Suffern" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">📍 Suffern</button>
+            <button class="filter-btn" data-filter="Airmont" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">📍 Airmont</button>
+            <button class="filter-btn" data-filter="Chestnut Ridge" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">📍 Chestnut Ridge</button>
+          </div>
+          <p id="venue-count" style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(201,168,76,0.15);font-size:0.75rem;color:var(--muted);">Showing all 26 halls</p>
+        </div>
+
+        <!-- VENUE GRID -->
+        <div id="venues-grid" style="flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;min-width:0;">
+        <div class="venue-card" data-gname="Cong. Ahavas Yitzchok" data-gaddr="73 Forshay Road, Monsey, NY 10952" data-location="Monsey">
+          <div class="venue-header">
+            <div class="venue-name">Cong. Ahavas Yitzchok</div>
+            <div class="venue-location">📍 73 Forshay Road, Monsey, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-320-2590</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Monsey</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8453202590" class="venue-phone">📞 Call Now</a>
+              <a href="https://www.ahavasyitzchok.org/" target="_blank" class="venue-more">🌐 Website</a>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Alfei Menashe Ballroom" data-gaddr="244 Viola Rd, Monsey, NY 10952" data-location="Monsey">
+          <div class="venue-header">
+            <div class="venue-name">Alfei Menashe Ballroom</div>
+            <div class="venue-location">📍 244 Viola Rd, Monsey, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-474-2425</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Monsey</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Bar Mitzvah, Wedding</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Caterer</div>
+                <div class="detail-value" style="font-size:0.8rem;">Leil Shishi Catering</div>
+              </div>
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Bar Mitzvah</span><span class="venue-tag">Wedding</span><span class="venue-tag">Vort</span><span class="venue-tag">Simcha</span></div>
+            <div class="venue-footer">
+              <a href="tel:8454742425" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=244 Viola Rd, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Ateres Charna" data-gaddr="790 N Main St, Spring Valley, NY 10977" data-location="Spring Valley">
+          <div class="venue-header">
+            <div class="venue-name">Ateres Charna</div>
+            <div class="venue-location">📍 790 N Main St, Spring Valley, NY 10977</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-362-7800</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Spring Valley</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Wedding, Bar Mitzvah</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Caterer</div>
+                <div class="detail-value" style="font-size:0.8rem;">L'Chaim Catering (exclusive)</div>
+              </div>
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Wedding</span><span class="venue-tag">Bar Mitzvah</span><span class="venue-tag">Simcha</span></div>
+            <div class="venue-footer">
+              <a href="tel:8453627800" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=790 N Main St, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Cong. Ateres Rosh" data-gaddr="16 Charlotte Drive, Spring Valley, NY 10977" data-location="Spring Valley">
+          <div class="venue-header">
+            <div class="venue-name">Cong. Ateres Rosh</div>
+            <div class="venue-location">📍 16 Charlotte Drive, Spring Valley, NY 10977</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-239-9130</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Spring Valley</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8452399130" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=16 Charlotte Drive, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Ateres Yechiel Hall of Bobov" data-gaddr="230 Viola Rd, Monsey, NY 10952" data-location="Monsey">
+          <div class="venue-header">
+            <div class="venue-name">Ateres Yechiel Hall of Bobov</div>
+            <div class="venue-location">📍 230 Viola Rd, Monsey, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-356-5001</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Monsey</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8453565001" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=230 Viola Rd, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="The Atrium Ballroom" data-gaddr="401 NY Route 59, Monsey, NY 10952" data-location="Monsey">
+          <div class="venue-header">
+            <div class="venue-name">The Atrium Ballroom</div>
+            <div class="venue-location">📍 401 NY Route 59, Monsey, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-356-0000</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Monsey</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Wedding, Bar Mitzvah</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Wedding</span><span class="venue-tag">Bar Mitzvah</span><span class="venue-tag">Simcha</span><span class="venue-tag">Gala</span></div>
+            <div class="venue-footer">
+              <a href="tel:8453560000" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=401 NY Route 59, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Cong. Bais Avigdor" data-gaddr="57 Lime Kiln Rd, Suffern, NY 10901" data-location="Suffern">
+          <div class="venue-header">
+            <div class="venue-name">Cong. Bais Avigdor</div>
+            <div class="venue-location">📍 57 Lime Kiln Rd, Suffern, NY 10901</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">773-318-5502</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Suffern</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Email</div>
+                <div class="detail-value" style="font-size:0.75rem;">tiferessimchas@gmail.com</div>
+              </div>
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:7733185502" class="venue-phone">📞 Call Now</a>
+              <a href="https://www.baisavigdorwesleyhills.org/" target="_blank" class="venue-more">🌐 Website</a>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Bais Medrash of Rockland Hall" data-gaddr="2 E Funston Ave, Spring Valley, NY 10977" data-location="Spring Valley">
+          <div class="venue-header">
+            <div class="venue-name">Bais Medrash of Rockland Hall</div>
+            <div class="venue-location">📍 2 E Funston Ave, Spring Valley, NY 10977</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-356-2630</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Spring Valley</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8453562630" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=2 E Funston Ave, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Bais Yosef Meir Hall" data-gaddr="19 Olympia Ln, Monsey, NY 10952" data-location="Monsey">
+          <div class="venue-header">
+            <div class="venue-name">Bais Yosef Meir Hall</div>
+            <div class="venue-location">📍 19 Olympia Ln, Monsey, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-396-3776</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Monsey</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8453963776" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=19 Olympia Ln, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Borov Hall" data-gaddr="4 Parker Blvd, Monsey, NY 10952" data-location="Monsey">
+          <div class="venue-header">
+            <div class="venue-name">Borov Hall</div>
+            <div class="venue-location">📍 4 Parker Blvd, Monsey, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">347-460-7543</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Monsey</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:3474607543" class="venue-phone">📞 Call Now</a>
+              <a href="https://www.borov.org/" target="_blank" class="venue-more">🌐 Website</a>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="The Crown Ballroom" data-gaddr="70 Highview Rd, Suffern, NY 10901" data-location="Suffern">
+          <div class="venue-header">
+            <div class="venue-name">The Crown Ballroom</div>
+            <div class="venue-location">📍 70 Highview Rd, Suffern, NY 10901</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">718-802-9100</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Suffern</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bar Mitzvah</span><span class="venue-tag">Simcha</span></div>
+            <div class="venue-footer">
+              <a href="tel:7188029100" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=70 Highview Rd, Suffern, NY 10901','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Garden Paradise - Shoppers Haven" data-gaddr="27 Orchard St, Monsey, NY 10952" data-location="Monsey">
+          <div class="venue-header">
+            <div class="venue-name">Garden Paradise - Shoppers Haven</div>
+            <div class="venue-location">📍 27 Orchard St, Monsey, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-352-4683</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Monsey</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8453524683" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=27 Orchard St, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Hamaspik Terrace - Monsey Hub" data-gaddr="58 NY-59 #1, Monsey, NY 10952" data-location="Monsey">
+          <div class="venue-header">
+            <div class="venue-name">Hamaspik Terrace - Monsey Hub</div>
+            <div class="venue-location">📍 58 NY-59 #1, Monsey, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-425-4949</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Monsey</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8454254949" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=58 NY-59 #1, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Kehillat Yeshorim of Wesley Hills" data-gaddr="1 Harriet Lane, Spring Valley, NY 10977" data-location="Spring Valley">
+          <div class="venue-header">
+            <div class="venue-name">Kehillat Yeshorim of Wesley Hills</div>
+            <div class="venue-location">📍 1 Harriet Lane, Spring Valley, NY 10977</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">simchahall@kywh.org</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Spring Valley</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Email</div>
+                <div class="detail-value" style="font-size:0.75rem;">simchahall@kywh.org</div>
+              </div>
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="mailto:simchahall@kywh.org" class="venue-phone">✉️ Email</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=1 Harriet Lane, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Khal Beis Elazar" data-gaddr="8 Parker Blvd, Monsey, NY 10952" data-location="Monsey">
+          <div class="venue-header">
+            <div class="venue-name">Khal Beis Elazar</div>
+            <div class="venue-location">📍 8 Parker Blvd, Monsey, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-372-5135</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Monsey</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Email</div>
+                <div class="detail-value" style="font-size:0.75rem;">kbezmhall@gmail.com</div>
+              </div>
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8453725135" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=8 Parker Blvd, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Khal Mishkan Yosef" data-gaddr="13 Algonquin Circle, Airmont, NY 10952" data-location="Airmont">
+          <div class="venue-header">
+            <div class="venue-name">Khal Mishkan Yosef</div>
+            <div class="venue-location">📍 13 Algonquin Circle, Airmont, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-798-9300</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Airmont</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8457989300" class="venue-phone">📞 Call Now</a>
+              <a href="http://www.khalmishkanyosef.org/" target="_blank" class="venue-more">🌐 Website</a>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Khal Zichron Michoel" data-gaddr="153 Grandview Ave, Monsey, NY 10952" data-location="Monsey">
+          <div class="venue-header">
+            <div class="venue-name">Khal Zichron Michoel</div>
+            <div class="venue-location">📍 153 Grandview Ave, Monsey, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">917-968-9738</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Monsey</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:9179689738" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=153 Grandview Ave, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Khal Zichron Mordechai" data-gaddr="9 Fosse Ct, Airmont, NY 10952" data-location="Airmont">
+          <div class="venue-header">
+            <div class="venue-name">Khal Zichron Mordechai</div>
+            <div class="venue-location">📍 9 Fosse Ct, Airmont, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-426-6208</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Airmont</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8454266208" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=9 Fosse Ct, Airmont, NY 10952','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Cong. Knesses Yisroel" data-gaddr="698 Union Road, Spring Valley, NY 10977" data-location="Spring Valley">
+          <div class="venue-header">
+            <div class="venue-name">Cong. Knesses Yisroel</div>
+            <div class="venue-location">📍 698 Union Road, Spring Valley, NY 10977</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-598-2831</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Spring Valley</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8455982831" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=698 Union Road, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Monsey Palace Halls" data-gaddr="575 Chestnut Ridge Road, Spring Valley, NY 10977" data-location="Spring Valley">
+          <div class="venue-header">
+            <div class="venue-name">Monsey Palace Halls</div>
+            <div class="venue-location">📍 575 Chestnut Ridge Road, Spring Valley, NY 10977</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-641-5062</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Spring Valley</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8456415062" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=575 Chestnut Ridge Road, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Ribnitz Hall" data-gaddr="55 Old Nyack Turnpike, Monsey, NY 10952" data-location="Monsey">
+          <div class="venue-header">
+            <div class="venue-name">Ribnitz Hall</div>
+            <div class="venue-location">📍 55 Old Nyack Turnpike, Monsey, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-426-2056</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Monsey</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8454262056" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=55 Old Nyack Turnpike, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="The Schlesinger Hall" data-gaddr="33 Union Rd, Spring Valley, NY 10977" data-location="Spring Valley">
+          <div class="venue-header">
+            <div class="venue-name">The Schlesinger Hall</div>
+            <div class="venue-location">📍 33 Union Rd, Spring Valley, NY 10977</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-302-9077</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Spring Valley</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Bar Mitzvah, Vort</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Email</div>
+                <div class="detail-value" style="font-size:0.75rem;">billing@theschlesingerhall.com</div>
+              </div>
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Bar Mitzvah</span><span class="venue-tag">Vort</span><span class="venue-tag">Sheva Brachos</span><span class="venue-tag">Simcha</span></div>
+            <div class="venue-footer">
+              <a href="tel:8453029077" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=33 Union Rd, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Cong. Shaar Hashamayim" data-gaddr="71 E Willow Tree Road, Spring Valley, NY 10977" data-location="Spring Valley">
+          <div class="venue-header">
+            <div class="venue-name">Cong. Shaar Hashamayim</div>
+            <div class="venue-location">📍 71 E Willow Tree Road, Spring Valley, NY 10977</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-216-9572</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Spring Valley</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Email</div>
+                <div class="detail-value" style="font-size:0.75rem;">ghhorowitz@gmail.com</div>
+              </div>
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8452169572" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=71 E Willow Tree Road, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Cong. Shaarei Tefillah" data-gaddr="29 Parker Blvd, Monsey, NY 10952" data-location="Monsey">
+          <div class="venue-header">
+            <div class="venue-name">Cong. Shaarei Tefillah</div>
+            <div class="venue-location">📍 29 Parker Blvd, Monsey, NY 10952</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-304-5122</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Monsey</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8453045122" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=29 Parker Blvd, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="Toshnad Hall" data-gaddr="2 Howard Dr, Spring Valley, NY 10977" data-location="Spring Valley">
+          <div class="venue-header">
+            <div class="venue-name">Toshnad Hall</div>
+            <div class="venue-location">📍 2 Howard Dr, Spring Valley, NY 10977</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-324-2900</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Spring Valley</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Best For</div>
+                <div class="detail-value">Vort, Tenoim</div>
+              </div>
+              
+            </div>
+            <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
+            <div class="venue-footer">
+              <a href="tel:8453242900" class="venue-phone">📞 Call Now</a>
+              <button class="venue-more" onclick="window.open('https://maps.google.com?q=2 Howard Dr, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card" data-gname="The Legacy" data-gaddr="36 Scotland Hill Rd, Spring Valley, NY 10977" data-location="Chestnut Ridge">
+          <div class="venue-header">
+            <div class="venue-name">The Legacy</div>
+            <div class="venue-location">📍 36 Scotland Hill Rd, Spring Valley, NY 10977</div>
+          </div>
+          <div class="venue-body">
+            
+            <div class="google-rating" id="rating-placeholder">
+              <span class="rating-loading">Loading Google rating...</span>
+            </div>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <div class="reviews-container"></div>
+            <div class="venue-details">
+              <div class="venue-detail">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">845-352-4683 ext. 5</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Location</div>
+                <div class="detail-value">Chestnut Ridge</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Caterer</div>
+                <div class="detail-value">Glauber's Catering</div>
+              </div>
+              <div class="venue-detail">
+                <div class="detail-label">Bar Mitzvah Pkg</div>
+                <div class="detail-value" style="color:var(--gold);font-weight:600;">$4,950 — hall + 40 couples</div>
+              </div>
+            </div>
+            <div class="venue-tags">
+              <span class="venue-tag">Bar Mitzvahs</span>
+              <span class="venue-tag">Weddings</span>
+              <span class="venue-tag">Simchos</span>
+              <span class="venue-tag">Glauber's Catering</span>
+            </div>
+            <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem;line-height:1.5;">Bar mitzvah package includes hall rental and catering for 40 couples ($4,950). Contact Glauber's Catering directly to book.</p>
+            <div class="venue-footer">
+              <a href="tel:8453524683" class="venue-phone">📞 Call Now</a>
+              <a href="mailto:glaubercatering@gmail.com" class="venue-more">✉️ Email</a>
+            </div>
+          </div>
+        </div>
+        <div class="venue-card cta-card" style="background:var(--gold-pale);border:2px dashed rgba(201,168,76,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;min-height:300px;">
+          <span style="font-size:2.5rem;margin-bottom:1rem;">🏛️</span>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--deep);margin-bottom:0.5rem;">Own a Hall?</div>
+          <p style="font-size:0.875rem;color:var(--muted);line-height:1.6;margin-bottom:1rem;">Get listed on Simcha Map. All submissions are reviewed and approved by our team before going live.</p>
+          <button class="btn-gold" id="show-form-btn" onclick="document.getElementById('venue-submit-form').style.display='block';this.style.display='none'">List Your Venue</button>
+          <div id="venue-submit-form" style="display:none;width:100%;text-align:left;margin-top:1rem;">
+            <input type="text" id="sub-name" placeholder="Hall / Venue Name *" style="width:100%;padding:0.6rem;margin-bottom:0.5rem;border:1px solid rgba(201,168,76,0.4);border-radius:2px;font-family:'DM Sans',sans-serif;font-size:0.85rem;background:white;box-sizing:border-box;">
+            <input type="text" id="sub-address" placeholder="Full Address *" style="width:100%;padding:0.6rem;margin-bottom:0.5rem;border:1px solid rgba(201,168,76,0.4);border-radius:2px;font-family:'DM Sans',sans-serif;font-size:0.85rem;background:white;box-sizing:border-box;">
+            <input type="tel" id="sub-phone" placeholder="Phone Number *" style="width:100%;padding:0.6rem;margin-bottom:0.5rem;border:1px solid rgba(201,168,76,0.4);border-radius:2px;font-family:'DM Sans',sans-serif;font-size:0.85rem;background:white;box-sizing:border-box;">
+            <input type="email" id="sub-email" placeholder="Your Email Address *" style="width:100%;padding:0.6rem;margin-bottom:0.5rem;border:1px solid rgba(201,168,76,0.4);border-radius:2px;font-family:'DM Sans',sans-serif;font-size:0.85rem;background:white;box-sizing:border-box;">
+            <input type="text" id="sub-website" placeholder="Website (optional)" style="width:100%;padding:0.6rem;margin-bottom:0.5rem;border:1px solid rgba(201,168,76,0.4);border-radius:2px;font-family:'DM Sans',sans-serif;font-size:0.85rem;background:white;box-sizing:border-box;">
+            <textarea id="sub-notes" placeholder="Capacity, kashrut, caterer info, best for..." style="width:100%;padding:0.6rem;margin-bottom:0.75rem;border:1px solid rgba(201,168,76,0.4);border-radius:2px;font-family:'DM Sans',sans-serif;font-size:0.85rem;background:white;height:80px;resize:vertical;box-sizing:border-box;"></textarea>
+            <button onclick="submitVenue()" class="btn-gold" style="width:100%;">Submit for Review</button>
+            <div id="sub-success" style="display:none;margin-top:0.75rem;padding:0.75rem;background:rgba(42,122,90,0.1);border:1px solid rgba(42,122,90,0.3);border-radius:4px;font-size:0.85rem;color:#2A7A5A;text-align:center;">✅ Thank you! Our team will review your submission and be in touch within 2–3 business days.</div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- CATERING -->
+    <div class="panel" id="panel-catering">
+      <div class="section-intro">
+        <h2>Catering & <em>Food</em></h2>
+        <p>Glatt kosher caterers serving Rockland County simchos — from full-service weddings to sushi bars and dessert tables.</p>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-card"><span class="cat-icon">🍖</span><div class="cat-name">Full Service Caterers</div><div class="cat-desc">Complete catering packages for weddings and bar mitzvahs, from cocktail hour through dessert.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🍣</span><div class="cat-name">Sushi Stations</div><div class="cat-desc">Live sushi chefs and stations to wow your guests during cocktail hour.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🎂</span><div class="cat-name">Cakes & Desserts</div><div class="cat-desc">Custom kosher cakes, pastry chefs, candy buffets, and dessert catering.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🥗</span><div class="cat-name">Smorgasbord</div><div class="cat-desc">Elegant smorgasbord stations and appetizer spreads for pre-ceremony receptions.</div><span class="coming-soon">Vendors coming soon</span></div>
+      </div>
+      <div class="list-biz"><h3>Are You a <em>Caterer</em>?</h3><p>Get listed on Simcha Map and connect with families planning their Rockland County simcha.</p><a href="index.html#contact" class="btn-gold">List Your Business</a></div>
+    </div>
+
+    <!-- PHOTO -->
+    <div class="panel" id="panel-photo">
+      <div class="section-intro">
+        <h2>Photography & <em>Video</em></h2>
+        <p>Photographers and videographers specializing in simcha moments — from the smorgasbord to the last dance.</p>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-card"><span class="cat-icon">📷</span><div class="cat-name">Photographers</div><div class="cat-desc">Simcha photographers capturing every moment with artistry and warmth.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🎬</span><div class="cat-name">Videographers</div><div class="cat-desc">Cinematic wedding and bar mitzvah films you'll watch for generations.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🖼️</span><div class="cat-name">Photo Booths</div><div class="cat-desc">Fun, branded photo booth rentals with instant prints and digital galleries.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🎞️</span><div class="cat-name">Same-Day Edits</div><div class="cat-desc">Highlight reels screened at your event — the crowd goes wild every time.</div><span class="coming-soon">Vendors coming soon</span></div>
+      </div>
+      <div class="list-biz"><h3>Are You a <em>Photographer?</em></h3><p>Get listed on Simcha Map and connect with families planning their Rockland County simcha.</p><a href="index.html#contact" class="btn-gold">List Your Business</a></div>
+    </div>
+
+    <!-- MUSIC -->
+    <div class="panel" id="panel-music">
+      <div class="section-intro">
+        <h2>Music & <em>Entertainment</em></h2>
+        <p>DJs, live bands, and entertainers who know how to make a simcha come alive.</p>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-card"><span class="cat-icon">🎷</span><div class="cat-name">Live Bands</div><div class="cat-desc">Jewish music bands and orchestras for weddings and bar mitzvahs.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🎧</span><div class="cat-name">DJs & MCs</div><div class="cat-desc">Experienced simcha DJs who keep the energy up all night long.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🕺</span><div class="cat-name">Hora Leaders</div><div class="cat-desc">Professional dance leaders who get the whole room dancing.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🎪</span><div class="cat-name">Kids' Entertainment</div><div class="cat-desc">Magicians, face painters, and activities to keep little guests happy.</div><span class="coming-soon">Vendors coming soon</span></div>
+      </div>
+      <div class="list-biz"><h3>Are You a <em>Musician or DJ?</em></h3><p>Get listed on Simcha Map and connect with families planning their Rockland County simcha.</p><a href="index.html#contact" class="btn-gold">List Your Business</a></div>
+    </div>
+
+    <!-- MORE -->
+    <div class="panel" id="panel-more">
+      <div class="section-intro">
+        <h2>More <em>Services</em></h2>
+        <p>Everything else you need — from invitations to flowers to transportation.</p>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-card"><span class="cat-icon">💌</span><div class="cat-name">Invitations & Stationery</div><div class="cat-desc">Custom invitations, benchers, kippot, and seating charts.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">💐</span><div class="cat-name">Flowers & Décor</div><div class="cat-desc">Floral arrangements, centerpieces, and room transformation.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">👔</span><div class="cat-name">Clothing & Styling</div><div class="cat-desc">Boys' suits, girls' dresses, hair and makeup styling.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🚌</span><div class="cat-name">Transportation</div><div class="cat-desc">Shuttle services, limo rentals, and guest transportation.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🎁</span><div class="cat-name">Gifts & Favors</div><div class="cat-desc">Personalized gifts, party favors, and Judaica.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🕍</span><div class="cat-name">Bar Mitzvah Tutors</div><div class="cat-desc">Experienced tutors to prepare your son for his big day.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">🏨</span><div class="cat-name">Accommodations</div><div class="cat-desc">Hotels and Shabbos-friendly lodging for out-of-town guests.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon">📋</span><div class="cat-name">Event Planners</div><div class="cat-desc">Full-service simcha planners who handle every detail.</div><span class="coming-soon">Vendors coming soon</span></div>
+      </div>
+      <div class="list-biz"><h3>Want to Be <em>Listed?</em></h3><p>Join the Simcha Map directory and reach thousands of families in Rockland County.</p><a href="index.html#contact" class="btn-gold">List Your Business</a></div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="footer-logo">Simcha<span>Map</span></a>
+  <ul class="footer-links">
+    <li><a href="index.html#categories">Services</a></li>
+    <li><a href="index.html#timeline">Planning Guide</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 SimchaMap. All rights reserved.</div>
+</footer>
+
+<script>
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + name).classList.add('active');
+    document.querySelector('.panels').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Get Directions buttons
+  document.querySelectorAll('.venue-more').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const address = this.closest('.venue-card').querySelector('.venue-location').textContent.replace('📍 ', '');
+      window.open('https://maps.google.com?q=' + encodeURIComponent(address), '_blank');
+    });
+  });
+</script>
+
+
+
+<script>
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var filter = this.getAttribute('data-filter');
+    var cards = document.querySelectorAll('#venues-grid .venue-card:not(.cta-card)');
+    var count = 0;
+    cards.forEach(function(card) {
+      var loc = card.getAttribute('data-location') || '';
+      var show = filter === 'all' || loc.trim() === filter.trim();
+      card.style.display = show ? '' : 'none';
+      if (show) count++;
+    });
+    document.getElementById('venue-count').textContent = 'Showing ' + count + ' hall' + (count !== 1 ? 's' : '');
+    document.querySelectorAll('.filter-btn').forEach(function(b) {
+      b.style.background = 'none';
+      b.style.color = 'var(--muted)';
+      b.style.border = '1px solid rgba(201,168,76,0.25)';
+      b.style.fontWeight = '400';
+    });
+    this.style.background = 'var(--gold)';
+    this.style.color = 'var(--deep)';
+    this.style.border = 'none';
+    this.style.fontWeight = '600';
+  });
+});
+
+function submitVenue() {
+  var name = document.getElementById('sub-name').value.trim();
+  var address = document.getElementById('sub-address').value.trim();
+  var phone = document.getElementById('sub-phone').value.trim();
+  var email = document.getElementById('sub-email').value.trim();
+  if (!name || !address || !phone || !email) {
+    alert('Please fill in all required fields (Name, Address, Phone, Email).');
+    return;
+  }
+  document.querySelector('#venue-submit-form button').style.display = 'none';
+  document.getElementById('sub-success').style.display = 'block';
+}
+</script>
+
+<script>
+// Auto-load Google ratings for all venue cards
+async function loadGoogleRatings() {
+  var cards = document.querySelectorAll('.venue-card[data-gname]');
+  
+  // Load ratings with a small delay between each to avoid hammering the API
+  for (var i = 0; i < cards.length; i++) {
+    await loadCardRating(cards[i]);
+    await new Promise(r => setTimeout(r, 200));
+  }
+}
+
+async function loadCardRating(card) {
+  var name = card.getAttribute('data-gname');
+  var addr = card.getAttribute('data-gaddr');
+  var placeholder = card.querySelector('#rating-placeholder');
+  var toggle = card.querySelector('.reviews-toggle');
+  var reviewsContainer = card.querySelector('.reviews-container');
+  
+  if (!placeholder) return;
+
+  try {
+    var response = await fetch('/.netlify/functions/google-rating', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, address: addr })
+    });
+    var data = await response.json();
+    
+    if (data.rating) {
+      var stars = ratingToStars(data.rating);
+      var totalStr = data.total ? '(' + data.total.toLocaleString() + ' reviews)' : '';
+      var placeUrl = data.place_id ? 'https://www.google.com/maps/place/?q=place_id:' + data.place_id : '';
+      
+      placeholder.innerHTML = 
+        '<span class="stars">' + stars + '</span>' +
+        '<span class="rating-num">' + data.rating.toFixed(1) + '</span>' +
+        '<span class="rating-count">' + totalStr + '</span>' +
+        '<span class="google-badge">Google</span>' +
+        (placeUrl ? '<a href="' + placeUrl + '" target="_blank" style="font-size:0.7rem;color:#C9A84C;margin-left:0.25rem;">View on Google ↗</a>' : '');
+      
+      // Add reviews if available
+      if (data.reviews && data.reviews.length > 0) {
+        toggle.style.display = 'block';
+        var reviewsHtml = '';
+        data.reviews.forEach(function(r) {
+          reviewsHtml += '<div class="review-snippet">' +
+            '"' + r.text + '"' +
+            '<div class="review-author">— ' + r.author + ' · ' + ratingToStars(r.rating) + ' · ' + r.time + '</div>' +
+          '</div>';
+        });
+        reviewsContainer.innerHTML = reviewsHtml;
+      }
+    } else {
+      placeholder.innerHTML = '<span class="google-badge" style="opacity:0.5;">No Google listing found</span>';
+    }
+  } catch(e) {
+    placeholder.innerHTML = '';
+  }
+}
+
+function ratingToStars(rating) {
+  var full = Math.floor(rating);
+  var half = rating % 1 >= 0.5 ? 1 : 0;
+  var empty = 5 - full - half;
+  return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+}
+
+function toggleReviews(btn) {
+  var container = btn.nextElementSibling;
+  if (container.style.display === 'block') {
+    container.style.display = 'none';
+    btn.textContent = 'Show Google Reviews ▾';
+  } else {
+    container.style.display = 'block';
+    btn.textContent = 'Hide Reviews ▴';
+  }
+}
+
+// Load ratings when the venues tab is active
+document.addEventListener('DOMContentLoaded', function() {
+  loadGoogleRatings();
+});
+</script>
+
+</body>
+</html>

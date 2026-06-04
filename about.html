@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — SimchaMap</title>
+<meta name="description" content="SimchaMap was born from a real family's experience planning a bar mitzvah. We built the one-stop guide we wish we had.">
+<meta name="keywords" content="about SimchaMap, Jewish event planning, simcha directory">
+<meta property="og:title" content="About Us — SimchaMap">
+<meta property="og:description" content="SimchaMap was born from a real family's experience planning a bar mitzvah. We built the one-stop guide we wish we had.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://simchamap.com">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="About Us — SimchaMap">
+<meta name="twitter:description" content="SimchaMap was born from a real family's experience planning a bar mitzvah. We built the one-stop guide we wish we had.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="shortcut icon" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F7EDD4;
+    --deep: #1A1209;
+    --cream: #FAF6EE;
+    --warm: #F2E8D0;
+    --text: #2C1F0A;
+    --muted: #8A7355;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(250,246,238,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900;
+    color: var(--deep); letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.875rem; font-weight: 500;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--deep);
+    border: none; padding: 0.6rem 1.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem; font-weight: 500;
+    border-radius: 2px; cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    padding: 10rem 2rem 6rem;
+    text-align: center;
+    position: relative;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.1) 0%, transparent 70%), var(--cream);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(201,168,76,0.07) 1px, transparent 1px);
+    background-size: 36px 36px;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    font-weight: 500; margin-bottom: 1.2rem;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900; line-height: 1.1;
+    color: var(--deep); margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 540px; margin: 0 auto;
+    line-height: 1.7;
+    opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  /* STORY SECTION */
+  .story {
+    padding: 6rem 2rem;
+    background: var(--cream);
+  }
+  .story-inner {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 5rem; align-items: start;
+  }
+  .story-sidebar {
+    position: sticky; top: 7rem;
+  }
+  .story-label {
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    font-weight: 500; margin-bottom: 1rem;
+  }
+  .story-sidebar h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900;
+    color: var(--deep); line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+  .story-sidebar h2 em { font-style: italic; color: var(--gold); }
+  .sidebar-divider {
+    width: 40px; height: 2px;
+    background: var(--gold); margin-bottom: 1.5rem;
+  }
+  .story-sidebar p {
+    font-size: 0.9rem; color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .story-body p {
+    font-size: 1.1rem; line-height: 1.85;
+    color: var(--text); margin-bottom: 1.75rem;
+  }
+  .story-body p:first-child::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; font-weight: 900;
+    color: var(--gold); float: left;
+    line-height: 0.85; margin-right: 0.12em;
+    margin-top: 0.1em;
+  }
+  .story-body blockquote {
+    border-left: 3px solid var(--gold);
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background: var(--warm);
+    border-radius: 0 4px 4px 0;
+  }
+  .story-body blockquote p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 1.2rem;
+    color: var(--deep); margin: 0;
+  }
+
+  /* MISSION */
+  .mission {
+    background: var(--deep);
+    padding: 6rem 2rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .mission::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(201,168,76,0.07), transparent);
+  }
+  .mission-inner { max-width: 720px; margin: 0 auto; position: relative; }
+  .mission-eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    font-weight: 500; margin-bottom: 1rem;
+  }
+  .mission h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; color: var(--cream);
+    line-height: 1.2; margin-bottom: 1.5rem;
+  }
+  .mission h2 em { font-style: italic; color: var(--gold); }
+  .mission p {
+    font-size: 1.1rem; color: rgba(250,246,238,0.65);
+    line-height: 1.8; margin-bottom: 1rem;
+  }
+
+  /* VALUES */
+  .values { padding: 6rem 2rem; background: var(--warm); }
+  .values-inner { max-width: 1100px; margin: 0 auto; }
+  .values-header { text-align: center; margin-bottom: 4rem; }
+  .values-eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    font-weight: 500; margin-bottom: 0.75rem;
+  }
+  .values-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; color: var(--deep);
+  }
+  .values-header h2 em { font-style: italic; color: var(--gold); }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+  }
+  .value-card {
+    background: white;
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 4px; padding: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .value-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(201,168,76,0.1); }
+  .value-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .value-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--deep);
+    margin-bottom: 0.5rem;
+  }
+  .value-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+  /* CTA */
+  .cta {
+    background: var(--gold-pale);
+    padding: 5rem 2rem; text-align: center;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+  .cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900; color: var(--deep);
+    margin-bottom: 1rem;
+  }
+  .cta h2 em { font-style: italic; color: var(--gold); }
+  .cta p { color: var(--muted); font-size: 1.05rem; margin-bottom: 2rem; }
+  .btn-primary {
+    background: var(--gold); color: var(--deep);
+    border: none; padding: 0.9rem 2.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 500;
+    border-radius: 2px; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 3rem 2rem;
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between; gap: 1.5rem;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 900; color: var(--cream);
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+  .footer-links a { color: rgba(250,246,238,0.4); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { color: rgba(250,246,238,0.25); font-size: 0.8rem; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .story-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .story-sidebar { position: static; }
+  }
+</style>
+</head>
+<body>
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1.5rem;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,238,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);">
+
+  <!-- LOGO -->
+  <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.65rem;flex-shrink:0;">
+    <svg width="34" height="42" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg">
+      <path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/>
+      <path d="M44 0 C24 0 8 16 8 36 C8 48 16 58 26 66 C30 52 32 40 32 36 C32 18 37 4 44 0Z" fill="#E8C97A" opacity="0.45"/>
+      <circle cx="44" cy="34" r="14" fill="#FAF6EE"/>
+      <circle cx="44" cy="34" r="5" fill="#C9A84C"/>
+    </svg>
+    <div style="display:flex;flex-direction:column;justify-content:center;">
+      <span style="font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:900;color:#2C1F0A;letter-spacing:-0.02em;line-height:1.1;">SimchaMap</span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:0.55rem;font-weight:500;color:#C9A84C;letter-spacing:0.12em;text-transform:uppercase;line-height:1.3;">Every Detail. &nbsp;·&nbsp; One Place.</span>
+    </div>
+  </a>
+
+  <!-- DESKTOP LINKS -->
+  <ul id="nav-links" style="display:flex;gap:2rem;list-style:none;margin:0;padding:0;">
+    <li><a href="index.html#categories" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Services</a></li>
+    <li><a href="index.html#planner" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">AI Planner</a></li>
+    <li><a href="index.html#timeline" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Timeline</a></li>
+    <li><a href="about.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">About</a></li>
+  </ul>
+
+  <!-- DESKTOP CTA -->
+  <a href="index.html#planner" id="nav-cta" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
+
+  <!-- HAMBURGER (mobile only) -->
+  <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;cursor:pointer;padding:0.25rem;flex-direction:column;gap:5px;">
+    <span style="display:block;width:24px;height:2px;background:#2C1F0A;border-radius:2px;transition:all 0.3s;"></span>
+    <span style="display:block;width:24px;height:2px;background:#2C1F0A;border-radius:2px;transition:all 0.3s;"></span>
+    <span style="display:block;width:24px;height:2px;background:#2C1F0A;border-radius:2px;transition:all 0.3s;"></span>
+  </button>
+
+</nav>
+
+<!-- MOBILE MENU DROPDOWN -->
+<div id="mobile-menu" style="display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(250,246,238,0.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 1.5rem 1.5rem;flex-direction:column;gap:0;">
+  <a href="index.html#categories" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Services</a>
+  <a href="index.html#planner" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">AI Planner ✨</a>
+  <a href="index.html#timeline" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Planning Timeline</a>
+  <a href="about.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">About Us</a>
+  <a href="rockland.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">📍 Rockland County Venues</a>
+  <a href="index.html#planner" onclick="closeMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.85rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;">✨ Start Planning</a>
+</div>
+
+<style>
+@media (max-width: 768px) {
+  #nav-links { display: none !important; }
+  #nav-cta { display: none !important; }
+  #hamburger { display: flex !important; }
+}
+</style>
+
+<script>
+function toggleMenu() {
+  var menu = document.getElementById('mobile-menu');
+  var isOpen = menu.style.display === 'flex';
+  menu.style.display = isOpen ? 'none' : 'flex';
+}
+function closeMenu() {
+  document.getElementById('mobile-menu').style.display = 'none';
+}
+// Close menu when clicking outside
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('mobile-menu');
+  var hamburger = document.getElementById('hamburger');
+  if (menu.style.display === 'flex' && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+    menu.style.display = 'none';
+  }
+});
+</script>
+
+<!-- NAV -->
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,238,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);">
+
+  <!-- LOGO -->
+  <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.75rem;flex-shrink:0;">
+    <svg width="38" height="46" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg">
+      <path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/>
+      <path d="M44 0 C24 0 8 16 8 36 C8 48 16 58 26 66 C30 52 32 40 32 36 C32 18 37 4 44 0Z" fill="#E8C97A" opacity="0.45"/>
+      <circle cx="44" cy="34" r="14" fill="#FAF6EE"/>
+      <circle cx="44" cy="34" r="5" fill="#C9A84C"/>
+    </svg>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:0;">
+      <span style="font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:900;color:#2C1F0A;letter-spacing:-0.02em;line-height:1.1;">SimchaMap</span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:0.58rem;font-weight:500;color:#C9A84C;letter-spacing:0.16em;text-transform:uppercase;line-height:1.4;">Every Detail. &nbsp;|&nbsp; One Place.</span>
+    </div>
+  </a>
+
+  <!-- NAV LINKS -->
+  <ul style="display:flex;gap:2.5rem;list-style:none;margin:0;padding:0;flex:1;justify-content:center;">
+    <li><a href="index.html#categories" style="text-decoration:none;color:#8A7355;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s;">Services</a></li>
+    <li><a href="index.html#planner" style="text-decoration:none;color:#8A7355;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s;">AI Planner</a></li>
+    <li><a href="index.html#timeline" style="text-decoration:none;color:#8A7355;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s;">Timeline</a></li>
+    <li><a href="about.html" style="text-decoration:none;color:#8A7355;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s;">About</a></li>
+  </ul>
+
+  <!-- CTA -->
+  <a href="index.html#planner" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.6rem 1.4rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;border-radius:2px;white-space:nowrap;transition:background 0.2s;">Start Planning</a>
+
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">✦ Our Story ✦</p>
+  <h1>Born From<br><em>One Family's</em><br>Simcha</h1>
+  <p class="hero-sub">Simcha Map started with a bar mitzvah, a lot of questions, and the realization that every Jewish family deserves a better way to plan.</p>
+</section>
+
+<!-- STORY -->
+<section class="story">
+  <div class="story-inner">
+    <div class="story-sidebar">
+      <p class="story-label">How it started</p>
+      <h2>A <em>Real</em> Problem. A Real Solution.</h2>
+      <div class="sidebar-divider"></div>
+      <p>Every detail of Simcha Map was shaped by the experience of planning a real simcha — and feeling completely overwhelmed.</p>
+    </div>
+    <div class="story-body">
+      <p>When I started planning my son's bar mitzvah, I was excited. This was one of the most meaningful milestones our family would ever celebrate — a moment years in the making. But within days of getting started, the excitement gave way to something else entirely: overwhelm.</p>
+
+      <blockquote>
+        <p>"Where do I even begin? Who do I call first? How far in advance do I need to book everything?"</p>
+      </blockquote>
+
+      <p>I didn't know where to start. I had no idea which vendors to trust, what questions to ask, or even what order to book things in. Do you lock in the hall before the caterer? Do you book the photographer before you set the date? Every conversation led to three more questions I hadn't thought to ask.</p>
+
+      <p>I found myself juggling dozens of browser tabs, asking friends for recommendations, and spending hours on the phone — all while trying to hold down a job, manage a household, and actually enjoy the journey of watching my son prepare for this incredible moment. It felt like planning a simcha had become a second full-time job.</p>
+
+      <p>That's when the idea hit me. Why isn't there one place — a single destination — where a Jewish family can find everything they need for a simcha? Not just a list of vendors, but a real guide. Something that tells you what to book, when to book it, and who to call.</p>
+
+      <p>So I built it. Simcha Map is the resource I wish I had when I was staring at a blank piece of paper wondering how to make my son's bar mitzvah everything it deserved to be. It's designed for every parent, grandparent, and family member who wants to celebrate life's most sacred moments — without the stress of figuring it all out from scratch.</p>
+
+      <p>We're just getting started. Vendors, booking tools, reviews, and more are all on the way. But the mission is simple: when you have a simcha to celebrate, Simcha Map is where you begin.</p>
+
+      <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:1.2rem; color:var(--gold);">— The Simcha Map Team</p>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission">
+  <div class="mission-inner">
+    <p class="mission-eyebrow">Our Mission</p>
+    <h2>Every Simcha<br>Deserves to Be <em>Celebrated</em>,<br>Not Stressed Over</h2>
+    <p>We believe that the most meaningful moments in Jewish life should be filled with joy — not spreadsheets, endless phone calls, and guesswork.</p>
+    <p>Simcha Map exists to take the chaos out of celebration planning, so you can be fully present for every beautiful moment.</p>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="values-inner">
+    <div class="values-header">
+      <p class="values-eyebrow">What We Stand For</p>
+      <h2>Built on <em>Values</em></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <span class="value-icon">🤝</span>
+        <h3>Community First</h3>
+        <p>We're part of the Jewish community. We understand what makes a simcha meaningful — and we built this for our own people.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">✨</span>
+        <h3>Simplicity</h3>
+        <p>Planning should be simple. We cut through the noise and give you exactly what you need, when you need it.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🛡️</span>
+        <h3>Trust</h3>
+        <p>Every vendor in our directory is there because we'd recommend them to our own family. Quality over quantity, always.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🎉</span>
+        <h3>Joy</h3>
+        <p>A simcha is a celebration. Our job is to handle the details so you can focus on the moments that matter most.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Ready to Plan Your<br><em>Perfect Simcha?</em></h2>
+  <p>Browse our directory and start building your dream celebration.</p>
+  <a href="index.html#categories" class="btn-primary">Explore Services</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">Simcha<span>Map</span></a>
+  <ul class="footer-links">
+    <li><a href="index.html#categories">Services</a></li>
+    <li><a href="index.html#timeline">Planning Guide</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 SimchaMap. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

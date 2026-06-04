@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Complete Bar Mitzvah Planning Guide — SimchaMap</title>
+<meta name="description" content="Your ultimate step-by-step Bar Mitzvah planning guide. From booking the hall 18 months out to the last dance — every detail, one place.">
+<meta property="og:title" content="The Complete Bar Mitzvah Planning Guide — SimchaMap">
+<meta property="og:description" content="Everything you need to plan a bar mitzvah in Rockland County and beyond. Checklists, timelines, tips, and more.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-pale: #F7EDD4;
+  --deep: #1A1209;
+  --cream: #FAF6EE;
+  --warm: #F2E8D0;
+  --text: #2C1F0A;
+  --muted: #8A7355;
+  --green: #2A7A5A;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--cream); color:var(--text); font-family:'DM Sans',sans-serif; }
+
+/* NAV */
+nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1.5rem;background:rgba(250,246,238,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2); }
+.nav-logo { text-decoration:none;display:flex;align-items:center;gap:0.65rem; }
+.nav-logo span { font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:900;color:#2C1F0A; }
+.nav-logo small { display:block;font-size:0.55rem;font-weight:500;color:#C9A84C;letter-spacing:0.12em;text-transform:uppercase; }
+.nav-links { display:flex;gap:2rem;list-style:none; }
+.nav-links a { text-decoration:none;color:var(--muted);font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s; }
+.nav-links a:hover { color:var(--gold); }
+.nav-cta { background:var(--gold);color:var(--deep);text-decoration:none;padding:0.55rem 1.2rem;font-size:0.82rem;font-weight:600;border-radius:2px; }
+
+/* HERO */
+.hero {
+  padding: 9rem 2rem 5rem;
+  background: linear-gradient(160deg, #1A1209 0%, #2C1A08 60%, #3A2510 100%);
+  position: relative; overflow: hidden; text-align: center;
+}
+.hero::before {
+  content:''; position:absolute;inset:0;
+  background-image: radial-gradient(circle, rgba(201,168,76,0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.hero::after {
+  content:''; position:absolute;bottom:0;left:0;right:0;height:80px;
+  background: linear-gradient(to top, var(--cream), transparent);
+}
+.hero-inner { max-width:760px;margin:0 auto;position:relative; }
+.hero-badge { display:inline-block;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:var(--gold);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.4rem 1.2rem;border-radius:100px;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.6s 0.2s forwards; }
+.hero h1 { font-family:'Playfair Display',serif;font-size:clamp(2.2rem,6vw,4.5rem);font-weight:900;color:var(--cream);line-height:1.05;margin-bottom:1.2rem;opacity:0;animation:fadeUp 0.6s 0.4s forwards; }
+.hero h1 em { font-style:italic;color:var(--gold); }
+.hero-sub { font-size:1.05rem;color:rgba(250,246,238,0.6);line-height:1.7;max-width:560px;margin:0 auto 2rem;opacity:0;animation:fadeUp 0.6s 0.6s forwards; }
+.hero-stats { display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.6s 0.8s forwards; }
+.stat { text-align:center; }
+.stat-num { font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--gold);display:block; }
+.stat-label { font-size:0.75rem;color:rgba(250,246,238,0.45);text-transform:uppercase;letter-spacing:0.1em; }
+
+/* STICKY NAV TABS */
+.guide-nav { background:white;border-bottom:2px solid var(--warm);position:sticky;top:65px;z-index:90;overflow-x:auto; }
+.guide-nav-inner { display:flex;gap:0;max-width:1100px;margin:0 auto;padding:0 1.5rem; }
+.guide-tab { padding:1rem 1.5rem;font-size:0.82rem;font-weight:500;color:var(--muted);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.2s; }
+.guide-tab:hover { color:var(--gold); }
+.guide-tab.active { color:var(--gold);border-bottom-color:var(--gold); }
+
+/* MAIN LAYOUT */
+.main { max-width:1100px;margin:0 auto;padding:4rem 1.5rem;display:grid;grid-template-columns:1fr 300px;gap:3rem;align-items:start; }
+
+/* TIMELINE SECTIONS */
+.phase { margin-bottom:3.5rem; }
+.phase-header { display:flex;align-items:center;gap:1rem;margin-bottom:2rem; }
+.phase-badge { background:var(--deep);color:var(--gold);font-size:0.7rem;font-weight:700;padding:0.4rem 1rem;border-radius:100px;letter-spacing:0.08em;white-space:nowrap; }
+.phase h2 { font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--deep); }
+.phase h2 em { font-style:italic;color:var(--gold); }
+.phase-line { flex:1;height:1px;background:linear-gradient(to right, rgba(201,168,76,0.3), transparent); }
+
+.checklist { display:flex;flex-direction:column;gap:0.75rem; }
+.check-item { background:white;border:1px solid rgba(201,168,76,0.15);border-radius:6px;padding:1rem 1.25rem;display:flex;gap:1rem;align-items:flex-start;transition:all 0.2s;cursor:pointer; }
+.check-item:hover { border-color:rgba(201,168,76,0.4);box-shadow:0 4px 16px rgba(201,168,76,0.08); }
+.check-item.priority { border-left:3px solid var(--gold); }
+.check-item.urgent { border-left:3px solid #E8734A; }
+.check-box { width:20px;height:20px;border:2px solid rgba(201,168,76,0.4);border-radius:4px;flex-shrink:0;margin-top:0.1rem;transition:all 0.2s;display:flex;align-items:center;justify-content:center; }
+.check-item.checked .check-box { background:var(--green);border-color:var(--green); }
+.check-item.checked .check-box::after { content:'✓';color:white;font-size:0.75rem;font-weight:700; }
+.check-item.checked .check-text { text-decoration:line-through;opacity:0.5; }
+.check-content { flex:1; }
+.check-text { font-size:0.9rem;font-weight:500;color:var(--text);margin-bottom:0.2rem; }
+.check-note { font-size:0.78rem;color:var(--muted);line-height:1.5; }
+.check-tag { display:inline-block;background:var(--gold-pale);color:var(--muted);font-size:0.65rem;padding:0.15rem 0.5rem;border-radius:100px;margin-left:0.5rem;font-weight:500; }
+.check-tag.urgent { background:rgba(232,115,74,0.1);color:#E8734A; }
+
+/* TIP BOXES */
+.tip-box { background:linear-gradient(135deg,rgba(201,168,76,0.08),rgba(201,168,76,0.04));border:1px solid rgba(201,168,76,0.25);border-radius:8px;padding:1.5rem;margin:1.5rem 0; }
+.tip-box h4 { font-family:'Playfair Display',serif;font-size:1rem;color:var(--deep);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem; }
+.tip-box ul { list-style:none;display:flex;flex-direction:column;gap:0.4rem; }
+.tip-box ul li { font-size:0.85rem;color:var(--muted);padding-left:1.2rem;position:relative;line-height:1.5; }
+.tip-box ul li::before { content:'→';position:absolute;left:0;color:var(--gold); }
+
+/* SIDEBAR */
+.sidebar { position:sticky;top:120px; }
+.sidebar-card { background:white;border:1px solid rgba(201,168,76,0.2);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem; }
+.sidebar-card h3 { font-family:'Playfair Display',serif;font-size:1rem;color:var(--deep);margin-bottom:1rem; }
+.progress-bar { background:var(--warm);border-radius:100px;height:8px;margin-bottom:0.5rem;overflow:hidden; }
+.progress-fill { background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:100px;height:100%;transition:width 0.5s; }
+.progress-text { font-size:0.75rem;color:var(--muted);text-align:right; }
+.budget-item { display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid var(--warm);font-size:0.82rem; }
+.budget-item:last-child { border:none; }
+.budget-label { color:var(--muted); }
+.budget-pct { font-weight:600;color:var(--gold); }
+.vendor-link { display:flex;align-items:center;gap:0.6rem;padding:0.6rem 0;border-bottom:1px solid var(--warm);text-decoration:none;transition:all 0.2s; }
+.vendor-link:last-child { border:none;padding-bottom:0; }
+.vendor-link:hover { padding-left:0.25rem; }
+.vendor-link span { font-size:0.85rem;color:var(--text);font-weight:500; }
+.vendor-link small { font-size:0.72rem;color:var(--muted); }
+
+/* FOOTER */
+footer { background:var(--deep);border-top:1px solid rgba(201,168,76,0.1);padding:3rem 1.5rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem; }
+.footer-logo { font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--cream);text-decoration:none; }
+.footer-logo span { color:var(--gold); }
+.footer-links { display:flex;gap:1.5rem;list-style:none;flex-wrap:wrap; }
+.footer-links a { color:rgba(250,246,238,0.4);text-decoration:none;font-size:0.85rem;transition:color 0.2s; }
+.footer-links a:hover { color:var(--gold); }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+@media (max-width:768px) {
+  .main { grid-template-columns:1fr; }
+  .sidebar { position:static; }
+  .nav-links { display:none; }
+  .hero { padding:7rem 1.2rem 4rem; }
+  .phase-header { flex-wrap:wrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="34" height="42" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg">
+      <path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/>
+      <circle cx="44" cy="34" r="14" fill="#FAF6EE"/>
+      <circle cx="44" cy="34" r="5" fill="#C9A84C"/>
+    </svg>
+    <div><span>SimchaMap</span><small>Every Detail. · One Place.</small></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#categories">Services</a></li>
+    <li><a href="rockland.html">Rockland Venues</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="index.html#planner" class="nav-cta">AI Planner</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge">✦ Complete Planning Guide ✦</span>
+    <h1>The Bar Mitzvah<br><em>Planning Guide</em></h1>
+    <p class="hero-sub">Everything you need to plan the perfect Bar Mitzvah — from the first phone call to the last hora. Step by step, nothing missed.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">18</span><span class="stat-label">Months to Plan</span></div>
+      <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Tasks Covered</span></div>
+      <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Simcha-Specific</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STICKY GUIDE NAV -->
+<nav class="guide-nav">
+  <div class="guide-nav-inner">
+    <a href="#phase-18" class="guide-tab active">18 Months</a>
+    <a href="#phase-12" class="guide-tab">12 Months</a>
+    <a href="#phase-9" class="guide-tab">9 Months</a>
+    <a href="#phase-6" class="guide-tab">6 Months</a>
+    <a href="#phase-3" class="guide-tab">3 Months</a>
+    <a href="#phase-1month" class="guide-tab">1 Month</a>
+    <a href="#phase-week" class="guide-tab">1 Week</a>
+    <a href="#phase-day" class="guide-tab">Big Day</a>
+    <a href="#budget" class="guide-tab">Budget</a>
+    <a href="#tips" class="guide-tab">Monsey Tips</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="guide-content">
+
+    <!-- 18 MONTHS -->
+    <section class="phase" id="phase-18">
+      <div class="phase-header">
+        <span class="phase-badge">18 Months Before</span>
+        <h2>The <em>Foundations</em></h2>
+        <div class="phase-line"></div>
+      </div>
+      <div class="checklist">
+        <div class="check-item priority" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Confirm the Bar Mitzvah date with your Rabbi <span class="check-tag urgent">Do First</span></div>
+            <div class="check-note">The date is based on your son's Hebrew birthday. Confirm which Shabbos parsha he will lein. Work around Yom Tovim and school breaks.</div>
+          </div>
+        </div>
+        <div class="check-item priority" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Book your hall / venue <span class="check-tag urgent">Books Fast</span></div>
+            <div class="check-note">The best halls in Rockland County fill up 1.5–2 years in advance. Visit SimchaMap's Rockland County venues page and call multiple halls before deciding.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Set your overall budget</div>
+            <div class="check-note">Decide your total spend. A Rockland County Bar Mitzvah typically runs $15,000–$60,000+ depending on guest count and style. See the budget breakdown in the sidebar.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Start your guest list</div>
+            <div class="check-note">Your guest count drives every other decision — venue size, catering cost, invitation quantity. Start broad and trim later.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Find a Bar Mitzvah tutor</div>
+            <div class="check-note">Your son will need 1–2 years of preparation to lein his parsha and lead parts of davening. Ask your Rabbi for a referral.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box">
+        <h4>💡 Rockland Tip</h4>
+        <ul>
+          <li>The most popular halls in Monsey/Spring Valley book 18–24 months out — don't wait</li>
+          <li>If you want a Shabbos Bar Mitzvah, the hall and kiddush space may be separate bookings</li>
+          <li>Some halls include catering exclusively — confirm before signing a contract</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 12 MONTHS -->
+    <section class="phase" id="phase-12">
+      <div class="phase-header">
+        <span class="phase-badge">12 Months Before</span>
+        <h2>Book Your <em>Key Vendors</em></h2>
+        <div class="phase-line"></div>
+      </div>
+      <div class="checklist">
+        <div class="check-item priority" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Book photographer & videographer <span class="check-tag urgent">Books Fast</span></div>
+            <div class="check-note">Good photographers book out 12–18 months. Look for someone with Bar Mitzvah experience who understands the flow of a Jewish simcha.</div>
+          </div>
+        </div>
+        <div class="check-item priority" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Book your band or DJ <span class="check-tag urgent">Books Fast</span></div>
+            <div class="check-note">Jewish music bands and simcha DJs book up fast. Listen to samples, ask for references from other Bar Mitzvahs they've done.</div>
+          </div>
+        </div>
+        <div class="check-item priority" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Book your caterer</div>
+            <div class="check-note">If the hall doesn't have an exclusive caterer, book yours now. Schedule a tasting. Confirm all kashrut certifications. Discuss smorgasbord, sit-down meal, and dessert options.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Choose a theme or concept</div>
+            <div class="check-note">Sports theme? Travel? A favorite hobby? The theme shapes everything — décor, invitations, kippot, centerpieces. Start brainstorming now.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Send save the dates</div>
+            <div class="check-note">Especially important for out-of-town guests who need to book flights and hotels. Can be a simple card or a themed postcard.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Research invitation designers</div>
+            <div class="check-note">Start looking at styles and designers. Custom invitations take 6–12 weeks to design, print and ship.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 MONTHS -->
+    <section class="phase" id="phase-9">
+      <div class="phase-header">
+        <span class="phase-badge">9 Months Before</span>
+        <h2>Details & <em>Design</em></h2>
+        <div class="phase-line"></div>
+      </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Order invitations</div>
+            <div class="check-note">Include the date, time, location, dress code, RSVP details, and hotel information for out-of-town guests. Consider matching bencher covers.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Order kippot and benchers</div>
+            <div class="check-note">Personalized kippot with name and date are a classic keepsake. Benchers should match your simcha's color scheme or theme.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Book florist & décor</div>
+            <div class="check-note">Centerpieces, chuppah florals (if applicable), room draping, balloon installations, and entrance décor. Good decorators book early.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Book lighting & AV</div>
+            <div class="check-note">Uplighting, monogram projection, candle lighting spotlight, montage screen and projector. Some halls include this; many don't.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Research kids' entertainment</div>
+            <div class="check-note">Face painters, magicians, caricaturists, game stations — keep the kids busy so the adults can enjoy the simcha!</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Choose a mitzvah project</div>
+            <div class="check-note">Many families choose a tzedakah project in honor of the Bar Mitzvah. This adds deep meaning to the milestone.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Reserve hotel room blocks for out-of-town guests</div>
+            <div class="check-note">In Rockland, look at Crowne Plaza Suffern and other local hotels. Negotiate a group rate and include details in your invitations.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 MONTHS -->
+    <section class="phase" id="phase-6">
+      <div class="phase-header">
+        <span class="phase-badge">6 Months Before</span>
+        <h2>Clothing & <em>Personal Prep</em></h2>
+        <div class="phase-line"></div>
+      </div>
+      <div class="checklist">
+        <div class="check-item priority" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Buy the Bar Mitzvah boy's suit <span class="check-tag">Allow for alterations</span></div>
+            <div class="check-note">Buy 6 months out so there's time for alterations — and boys grow! Classic navy or charcoal suits are timeless.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Plan family outfits and color coordination</div>
+            <div class="check-note">Parents, siblings, and grandparents. Decide on a color palette so everyone looks cohesive in photos.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Buy a tallis and tefillin</div>
+            <div class="check-note">A beautiful and deeply meaningful gift. Many families present these at the Shabbos morning davening. Shop at a reputable Judaica store.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Book hair and makeup</div>
+            <div class="check-note">For mothers, sisters, grandmothers. Good hair and makeup artists in Rockland book months in advance for Shabbos-adjacent dates.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Finalize food menu with caterer</div>
+            <div class="check-note">Confirm smorgasbord stations, cocktail hour, main course options, children's menu, and dessert. Identify any food allergies.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Schedule Bar Mitzvah portrait photo shoot</div>
+            <div class="check-note">These photos will be displayed at the simcha and treasured forever. Usually done 1–3 months before the event.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Order party favors</div>
+            <div class="check-note">Custom items, candy bags, personalized gifts — thank your guests for celebrating with you.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Order Bar Mitzvah cake</div>
+            <div class="check-note">Custom kosher cakes need plenty of lead time. Share your theme and color palette with the baker.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 MONTHS -->
+    <section class="phase" id="phase-3">
+      <div class="phase-header">
+        <span class="phase-badge">3 Months Before</span>
+        <h2>Invitations & <em>Logistics</em></h2>
+        <div class="phase-line"></div>
+      </div>
+      <div class="checklist">
+        <div class="check-item priority" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Mail invitations <span class="check-tag">6–8 weeks before event</span></div>
+            <div class="check-note">Set up a system to track RSVPs as they come in. Include a reply card or direct people to an RSVP phone number/email.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Book transportation</div>
+            <div class="check-note">Shuttle buses for out-of-town guests between hotel and hall? Limo for the family? Book early for Shabbos-adjacent dates.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Start working on the montage</div>
+            <div class="check-note">Gather photos from birth to present day. Video montages are shown during the simcha and become a treasured family keepsake.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Plan the candle lighting ceremony</div>
+            <div class="check-note">Decide who will be called up and in what order. Write dedications for each person. Don't forget the candles!</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Plan the music playlist with your DJ/band</div>
+            <div class="check-note">Share your must-play and do-not-play lists. Discuss the hora, candle lighting music, first dance, and any special requests.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Write speeches and divrei Torah</div>
+            <div class="check-note">The Bar Mitzvah boy's speech, parent speeches. Practice out loud. Keep them meaningful and personal — and have tissues ready!</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Take portrait photos</div>
+            <div class="check-note">These will be displayed at the smorgasbord on the big day. Have prints ready in advance to frame or mount.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Create seating chart</div>
+            <div class="check-note">Organize guests by family, relationship, and age. Keep elderly grandparents near the front. Seat kids together so adults can enjoy.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1 MONTH -->
+    <section class="phase" id="phase-1month">
+      <div class="phase-header">
+        <span class="phase-badge">1 Month Before</span>
+        <h2>Final <em>Confirmations</em></h2>
+        <div class="phase-line"></div>
+      </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Chase outstanding RSVPs</div>
+            <div class="check-note">Call anyone who hasn't responded yet. Your final headcount affects catering, seating, and favors.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Give final headcount to caterer</div>
+            <div class="check-note">Notify your caterer of final guest count and any dietary restrictions or allergies to accommodate.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Send seating chart to hall</div>
+            <div class="check-note">Finalize table assignments and send to the venue. Prepare place cards for each guest.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Confirm all vendors</div>
+            <div class="check-note">Call every vendor — hall, caterer, photographer, videographer, band/DJ, florist, lighting — and confirm arrival times and logistics.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Prepare vendor payments and tips</div>
+            <div class="check-note">Most vendors expect final payment in advance or day-of. Prepare tip envelopes in cash for each vendor. Standard tip is 15–20%.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Practice the laining and speeches</div>
+            <div class="check-note">Your son should be laining the parsha out loud daily. Run through speeches as a family — timed and out loud.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1 WEEK -->
+    <section class="phase" id="phase-week">
+      <div class="phase-header">
+        <span class="phase-badge">1 Week Before</span>
+        <h2>Final <em>Preparations</em></h2>
+        <div class="phase-line"></div>
+      </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Finalize event-day itinerary</div>
+            <div class="check-note">Write out the full schedule — what time vendors arrive, when doors open, ceremony time, dinner, candle lighting, dancing. Share with family coordinators.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Confirm transportation arrangements</div>
+            <div class="check-note">Confirm shuttle times, pickup locations, and whether any guests need special accommodations.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Drop off items to hall</div>
+            <div class="check-note">Place cards, menus, benchers, kippot, guest book, favors, and any personal décor items.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Prepare an emergency kit</div>
+            <div class="check-note">Safety pins, stain remover pen, pain reliever, bandaids, extra bobby pins, a phone charger, and bottled water. You'll be glad you have it!</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Get a good night's sleep the night before</div>
+            <div class="check-note">The big day is long and emotional. Rest up. Everything is done. Now it's time to enjoy!</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIG DAY -->
+    <section class="phase" id="phase-day">
+      <div class="phase-header">
+        <span class="phase-badge">The Big Day 🎉</span>
+        <h2>Celebrate & <em>Be Present</em></h2>
+        <div class="phase-line"></div>
+      </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Shacharis / Morning davening</div>
+            <div class="check-note">Your son will lein his parsha. Take it all in — this is the moment you've been preparing for!</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Smorgasbord / Cocktail hour</div>
+            <div class="check-note">Greet your guests, take photos, enjoy the food. Don't forget to actually eat — it goes fast!</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Grand entrance & first dance</div>
+            <div class="check-note">The DJ/band will hype up the room. Enjoy this moment — you've earned it!</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Candle lighting & speeches</div>
+            <div class="check-note">One of the most emotional parts of the simcha. Have tissues ready. Don't rush — let each person have their moment.</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Hora — dance with joy!</div>
+            <div class="check-note">This is the moment. Get on the dance floor and celebrate your son's milestone with everyone you love. Mazel Tov! 🎊</div>
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div class="check-content">
+            <div class="check-text">Tip your vendors</div>
+            <div class="check-note">Hand tip envelopes to the photographer, DJ/bandleader, maitre d', and other vendors who made your simcha special.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUDGET -->
+    <section class="phase" id="budget">
+      <div class="phase-header">
+        <span class="phase-badge">Budget Guide</span>
+        <h2>Typical <em>Cost Breakdown</em></h2>
+        <div class="phase-line"></div>
+      </div>
+      <div class="tip-box">
+        <h4>💰 Typical Rockland County Bar Mitzvah Budget</h4>
+        <ul>
+          <li>Hall / Venue — 20–30% of total budget</li>
+          <li>Catering (food & beverage) — 35–45% of total budget</li>
+          <li>Photography & Video — 8–12%</li>
+          <li>Band or DJ — 6–10%</li>
+          <li>Flowers & Décor — 5–8%</li>
+          <li>Invitations, kippot, benchers — 2–4%</li>
+          <li>Clothing & hair/makeup — 3–5%</li>
+          <li>Transportation — 1–3%</li>
+          <li>Miscellaneous (cake, favors, tips) — 3–5%</li>
+        </ul>
+      </div>
+      <div class="tip-box">
+        <h4>💡 Smart Ways to Save</h4>
+        <ul>
+          <li>Book a hall that includes catering — package deals save significantly</li>
+          <li>Opt for a Sunday Bar Mitzvah instead of Saturday night — halls often offer lower rates</li>
+          <li>Limit the smorgasbord to 2–3 stations instead of 5–6</li>
+          <li>Choose a DJ over a full band — can save $5,000–$15,000</li>
+          <li>Use silk flowers mixed with fresh for centerpieces — beautiful and cost-effective</li>
+          <li>Ask about off-season discounts — winter and summer months are often cheaper</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- MONSEY TIPS -->
+    <section class="phase" id="tips">
+      <div class="phase-header">
+        <span class="phase-badge">Rockland / Monsey Tips</span>
+        <h2>Local <em>Insider Guide</em></h2>
+        <div class="phase-line"></div>
+      </div>
+      <div class="tip-box">
+        <h4>🕍 Shabbos Bar Mitzvahs</h4>
+        <ul>
+          <li>Shabbos morning Bar Mitzvahs require a weekday evening vort or Sunday Melave Malka as the main celebration</li>
+          <li>Arrange walking-distance lodging for Shabbos guests — many Monsey hotels are not within walking distance of shuls</li>
+          <li>Confirm your hall is available for Shabbos setup by Friday and that caterer provides Shabbos-compliant service</li>
+          <li>Have a clear Havdalah plan and post-Shabbos timeline for the evening reception</li>
+        </ul>
+      </div>
+      <div class="tip-box">
+        <h4>🍽️ Kashrut in Rockland</h4>
+        <ul>
+          <li>Always confirm the specific hashgacha (kosher certification) — it matters to your guests</li>
+          <li>Common certifications in Rockland: Tartikov, KJ, Skver, and others — confirm what your guests require</li>
+          <li>Some halls only permit their exclusive caterer — this affects your options and budget</li>
+          <li>Glatt meat vs. Chalav Yisroel dairy — confirm your guests' standards in advance</li>
+        </ul>
+      </div>
+      <div class="tip-box">
+        <h4>📅 Rockland Booking Calendar Tips</h4>
+        <ul>
+          <li>Avoid booking near Yom Tov — the weeks before Rosh Hashana, Pesach, and Shavuos are extremely busy</li>
+          <li>Chol Hamoed simchos are popular and halls book fast during those weeks</li>
+          <li>June and July are peak Bar Mitzvah season — book early or consider spring/fall</li>
+          <li>Three-day Yom Tov weekends (like Shavuos) mean halls are booked solid — plan around them</li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sidebar-card">
+      <h3>📊 Your Progress</h3>
+      <div class="progress-bar"><div class="progress-fill" id="progress-bar" style="width:0%"></div></div>
+      <div class="progress-text" id="progress-text">0 of 50 tasks complete</div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>💰 Budget Breakdown</h3>
+      <div class="budget-item"><span class="budget-label">Hall & Venue</span><span class="budget-pct">25%</span></div>
+      <div class="budget-item"><span class="budget-label">Catering</span><span class="budget-pct">40%</span></div>
+      <div class="budget-item"><span class="budget-label">Photography</span><span class="budget-pct">10%</span></div>
+      <div class="budget-item"><span class="budget-label">Band / DJ</span><span class="budget-pct">8%</span></div>
+      <div class="budget-item"><span class="budget-label">Décor & Flowers</span><span class="budget-pct">7%</span></div>
+      <div class="budget-item"><span class="budget-label">Invitations & Gifts</span><span class="budget-pct">4%</span></div>
+      <div class="budget-item"><span class="budget-label">Other</span><span class="budget-pct">6%</span></div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>🔗 Find Local Vendors</h3>
+      <a href="rockland.html" class="vendor-link">
+        <span>🏛️</span>
+        <div><span>Venues & Halls</span><br><small>26 listings in Rockland</small></div>
+      </a>
+      <a href="rockland.html#panel-catering" class="vendor-link">
+        <span>🍽️</span>
+        <div><span>Caterers</span><br><small>Coming soon</small></div>
+      </a>
+      <a href="rockland.html#panel-photo" class="vendor-link">
+        <span>📸</span>
+        <div><span>Photographers</span><br><small>Coming soon</small></div>
+      </a>
+      <a href="rockland.html#panel-music" class="vendor-link">
+        <span>🎵</span>
+        <div><span>Bands & DJs</span><br><small>Coming soon</small></div>
+      </a>
+      <a href="rockland.html#panel-more" class="vendor-link">
+        <span>✨</span>
+        <div><span>More Services</span><br><small>Décor, transport & more</small></div>
+      </a>
+    </div>
+
+    <div class="sidebar-card" style="background:linear-gradient(135deg,#2A7A5A,#1A5A40);">
+      <h3 style="color:var(--cream);">📜 Free Tzetel Maker</h3>
+      <p style="font-size:0.82rem;color:rgba(250,246,238,0.6);margin-bottom:1rem;line-height:1.6;">Create a beautiful Bar Mitzvah tzetel in seconds — 3 styles to choose from, print or download instantly.</p>
+      <a href="tzetel-maker.html" style="display:block;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.7rem;text-align:center;border-radius:4px;font-weight:600;font-size:0.85rem;">📜 Create Your Tzetel</a>
+    </div>
+
+    <div class="sidebar-card" style="background:var(--deep);">
+      <h3 style="color:var(--cream);">🤖 AI Simcha Planner</h3>
+      <p style="font-size:0.82rem;color:rgba(250,246,238,0.6);margin-bottom:1rem;line-height:1.6;">Get a personalized Bar Mitzvah plan built just for you — timeline, checklist, and Monsey-specific advice.</p>
+      <a href="index.html#planner" style="display:block;background:var(--gold);color:var(--deep);text-decoration:none;padding:0.7rem;text-align:center;border-radius:4px;font-weight:600;font-size:0.85rem;">✨ Try AI Planner</a>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">Simcha<span>Map</span></a>
+  <ul class="footer-links">
+    <li><a href="index.html#categories">Services</a></li>
+    <li><a href="rockland.html">Rockland Venues</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div style="color:rgba(250,246,238,0.25);font-size:0.8rem;">© 2026 SimchaMap. All rights reserved.</div>
+</footer>
+
+<script>
+// Toggle checklist items
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  updateProgress();
+  saveProgress();
+}
+
+// Progress tracking
+function updateProgress() {
+  var total = document.querySelectorAll('.check-item').length;
+  var done = document.querySelectorAll('.check-item.checked').length;
+  var pct = Math.round((done / total) * 100);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = done + ' of ' + total + ' tasks complete';
+}
+
+// Save/load progress in localStorage
+function saveProgress() {
+  var items = document.querySelectorAll('.check-item');
+  var state = [];
+  items.forEach(function(item, i) { state.push(item.classList.contains('checked')); });
+  try { localStorage.setItem('barmitzvah_checklist', JSON.stringify(state)); } catch(e) {}
+}
+
+function loadProgress() {
+  try {
+    var state = JSON.parse(localStorage.getItem('barmitzvah_checklist') || '[]');
+    var items = document.querySelectorAll('.check-item');
+    items.forEach(function(item, i) { if (state[i]) item.classList.add('checked'); });
+    updateProgress();
+  } catch(e) {}
+}
+
+// Active guide nav tab on scroll
+var sections = document.querySelectorAll('.phase');
+var tabs = document.querySelectorAll('.guide-tab');
+window.addEventListener('scroll', function() {
+  var scrollY = window.scrollY + 160;
+  sections.forEach(function(section) {
+    if (section.offsetTop <= scrollY && section.offsetTop + section.offsetHeight > scrollY) {
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      var id = section.getAttribute('id');
+      var activeTab = document.querySelector('.guide-tab[href="#' + id + '"]');
+      if (activeTab) activeTab.classList.add('active');
+    }
+  });
+});
+
+loadProgress();
+</script>
+</body>
+</html>
