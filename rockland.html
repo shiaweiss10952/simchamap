@@ -180,9 +180,8 @@
 </style>
 </head>
 <body>
-<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1.5rem;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,238,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);">
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.85rem 2rem;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,238,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);">
 
-  <!-- LOGO -->
   <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.65rem;flex-shrink:0;">
     <svg width="34" height="42" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg">
       <path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/>
@@ -196,7 +195,6 @@
     </div>
   </a>
 
-  <!-- DESKTOP LINKS -->
   <ul id="nav-links" style="display:flex;gap:2rem;list-style:none;margin:0;padding:0;">
     <li><a href="index.html#categories" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Services</a></li>
     <li><a href="index.html#planner" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">AI Planner</a></li>
@@ -204,112 +202,41 @@
     <li><a href="about.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">About</a></li>
   </ul>
 
-  <!-- DESKTOP CTA -->
   <div style="display:flex;gap:0.5rem;align-items:center;">
-    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:inline-block;">Sign In</a>
-    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
-    <div style="display:flex;gap:0.5rem;align-items:center;">
-    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:inline-block;">Sign In</a>
-    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
+    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:#2C1F0A;text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;">Sign In</a>
+    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:#2C1F0A;text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;display:none;">My Dashboard</a>
     <a href="index.html#planner" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
+    <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;cursor:pointer;padding:0.25rem;flex-direction:column;gap:5px;margin-left:0.5rem;">
+      <span style="display:block;width:24px;height:2px;background:#2C1F0A;border-radius:2px;"></span>
+      <span style="display:block;width:24px;height:2px;background:#2C1F0A;border-radius:2px;"></span>
+      <span style="display:block;width:24px;height:2px;background:#2C1F0A;border-radius:2px;"></span>
+    </button>
   </div>
-  </div>
-
-  <!-- HAMBURGER (mobile only) -->
-  <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;cursor:pointer;padding:0.25rem;flex-direction:column;gap:5px;">
-    <span style="display:block;width:24px;height:2px;background:#2C1F0A;border-radius:2px;transition:all 0.3s;"></span>
-    <span style="display:block;width:24px;height:2px;background:#2C1F0A;border-radius:2px;transition:all 0.3s;"></span>
-    <span style="display:block;width:24px;height:2px;background:#2C1F0A;border-radius:2px;transition:all 0.3s;"></span>
-  </button>
 
 </nav>
 
-<!-- MOBILE MENU DROPDOWN -->
 <div id="mobile-menu" style="display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(250,246,238,0.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 1.5rem 1.5rem;flex-direction:column;gap:0;">
   <a href="index.html#categories" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Services</a>
-  <a href="index.html#planner" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">AI Planner </a>
-  <a href="index.html#timeline" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Planning Timeline</a>
-  <a href="about.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">About Us</a>
+  <a href="index.html#planner" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">AI Planner</a>
+  <a href="index.html#timeline" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Timeline</a>
+  <a href="about.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">About</a>
   <a href="rockland.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Rockland County Venues</a>
-  <a href="index.html#planner" onclick="closeMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.85rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;"> Start Planning</a>
+  <a href="login.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Sign In</a>
+  <a href="index.html#planner" onclick="closeMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.85rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;">Start Planning</a>
 </div>
 
 <style>
 @media (max-width: 768px) {
   #nav-links { display: none !important; }
-  #nav-cta { display: none !important; }
+  #nav-login-btn { display: none !important; }
+  #nav-dash-btn { display: none !important; }
   #hamburger { display: flex !important; }
 }
-
-  .google-rating { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem; flex-wrap:wrap; }
-  .stars { color:#F4B400; font-size:0.9rem; letter-spacing:1px; }
-  .rating-num { font-weight:700; font-size:0.9rem; color:#2C1F0A; }
-  .rating-count { font-size:0.75rem; color:#8A7355; }
-  .google-badge { font-size:0.65rem; color:#8A7355; background:#F2E8D0; padding:0.1rem 0.4rem; border-radius:100px; }
-  .review-snippet { background:#F9F5EE; border-radius:4px; padding:0.75rem; margin-bottom:0.5rem; font-size:0.78rem; color:#5A4A35; line-height:1.5; font-style:italic; }
-  .review-author { font-size:0.7rem; color:#8A7355; margin-top:0.3rem; font-style:normal; }
-  .reviews-toggle { font-size:0.75rem; color:#C9A84C; cursor:pointer; text-decoration:underline; margin-bottom:0.75rem; background:none; border:none; padding:0; font-family:inherit; }
-  .reviews-container { display:none; }
-  .rating-loading { font-size:0.75rem; color:#8A7355; animation:pulse 1.5s infinite; }
-  @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
-
 </style>
 
-<script>
-function toggleMenu() {
-  var menu = document.getElementById('mobile-menu');
-  var isOpen = menu.style.display === 'flex';
-  menu.style.display = isOpen ? 'none' : 'flex';
-}
-function closeMenu() {
-  document.getElementById('mobile-menu').style.display = 'none';
-}
-// Close menu when clicking outside
-document.addEventListener('click', function(e) {
-  var menu = document.getElementById('mobile-menu');
-  var hamburger = document.getElementById('hamburger');
-  if (menu.style.display === 'flex' && !menu.contains(e.target) && !hamburger.contains(e.target)) {
-    menu.style.display = 'none';
-  }
-});
-</script>
 
-<nav style="display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,238,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);">
 
-  <!-- LOGO -->
-  <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.75rem;flex-shrink:0;">
-    <svg width="38" height="46" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg">
-      <path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/>
-      <path d="M44 0 C24 0 8 16 8 36 C8 48 16 58 26 66 C30 52 32 40 32 36 C32 18 37 4 44 0Z" fill="#E8C97A" opacity="0.45"/>
-      <circle cx="44" cy="34" r="14" fill="#FAF6EE"/>
-      <circle cx="44" cy="34" r="5" fill="#C9A84C"/>
-    </svg>
-    <div style="display:flex;flex-direction:column;justify-content:center;gap:0;">
-      <span style="font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:900;color:#2C1F0A;letter-spacing:-0.02em;line-height:1.1;">SimchaMap</span>
-      <span style="font-family:'DM Sans',sans-serif;font-size:0.58rem;font-weight:500;color:#C9A84C;letter-spacing:0.16em;text-transform:uppercase;line-height:1.4;">Every Detail. &nbsp;|&nbsp; One Place.</span>
-    </div>
-  </a>
 
-  <!-- NAV LINKS -->
-  <ul style="display:flex;gap:2.5rem;list-style:none;margin:0;padding:0;flex:1;justify-content:center;">
-    <li><a href="index.html#categories" style="text-decoration:none;color:#8A7355;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s;">Services</a></li>
-    <li><a href="index.html#planner" style="text-decoration:none;color:#8A7355;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s;">AI Planner</a></li>
-    <li><a href="index.html#timeline" style="text-decoration:none;color:#8A7355;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s;">Timeline</a></li>
-    <li><a href="about.html" style="text-decoration:none;color:#8A7355;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s;">About</a></li>
-  </ul>
-
-  <!-- CTA -->
-  <div style="display:flex;gap:0.5rem;align-items:center;">
-    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:inline-block;">Sign In</a>
-    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
-    <div style="display:flex;gap:0.5rem;align-items:center;">
-    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:inline-block;">Sign In</a>
-    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
-    <a href="index.html#planner" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
-  </div>
-  </div>
-
-</nav>
 
 <!-- HERO -->
 <section class="hero">
@@ -1603,22 +1530,6 @@ document.querySelectorAll('.event-btn').forEach(function(btn) {
 });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-(function() {
-  var sb = window.supabase.createClient('https://gzbcwzjxycbyzpqhpdgx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M');
-  sb.auth.getSession().then(function(r) {
-    var loginBtn = document.getElementById('nav-login-btn');
-    var dashBtn = document.getElementById('nav-dash-btn');
-    if (r.data.session) {
-      if (loginBtn) loginBtn.style.display = 'none';
-      if (dashBtn) dashBtn.style.display = 'inline-block';
-    } else {
-      if (loginBtn) loginBtn.style.display = 'inline-block';
-      if (dashBtn) dashBtn.style.display = 'none';
-    }
-  });
-})();
-</script>
+
 </body>
 </html>
