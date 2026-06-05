@@ -549,7 +549,6 @@ document.addEventListener('click', function(e) {
 </section>
 
 <script>
-var ANTHROPIC_KEY = 'k-ant-api03-tZp_5QkL_D3fyF4aTao__6kvnoe12z7jSy8Jz5m6Tt7_rQa6CMy_b1R-5m0JusV3dSG208XJoaBlWawqmDSDYw-dYQbAwAA';
 function selectChip(el) {
   document.querySelectorAll('.ai-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
@@ -574,22 +573,13 @@ async function runPlanner() {
     'Be warm, specific, and encouraging. Use Jewish terms naturally (smorgasbord, vort, l\'chaim, benchers, kippot, etc.). Format with clear sections and bullet points.';
 
   try {
-    var response = await fetch('https://api.anthropic.com/v1/messages', {
+    var response = await fetch('/api/planner', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 1200,
-        messages: [{ role: 'user', content: prompt }]
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: prompt })
     });
     var data = await response.json();
-    var text = data.content && data.content[0] ? data.content[0].text : 'Sorry, something went wrong. Please try again.';
+    var text = data.result || 'Sorry, something went wrong. Please try again.';
     document.getElementById('ai-response-text').textContent = text;
     document.getElementById('ai-response').style.display = 'block';
   } catch(e) {
