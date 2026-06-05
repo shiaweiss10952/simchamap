@@ -196,7 +196,7 @@ supabase.auth.getSession().then(function(result) {
 
 function switchTab(tab) {
   document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
-  event.target.classList.add('active');
+  document.querySelectorAll('.tab').forEach(function(t) { if(t.getAttribute('onclick').includes(tab)) t.classList.add('active'); });
   document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
   document.getElementById('signup-form').style.display = tab === 'signup' ? 'block' : 'none';
   hideMessage();
