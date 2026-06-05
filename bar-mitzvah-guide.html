@@ -85,7 +85,7 @@ nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:c
 .check-item.urgent { border-left:3px solid #E8734A; }
 .check-box { width:20px;height:20px;border:2px solid rgba(201,168,76,0.4);border-radius:4px;flex-shrink:0;margin-top:0.1rem;transition:all 0.2s;display:flex;align-items:center;justify-content:center; }
 .check-item.checked .check-box { background:var(--green);border-color:var(--green); }
-.check-item.checked .check-box::after { content:'✓';color:white;font-size:0.75rem;font-weight:700; }
+.check-item.checked .check-box::after { content:'';color:white;font-size:0.75rem;font-weight:700; }
 .check-item.checked .check-text { text-decoration:line-through;opacity:0.5; }
 .check-content { flex:1; }
 .check-text { font-size:0.9rem;font-weight:500;color:var(--text);margin-bottom:0.2rem; }
@@ -159,7 +159,7 @@ footer { background:var(--deep);border-top:1px solid rgba(201,168,76,0.1);paddin
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <span class="hero-badge">✦ Complete Planning Guide ✦</span>
+    <span class="hero-badge"> Complete Planning Guide </span>
     <h1>The Bar Mitzvah<br><em>Planning Guide</em></h1>
     <p class="hero-sub">Everything you need to plan the perfect Bar Mitzvah — from the first phone call to the last hora. Step by step, nothing missed.</p>
     <div class="hero-stats">
@@ -235,7 +235,7 @@ footer { background:var(--deep);border-top:1px solid rgba(201,168,76,0.1);paddin
         </div>
       </div>
       <div class="tip-box">
-        <h4>💡 Rockland Tip</h4>
+        <h4> Rockland Tip</h4>
         <ul>
           <li>The most popular halls in Monsey/Spring Valley book 18–24 months out — don't wait</li>
           <li>If you want a Shabbos Bar Mitzvah, the hall and kiddush space may be separate bookings</li>
@@ -593,7 +593,7 @@ footer { background:var(--deep);border-top:1px solid rgba(201,168,76,0.1);paddin
     <!-- BIG DAY -->
     <section class="phase" id="phase-day">
       <div class="phase-header">
-        <span class="phase-badge">The Big Day 🎉</span>
+        <span class="phase-badge">The Big Day </span>
         <h2>Celebrate & <em>Be Present</em></h2>
         <div class="phase-line"></div>
       </div>
@@ -630,7 +630,7 @@ footer { background:var(--deep);border-top:1px solid rgba(201,168,76,0.1);paddin
           <div class="check-box"></div>
           <div class="check-content">
             <div class="check-text">Hora — dance with joy!</div>
-            <div class="check-note">This is the moment. Get on the dance floor and celebrate your son's milestone with everyone you love. Mazel Tov! 🎊</div>
+            <div class="check-note">This is the moment. Get on the dance floor and celebrate your son's milestone with everyone you love. Mazel Tov! </div>
           </div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
@@ -651,7 +651,7 @@ footer { background:var(--deep);border-top:1px solid rgba(201,168,76,0.1);paddin
         <div class="phase-line"></div>
       </div>
       <div class="tip-box">
-        <h4>💰 Typical Rockland County Bar Mitzvah Budget</h4>
+        <h4> Typical Rockland County Bar Mitzvah Budget</h4>
         <ul>
           <li>Hall / Venue — 20–30% of total budget</li>
           <li>Catering (food & beverage) — 35–45% of total budget</li>
@@ -665,7 +665,7 @@ footer { background:var(--deep);border-top:1px solid rgba(201,168,76,0.1);paddin
         </ul>
       </div>
       <div class="tip-box">
-        <h4>💡 Smart Ways to Save</h4>
+        <h4> Smart Ways to Save</h4>
         <ul>
           <li>Book a hall that includes catering — package deals save significantly</li>
           <li>Opt for a Sunday Bar Mitzvah instead of Saturday night — halls often offer lower rates</li>
@@ -685,7 +685,7 @@ footer { background:var(--deep);border-top:1px solid rgba(201,168,76,0.1);paddin
         <div class="phase-line"></div>
       </div>
       <div class="tip-box">
-        <h4>🕍 Shabbos Bar Mitzvahs</h4>
+        <h4> Shabbos Bar Mitzvahs</h4>
         <ul>
           <li>Shabbos morning Bar Mitzvahs require a weekday evening vort or Sunday Melave Malka as the main celebration</li>
           <li>Arrange walking-distance lodging for Shabbos guests — many Monsey hotels are not within walking distance of shuls</li>
@@ -694,7 +694,7 @@ footer { background:var(--deep);border-top:1px solid rgba(201,168,76,0.1);paddin
         </ul>
       </div>
       <div class="tip-box">
-        <h4>🍽️ Kashrut in Rockland</h4>
+        <h4> Kashrut in Rockland</h4>
         <ul>
           <li>Always confirm the specific hashgacha (kosher certification) — it matters to your guests</li>
           <li>Common certifications in Rockland: Tartikov, KJ, Skver, and others — confirm what your guests require</li>
@@ -703,7 +703,7 @@ footer { background:var(--deep);border-top:1px solid rgba(201,168,76,0.1);paddin
         </ul>
       </div>
       <div class="tip-box">
-        <h4>📅 Rockland Booking Calendar Tips</h4>
+        <h4> Rockland Booking Calendar Tips</h4>
         <ul>
           <li>Avoid booking near Yom Tov — the weeks before Rosh Hashana, Pesach, and Shavuos are extremely busy</li>
           <li>Chol Hamoed simchos are popular and halls book fast during those weeks</li>
@@ -719,13 +719,13 @@ footer { background:var(--deep);border-top:1px solid rgba(201,168,76,0.1);paddin
   <aside class="sidebar">
 
     <div class="sidebar-card">
-      <h3>📊 Your Progress</h3>
+      <h3> Your Progress</h3>
       <div class="progress-bar"><div class="progress-fill" id="progress-bar" style="width:0%"></div></div>
       <div class="progress-text" id="progress-text">0 of 50 tasks complete</div>
     </div>
 
     <div class="sidebar-card">
-      <h3>💰 Budget Breakdown</h3>
+      <h3> Budget Breakdown</h3>
       <div class="budget-item"><span class="budget-label">Hall & Venue</span><span class="budget-pct">25%</span></div>
       <div class="budget-item"><span class="budget-label">Catering</span><span class="budget-pct">40%</span></div>
       <div class="budget-item"><span class="budget-label">Photography</span><span class="budget-pct">10%</span></div>
@@ -736,39 +736,39 @@ footer { background:var(--deep);border-top:1px solid rgba(201,168,76,0.1);paddin
     </div>
 
     <div class="sidebar-card">
-      <h3>🔗 Find Local Vendors</h3>
+      <h3> Find Local Vendors</h3>
       <a href="rockland.html" class="vendor-link">
-        <span>🏛️</span>
+        <span></span>
         <div><span>Venues & Halls</span><br><small>26 listings in Rockland</small></div>
       </a>
       <a href="rockland.html#panel-catering" class="vendor-link">
-        <span>🍽️</span>
+        <span></span>
         <div><span>Caterers</span><br><small>Coming soon</small></div>
       </a>
       <a href="rockland.html#panel-photo" class="vendor-link">
-        <span>📸</span>
+        <span></span>
         <div><span>Photographers</span><br><small>Coming soon</small></div>
       </a>
       <a href="rockland.html#panel-music" class="vendor-link">
-        <span>🎵</span>
+        <span></span>
         <div><span>Bands & DJs</span><br><small>Coming soon</small></div>
       </a>
       <a href="rockland.html#panel-more" class="vendor-link">
-        <span>✨</span>
+        <span></span>
         <div><span>More Services</span><br><small>Décor, transport & more</small></div>
       </a>
     </div>
 
     <div class="sidebar-card" style="background:linear-gradient(135deg,#2A7A5A,#1A5A40);">
-      <h3 style="color:var(--cream);">📜 Free Tzetel Maker</h3>
+      <h3 style="color:var(--cream);"> Free Tzetel Maker</h3>
       <p style="font-size:0.82rem;color:rgba(250,246,238,0.6);margin-bottom:1rem;line-height:1.6;">Create a beautiful Bar Mitzvah tzetel in seconds — 3 styles to choose from, print or download instantly.</p>
-      <a href="tzetel-maker.html" style="display:block;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.7rem;text-align:center;border-radius:4px;font-weight:600;font-size:0.85rem;">📜 Create Your Tzetel</a>
+      <a href="tzetel-maker.html" style="display:block;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.7rem;text-align:center;border-radius:4px;font-weight:600;font-size:0.85rem;"> Create Your Tzetel</a>
     </div>
 
     <div class="sidebar-card" style="background:var(--deep);">
-      <h3 style="color:var(--cream);">🤖 AI Simcha Planner</h3>
+      <h3 style="color:var(--cream);"> AI Simcha Planner</h3>
       <p style="font-size:0.82rem;color:rgba(250,246,238,0.6);margin-bottom:1rem;line-height:1.6;">Get a personalized Bar Mitzvah plan built just for you — timeline, checklist, and Monsey-specific advice.</p>
-      <a href="index.html#planner" style="display:block;background:var(--gold);color:var(--deep);text-decoration:none;padding:0.7rem;text-align:center;border-radius:4px;font-weight:600;font-size:0.85rem;">✨ Try AI Planner</a>
+      <a href="index.html#planner" style="display:block;background:var(--gold);color:var(--deep);text-decoration:none;padding:0.7rem;text-align:center;border-radius:4px;font-weight:600;font-size:0.85rem;"> Try AI Planner</a>
     </div>
 
   </aside>

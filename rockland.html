@@ -102,7 +102,12 @@
     background: white; border: 1px solid rgba(201,168,76,0.15);
     border-radius: 6px; overflow: hidden;
     transition: transform 0.25s, box-shadow 0.25s;
+    display: flex; flex-direction: column; height: 100%;
   }
+  .venue-body { flex: 1; display: flex; flex-direction: column; padding: 1.5rem; }
+  .venue-footer { margin-top: auto; display: flex; gap: 0.75rem; padding-top: 1.25rem; border-top: 1px solid rgba(201,168,76,0.1); flex-wrap: wrap; }
+  .venue-body { flex: 1; display: flex; flex-direction: column; padding: 1.5rem; }
+  .venue-tags { margin-top: auto; padding-top: 0.75rem; }
   .venue-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(201,168,76,0.12); }
   .venue-header { background: var(--deep); padding: 1.5rem; position: relative; }
   .venue-badge { position: absolute; top: 1rem; right: 1rem; background: var(--gold); color: var(--deep); font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 100px; letter-spacing: 0.05em; text-transform: uppercase; }
@@ -200,7 +205,15 @@
   </ul>
 
   <!-- DESKTOP CTA -->
-  <a href="index.html#planner" id="nav-cta" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
+  <div style="display:flex;gap:0.5rem;align-items:center;">
+    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:inline-block;">Sign In</a>
+    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:inline-block;">Sign In</a>
+    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
+    <a href="index.html#planner" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
+  </div>
+  </div>
 
   <!-- HAMBURGER (mobile only) -->
   <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;cursor:pointer;padding:0.25rem;flex-direction:column;gap:5px;">
@@ -214,11 +227,11 @@
 <!-- MOBILE MENU DROPDOWN -->
 <div id="mobile-menu" style="display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(250,246,238,0.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 1.5rem 1.5rem;flex-direction:column;gap:0;">
   <a href="index.html#categories" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Services</a>
-  <a href="index.html#planner" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">AI Planner ✨</a>
+  <a href="index.html#planner" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">AI Planner </a>
   <a href="index.html#timeline" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Planning Timeline</a>
   <a href="about.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">About Us</a>
-  <a href="rockland.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">📍 Rockland County Venues</a>
-  <a href="index.html#planner" onclick="closeMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.85rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;">✨ Start Planning</a>
+  <a href="rockland.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Rockland County Venues</a>
+  <a href="index.html#planner" onclick="closeMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.85rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;"> Start Planning</a>
 </div>
 
 <style>
@@ -286,7 +299,15 @@ document.addEventListener('click', function(e) {
   </ul>
 
   <!-- CTA -->
-  <a href="index.html#planner" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.6rem 1.4rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;border-radius:2px;white-space:nowrap;transition:background 0.2s;">Start Planning</a>
+  <div style="display:flex;gap:0.5rem;align-items:center;">
+    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:inline-block;">Sign In</a>
+    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:inline-block;">Sign In</a>
+    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
+    <a href="index.html#planner" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
+  </div>
+  </div>
 
 </nav>
 
@@ -294,17 +315,17 @@ document.addEventListener('click', function(e) {
 <section class="hero">
   <div class="hero-inner">
     <div class="breadcrumb"><a href="index.html">Home</a> → <a href="index.html#areas">Areas</a> → Rockland County</div>
-    <p class="hero-eyebrow">✦ Rockland County, New York ✦</p>
+    <p class="hero-eyebrow">Rockland County, New York</p>
     <h1>Plan Your Simcha<br>in <em>Rockland County</em></h1>
     <p class="hero-desc">Everything you need for a bar mitzvah, wedding, or any simcha — all in one place, serving the entire Rockland County Jewish community.</p>
     <div class="neighborhoods">
-      <span class="nbhd-pill">📍 Monsey</span>
-      <span class="nbhd-pill">📍 Spring Valley</span>
-      <span class="nbhd-pill">📍 New Square</span>
-      <span class="nbhd-pill">📍 Suffern</span>
-      <span class="nbhd-pill">📍 Pomona</span>
-      <span class="nbhd-pill">📍 Nanuet</span>
-      <span class="nbhd-pill">📍 Pearl River</span>
+      <span class="nbhd-pill">Monsey</span>
+      <span class="nbhd-pill">Spring Valley</span>
+      <span class="nbhd-pill">New Square</span>
+      <span class="nbhd-pill">Suffern</span>
+      <span class="nbhd-pill">Pomona</span>
+      <span class="nbhd-pill">Nanuet</span>
+      <span class="nbhd-pill">Pearl River</span>
     </div>
   </div>
 </section>
@@ -314,11 +335,11 @@ document.addEventListener('click', function(e) {
   <div class="tabs-inner">
     <p class="tabs-label">Browse by category</p>
     <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('venues', this)">🏛️ Venues & Halls</button>
-      <button class="tab-btn" onclick="switchTab('catering', this)">🍽️ Catering</button>
-      <button class="tab-btn" onclick="switchTab('photo', this)">📸 Photography</button>
-      <button class="tab-btn" onclick="switchTab('music', this)">🎵 Music & Entertainment</button>
-      <button class="tab-btn" onclick="switchTab('more', this)">✨ More Services</button>
+      <button class="tab-btn active" onclick="switchTab('venues', this)">Venues & Halls</button>
+      <button class="tab-btn" onclick="switchTab('catering', this)">Catering</button>
+      <button class="tab-btn" onclick="switchTab('photo', this)">Photography</button>
+      <button class="tab-btn" onclick="switchTab('music', this)">Music & Entertainment</button>
+      <button class="tab-btn" onclick="switchTab('more', this)">More Services</button>
     </div>
   </div>
 </div>
@@ -330,9 +351,25 @@ document.addEventListener('click', function(e) {
     <!-- VENUES -->
     
         <div class="panel active" id="panel-venues">
-      <div class="section-intro">
-        <h2>Venues & <em>Halls</em></h2>
-        <p>Kosher event halls serving Rockland County — sorted A–Z. Filter by area using the sidebar.</p>
+      <div class="section-intro" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2rem;">
+        <div>
+          <h2>Venues & <em>Halls</em></h2>
+          <p>Kosher event halls serving Rockland County. Filter by area using the sidebar.</p>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;">
+          <!-- SORT -->
+          <div style="display:flex;align-items:center;gap:0.4rem;">
+            <span style="font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Sort:</span>
+            <button onclick="sortVenues('az', this)" class="sort-btn active-sort" style="padding:0.35rem 0.75rem;border-radius:4px;border:1px solid rgba(201,168,76,0.3);background:var(--gold);color:var(--deep);font-size:0.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;">A–Z</button>
+            <button onclick="sortVenues('za', this)" class="sort-btn" style="padding:0.35rem 0.75rem;border-radius:4px;border:1px solid rgba(201,168,76,0.3);background:none;color:var(--muted);font-size:0.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Z–A</button>
+          </div>
+          <!-- VIEW TOGGLE -->
+          <div style="display:flex;align-items:center;gap:0.4rem;">
+            <span style="font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">View:</span>
+            <button onclick="setView('grid', this)" class="view-btn active-view" title="Grid view" style="padding:0.35rem 0.6rem;border-radius:4px;border:1px solid rgba(201,168,76,0.3);background:var(--gold);color:var(--deep);font-size:0.9rem;cursor:pointer;">⊞</button>
+            <button onclick="setView('list', this)" class="view-btn" title="List view" style="padding:0.35rem 0.6rem;border-radius:4px;border:1px solid rgba(201,168,76,0.3);background:none;color:var(--muted);font-size:0.9rem;cursor:pointer;"></button>
+          </div>
+        </div>
       </div>
       <div style="display:flex;gap:2rem;align-items:flex-start;flex-wrap:wrap;">
 
@@ -341,28 +378,37 @@ document.addEventListener('click', function(e) {
           <p style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:0.75rem;">Filter by Area</p>
           <div style="display:flex;flex-direction:column;gap:0.4rem;">
             <button class="filter-btn" data-filter="all" style="text-align:left;background:var(--gold);color:var(--deep);border:none;padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;font-weight:600;">All Areas</button>
-            <button class="filter-btn" data-filter="Monsey" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">📍 Monsey</button>
-            <button class="filter-btn" data-filter="Spring Valley" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">📍 Spring Valley</button>
-            <button class="filter-btn" data-filter="Suffern" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">📍 Suffern</button>
-            <button class="filter-btn" data-filter="Airmont" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">📍 Airmont</button>
-            <button class="filter-btn" data-filter="Chestnut Ridge" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">📍 Chestnut Ridge</button>
+            <button class="filter-btn" data-filter="Monsey" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">Monsey</button>
+            <button class="filter-btn" data-filter="Spring Valley" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">Spring Valley</button>
+            <button class="filter-btn" data-filter="Suffern" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">Suffern</button>
+            <button class="filter-btn" data-filter="Airmont" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">Airmont</button>
+            <button class="filter-btn" data-filter="Chestnut Ridge" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">Chestnut Ridge</button>
+          </div>
+          <p style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:1.25rem 0 0.75rem;">Event Type</p>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
+            <button class="event-btn active-event" data-event="all" style="text-align:left;background:var(--gold);color:var(--deep);border:none;padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;font-weight:600;">All Events</button>
+            <button class="event-btn" data-event="Bar Mitzvah" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">Bar Mitzvah</button>
+            <button class="event-btn" data-event="Wedding" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">Wedding</button>
+            <button class="event-btn" data-event="Vort" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">Vort</button>
+            <button class="event-btn" data-event="Bris" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">Bris</button>
+            <button class="event-btn" data-event="Sheva Brachos" style="text-align:left;background:none;color:var(--muted);border:1px solid rgba(201,168,76,0.25);padding:0.5rem 0.75rem;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;">Sheva Brachos</button>
           </div>
           <p id="venue-count" style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(201,168,76,0.15);font-size:0.75rem;color:var(--muted);">Showing all 26 halls</p>
         </div>
 
         <!-- VENUE GRID -->
-        <div id="venues-grid" style="flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;min-width:0;">
+        <div id="venues-grid" style="flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;min-width:0;align-items:stretch;">
         <div class="venue-card" data-gname="Cong. Ahavas Yitzchok" data-gaddr="73 Forshay Road, Monsey, NY 10952" data-location="Monsey">
           <div class="venue-header">
             <div class="venue-name">Cong. Ahavas Yitzchok</div>
-            <div class="venue-location">📍 73 Forshay Road, Monsey, NY 10952</div>
+            <div class="venue-location">73 Forshay Road, Monsey, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -381,22 +427,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8453202590" class="venue-phone">📞 Call Now</a>
-              <a href="https://www.ahavasyitzchok.org/" target="_blank" class="venue-more">🌐 Website</a>
+              <a href="tel:8453202590" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=73 Forshay Road, Monsey, NY 10952','_blank')">Directions</button><a href="https://www.ahavasyitzchok.org/" target="_blank" style="font-size:0.72rem;color:var(--gold);text-decoration:none;text-align:center;padding:0.4rem;border:1px solid rgba(201,168,76,0.3);border-radius:4px;margin-top:0.4rem;display:block;grid-column:1/-1;">Visit Website</a>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Alfei Menashe Ballroom" data-gaddr="244 Viola Rd, Monsey, NY 10952" data-location="Monsey">
           <div class="venue-header">
             <div class="venue-name">Alfei Menashe Ballroom</div>
-            <div class="venue-location">📍 244 Viola Rd, Monsey, NY 10952</div>
+            <div class="venue-location">244 Viola Rd, Monsey, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -418,22 +463,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Bar Mitzvah</span><span class="venue-tag">Wedding</span><span class="venue-tag">Vort</span><span class="venue-tag">Simcha</span></div>
             <div class="venue-footer">
-              <a href="tel:8454742425" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=244 Viola Rd, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+              <a href="tel:8454742425" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=244 Viola Rd, Monsey, NY 10952','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Ateres Charna" data-gaddr="790 N Main St, Spring Valley, NY 10977" data-location="Spring Valley">
           <div class="venue-header">
             <div class="venue-name">Ateres Charna</div>
-            <div class="venue-location">📍 790 N Main St, Spring Valley, NY 10977</div>
+            <div class="venue-location">790 N Main St, Spring Valley, NY 10977</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -455,22 +499,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Wedding</span><span class="venue-tag">Bar Mitzvah</span><span class="venue-tag">Simcha</span></div>
             <div class="venue-footer">
-              <a href="tel:8453627800" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=790 N Main St, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+              <a href="tel:8453627800" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=790 N Main St, Spring Valley, NY 10977','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Cong. Ateres Rosh" data-gaddr="16 Charlotte Drive, Spring Valley, NY 10977" data-location="Spring Valley">
           <div class="venue-header">
             <div class="venue-name">Cong. Ateres Rosh</div>
-            <div class="venue-location">📍 16 Charlotte Drive, Spring Valley, NY 10977</div>
+            <div class="venue-location">16 Charlotte Drive, Spring Valley, NY 10977</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -489,22 +532,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8452399130" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=16 Charlotte Drive, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+              <a href="tel:8452399130" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=16 Charlotte Drive, Spring Valley, NY 10977','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Ateres Yechiel Hall of Bobov" data-gaddr="230 Viola Rd, Monsey, NY 10952" data-location="Monsey">
           <div class="venue-header">
             <div class="venue-name">Ateres Yechiel Hall of Bobov</div>
-            <div class="venue-location">📍 230 Viola Rd, Monsey, NY 10952</div>
+            <div class="venue-location">230 Viola Rd, Monsey, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -523,22 +565,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8453565001" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=230 Viola Rd, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+              <a href="tel:8453565001" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=230 Viola Rd, Monsey, NY 10952','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="The Atrium Ballroom" data-gaddr="401 NY Route 59, Monsey, NY 10952" data-location="Monsey">
           <div class="venue-header">
             <div class="venue-name">The Atrium Ballroom</div>
-            <div class="venue-location">📍 401 NY Route 59, Monsey, NY 10952</div>
+            <div class="venue-location">401 NY Route 59, Monsey, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -557,22 +598,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Wedding</span><span class="venue-tag">Bar Mitzvah</span><span class="venue-tag">Simcha</span><span class="venue-tag">Gala</span></div>
             <div class="venue-footer">
-              <a href="tel:8453560000" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=401 NY Route 59, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+              <a href="tel:8453560000" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=401 NY Route 59, Monsey, NY 10952','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Cong. Bais Avigdor" data-gaddr="57 Lime Kiln Rd, Suffern, NY 10901" data-location="Suffern">
           <div class="venue-header">
             <div class="venue-name">Cong. Bais Avigdor</div>
-            <div class="venue-location">📍 57 Lime Kiln Rd, Suffern, NY 10901</div>
+            <div class="venue-location">57 Lime Kiln Rd, Suffern, NY 10901</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -594,22 +634,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:7733185502" class="venue-phone">📞 Call Now</a>
-              <a href="https://www.baisavigdorwesleyhills.org/" target="_blank" class="venue-more">🌐 Website</a>
+              <a href="tel:7733185502" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=57 Lime Kiln Rd, Suffern, NY 10901','_blank')">Directions</button><a href="https://www.baisavigdorwesleyhills.org/" target="_blank" style="font-size:0.72rem;color:var(--gold);text-decoration:none;text-align:center;padding:0.4rem;border:1px solid rgba(201,168,76,0.3);border-radius:4px;margin-top:0.4rem;display:block;grid-column:1/-1;">Visit Website</a>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Bais Medrash of Rockland Hall" data-gaddr="2 E Funston Ave, Spring Valley, NY 10977" data-location="Spring Valley">
           <div class="venue-header">
             <div class="venue-name">Bais Medrash of Rockland Hall</div>
-            <div class="venue-location">📍 2 E Funston Ave, Spring Valley, NY 10977</div>
+            <div class="venue-location">2 E Funston Ave, Spring Valley, NY 10977</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -628,22 +667,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8453562630" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=2 E Funston Ave, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+              <a href="tel:8453562630" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=2 E Funston Ave, Spring Valley, NY 10977','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Bais Yosef Meir Hall" data-gaddr="19 Olympia Ln, Monsey, NY 10952" data-location="Monsey">
           <div class="venue-header">
             <div class="venue-name">Bais Yosef Meir Hall</div>
-            <div class="venue-location">📍 19 Olympia Ln, Monsey, NY 10952</div>
+            <div class="venue-location">19 Olympia Ln, Monsey, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -662,22 +700,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8453963776" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=19 Olympia Ln, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+              <a href="tel:8453963776" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=19 Olympia Ln, Monsey, NY 10952','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Borov Hall" data-gaddr="4 Parker Blvd, Monsey, NY 10952" data-location="Monsey">
           <div class="venue-header">
             <div class="venue-name">Borov Hall</div>
-            <div class="venue-location">📍 4 Parker Blvd, Monsey, NY 10952</div>
+            <div class="venue-location">4 Parker Blvd, Monsey, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -696,22 +733,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:3474607543" class="venue-phone">📞 Call Now</a>
-              <a href="https://www.borov.org/" target="_blank" class="venue-more">🌐 Website</a>
+              <a href="tel:3474607543" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=4 Parker Blvd, Monsey, NY 10952','_blank')">Directions</button><a href="https://www.borov.org/" target="_blank" style="font-size:0.72rem;color:var(--gold);text-decoration:none;text-align:center;padding:0.4rem;border:1px solid rgba(201,168,76,0.3);border-radius:4px;margin-top:0.4rem;display:block;grid-column:1/-1;">Visit Website</a>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="The Crown Ballroom" data-gaddr="70 Highview Rd, Suffern, NY 10901" data-location="Suffern">
           <div class="venue-header">
             <div class="venue-name">The Crown Ballroom</div>
-            <div class="venue-location">📍 70 Highview Rd, Suffern, NY 10901</div>
+            <div class="venue-location">70 Highview Rd, Suffern, NY 10901</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -730,22 +766,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bar Mitzvah</span><span class="venue-tag">Simcha</span></div>
             <div class="venue-footer">
-              <a href="tel:7188029100" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=70 Highview Rd, Suffern, NY 10901','_blank')">🗺️ Directions</button>
+              <a href="tel:7188029100" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=70 Highview Rd, Suffern, NY 10901','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Garden Paradise - Shoppers Haven" data-gaddr="27 Orchard St, Monsey, NY 10952" data-location="Monsey">
           <div class="venue-header">
             <div class="venue-name">Garden Paradise - Shoppers Haven</div>
-            <div class="venue-location">📍 27 Orchard St, Monsey, NY 10952</div>
+            <div class="venue-location">27 Orchard St, Monsey, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -764,22 +799,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8453524683" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=27 Orchard St, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+              <a href="tel:8453524683" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=27 Orchard St, Monsey, NY 10952','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Hamaspik Terrace - Monsey Hub" data-gaddr="58 NY-59 #1, Monsey, NY 10952" data-location="Monsey">
           <div class="venue-header">
             <div class="venue-name">Hamaspik Terrace - Monsey Hub</div>
-            <div class="venue-location">📍 58 NY-59 #1, Monsey, NY 10952</div>
+            <div class="venue-location">58 NY-59 #1, Monsey, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -798,22 +832,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8454254949" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=58 NY-59 #1, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+              <a href="tel:8454254949" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=58 NY-59 #1, Monsey, NY 10952','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Kehillat Yeshorim of Wesley Hills" data-gaddr="1 Harriet Lane, Spring Valley, NY 10977" data-location="Spring Valley">
           <div class="venue-header">
             <div class="venue-name">Kehillat Yeshorim of Wesley Hills</div>
-            <div class="venue-location">📍 1 Harriet Lane, Spring Valley, NY 10977</div>
+            <div class="venue-location">1 Harriet Lane, Spring Valley, NY 10977</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -835,22 +868,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="mailto:simchahall@kywh.org" class="venue-phone">✉️ Email</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=1 Harriet Lane, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+              <span class="venue-phone" style="opacity:0.4;cursor:default;">No phone listed</span><button class="venue-more" onclick="window.open('https://maps.google.com?q=1 Harriet Lane, Spring Valley, NY 10977','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Khal Beis Elazar" data-gaddr="8 Parker Blvd, Monsey, NY 10952" data-location="Monsey">
           <div class="venue-header">
             <div class="venue-name">Khal Beis Elazar</div>
-            <div class="venue-location">📍 8 Parker Blvd, Monsey, NY 10952</div>
+            <div class="venue-location">8 Parker Blvd, Monsey, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -872,22 +904,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8453725135" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=8 Parker Blvd, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+              <a href="tel:8453725135" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=8 Parker Blvd, Monsey, NY 10952','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Khal Mishkan Yosef" data-gaddr="13 Algonquin Circle, Airmont, NY 10952" data-location="Airmont">
           <div class="venue-header">
             <div class="venue-name">Khal Mishkan Yosef</div>
-            <div class="venue-location">📍 13 Algonquin Circle, Airmont, NY 10952</div>
+            <div class="venue-location">13 Algonquin Circle, Airmont, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -906,22 +937,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8457989300" class="venue-phone">📞 Call Now</a>
-              <a href="http://www.khalmishkanyosef.org/" target="_blank" class="venue-more">🌐 Website</a>
+              <a href="tel:8457989300" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=13 Algonquin Circle, Airmont, NY 10952','_blank')">Directions</button><a href="http://www.khalmishkanyosef.org/" target="_blank" style="font-size:0.72rem;color:var(--gold);text-decoration:none;text-align:center;padding:0.4rem;border:1px solid rgba(201,168,76,0.3);border-radius:4px;margin-top:0.4rem;display:block;grid-column:1/-1;">Visit Website</a>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Khal Zichron Michoel" data-gaddr="153 Grandview Ave, Monsey, NY 10952" data-location="Monsey">
           <div class="venue-header">
             <div class="venue-name">Khal Zichron Michoel</div>
-            <div class="venue-location">📍 153 Grandview Ave, Monsey, NY 10952</div>
+            <div class="venue-location">153 Grandview Ave, Monsey, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -940,22 +970,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:9179689738" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=153 Grandview Ave, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+              <a href="tel:9179689738" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=153 Grandview Ave, Monsey, NY 10952','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Khal Zichron Mordechai" data-gaddr="9 Fosse Ct, Airmont, NY 10952" data-location="Airmont">
           <div class="venue-header">
             <div class="venue-name">Khal Zichron Mordechai</div>
-            <div class="venue-location">📍 9 Fosse Ct, Airmont, NY 10952</div>
+            <div class="venue-location">9 Fosse Ct, Airmont, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -974,22 +1003,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8454266208" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=9 Fosse Ct, Airmont, NY 10952','_blank')">🗺️ Directions</button>
+              <a href="tel:8454266208" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=9 Fosse Ct, Airmont, NY 10952','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Cong. Knesses Yisroel" data-gaddr="698 Union Road, Spring Valley, NY 10977" data-location="Spring Valley">
           <div class="venue-header">
             <div class="venue-name">Cong. Knesses Yisroel</div>
-            <div class="venue-location">📍 698 Union Road, Spring Valley, NY 10977</div>
+            <div class="venue-location">698 Union Road, Spring Valley, NY 10977</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -1008,22 +1036,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8455982831" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=698 Union Road, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+              <a href="tel:8455982831" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=698 Union Road, Spring Valley, NY 10977','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Monsey Palace Halls" data-gaddr="575 Chestnut Ridge Road, Spring Valley, NY 10977" data-location="Spring Valley">
           <div class="venue-header">
             <div class="venue-name">Monsey Palace Halls</div>
-            <div class="venue-location">📍 575 Chestnut Ridge Road, Spring Valley, NY 10977</div>
+            <div class="venue-location">575 Chestnut Ridge Road, Spring Valley, NY 10977</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -1042,22 +1069,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8456415062" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=575 Chestnut Ridge Road, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+              <a href="tel:8456415062" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=575 Chestnut Ridge Road, Spring Valley, NY 10977','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Ribnitz Hall" data-gaddr="55 Old Nyack Turnpike, Monsey, NY 10952" data-location="Monsey">
           <div class="venue-header">
             <div class="venue-name">Ribnitz Hall</div>
-            <div class="venue-location">📍 55 Old Nyack Turnpike, Monsey, NY 10952</div>
+            <div class="venue-location">55 Old Nyack Turnpike, Monsey, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -1076,22 +1102,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8454262056" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=55 Old Nyack Turnpike, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+              <a href="tel:8454262056" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=55 Old Nyack Turnpike, Monsey, NY 10952','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="The Schlesinger Hall" data-gaddr="33 Union Rd, Spring Valley, NY 10977" data-location="Spring Valley">
           <div class="venue-header">
             <div class="venue-name">The Schlesinger Hall</div>
-            <div class="venue-location">📍 33 Union Rd, Spring Valley, NY 10977</div>
+            <div class="venue-location">33 Union Rd, Spring Valley, NY 10977</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -1113,22 +1138,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Bar Mitzvah</span><span class="venue-tag">Vort</span><span class="venue-tag">Sheva Brachos</span><span class="venue-tag">Simcha</span></div>
             <div class="venue-footer">
-              <a href="tel:8453029077" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=33 Union Rd, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+              <a href="tel:8453029077" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=33 Union Rd, Spring Valley, NY 10977','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Cong. Shaar Hashamayim" data-gaddr="71 E Willow Tree Road, Spring Valley, NY 10977" data-location="Spring Valley">
           <div class="venue-header">
             <div class="venue-name">Cong. Shaar Hashamayim</div>
-            <div class="venue-location">📍 71 E Willow Tree Road, Spring Valley, NY 10977</div>
+            <div class="venue-location">71 E Willow Tree Road, Spring Valley, NY 10977</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -1150,22 +1174,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8452169572" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=71 E Willow Tree Road, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+              <a href="tel:8452169572" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=71 E Willow Tree Road, Spring Valley, NY 10977','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Cong. Shaarei Tefillah" data-gaddr="29 Parker Blvd, Monsey, NY 10952" data-location="Monsey">
           <div class="venue-header">
             <div class="venue-name">Cong. Shaarei Tefillah</div>
-            <div class="venue-location">📍 29 Parker Blvd, Monsey, NY 10952</div>
+            <div class="venue-location">29 Parker Blvd, Monsey, NY 10952</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -1184,22 +1207,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8453045122" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=29 Parker Blvd, Monsey, NY 10952','_blank')">🗺️ Directions</button>
+              <a href="tel:8453045122" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=29 Parker Blvd, Monsey, NY 10952','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="Toshnad Hall" data-gaddr="2 Howard Dr, Spring Valley, NY 10977" data-location="Spring Valley">
           <div class="venue-header">
             <div class="venue-name">Toshnad Hall</div>
-            <div class="venue-location">📍 2 Howard Dr, Spring Valley, NY 10977</div>
+            <div class="venue-location">2 Howard Dr, Spring Valley, NY 10977</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -1218,22 +1240,21 @@ document.addEventListener('click', function(e) {
             </div>
             <div class="venue-tags"><span class="venue-tag">Vort</span><span class="venue-tag">Tenoyim</span><span class="venue-tag">Bris</span><span class="venue-tag">Sheva Brachos</span></div>
             <div class="venue-footer">
-              <a href="tel:8453242900" class="venue-phone">📞 Call Now</a>
-              <button class="venue-more" onclick="window.open('https://maps.google.com?q=2 Howard Dr, Spring Valley, NY 10977','_blank')">🗺️ Directions</button>
+              <a href="tel:8453242900" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=2 Howard Dr, Spring Valley, NY 10977','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card" data-gname="The Legacy" data-gaddr="36 Scotland Hill Rd, Spring Valley, NY 10977" data-location="Chestnut Ridge">
           <div class="venue-header">
             <div class="venue-name">The Legacy</div>
-            <div class="venue-location">📍 36 Scotland Hill Rd, Spring Valley, NY 10977</div>
+            <div class="venue-location">36 Scotland Hill Rd, Spring Valley, NY 10977</div>
           </div>
-          <div class="venue-body">
+          <div class="venue-body" style="flex:1;display:flex;flex-direction:column;">
             
             <div class="google-rating" id="rating-placeholder">
               <span class="rating-loading">Loading Google rating...</span>
             </div>
-            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews ▾</button>
+            <button class="reviews-toggle" style="display:none" onclick="toggleReviews(this)">Show Google Reviews </button>
             <div class="reviews-container"></div>
             <div class="venue-details">
               <div class="venue-detail">
@@ -1261,13 +1282,12 @@ document.addEventListener('click', function(e) {
             </div>
             <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1rem;line-height:1.5;">Bar mitzvah package includes hall rental and catering for 40 couples ($4,950). Contact Glauber's Catering directly to book.</p>
             <div class="venue-footer">
-              <a href="tel:8453524683" class="venue-phone">📞 Call Now</a>
-              <a href="mailto:glaubercatering@gmail.com" class="venue-more">✉️ Email</a>
+              <a href="tel:8453524683" class="venue-phone">Call Now</a><button class="venue-more" onclick="window.open('https://maps.google.com?q=36 Scotland Hill Rd, Spring Valley, NY 10977','_blank')">Directions</button>
             </div>
           </div>
         </div>
         <div class="venue-card cta-card" style="background:var(--gold-pale);border:2px dashed rgba(201,168,76,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;min-height:300px;">
-          <span style="font-size:2.5rem;margin-bottom:1rem;">🏛️</span>
+          <span style="font-size:2.5rem;margin-bottom:1rem;"></span>
           <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--deep);margin-bottom:0.5rem;">Own a Hall?</div>
           <p style="font-size:0.875rem;color:var(--muted);line-height:1.6;margin-bottom:1rem;">Get listed on Simcha Map. All submissions are reviewed and approved by our team before going live.</p>
           <button class="btn-gold" id="show-form-btn" onclick="document.getElementById('venue-submit-form').style.display='block';this.style.display='none'">List Your Venue</button>
@@ -1279,7 +1299,7 @@ document.addEventListener('click', function(e) {
             <input type="text" id="sub-website" placeholder="Website (optional)" style="width:100%;padding:0.6rem;margin-bottom:0.5rem;border:1px solid rgba(201,168,76,0.4);border-radius:2px;font-family:'DM Sans',sans-serif;font-size:0.85rem;background:white;box-sizing:border-box;">
             <textarea id="sub-notes" placeholder="Capacity, kashrut, caterer info, best for..." style="width:100%;padding:0.6rem;margin-bottom:0.75rem;border:1px solid rgba(201,168,76,0.4);border-radius:2px;font-family:'DM Sans',sans-serif;font-size:0.85rem;background:white;height:80px;resize:vertical;box-sizing:border-box;"></textarea>
             <button onclick="submitVenue()" class="btn-gold" style="width:100%;">Submit for Review</button>
-            <div id="sub-success" style="display:none;margin-top:0.75rem;padding:0.75rem;background:rgba(42,122,90,0.1);border:1px solid rgba(42,122,90,0.3);border-radius:4px;font-size:0.85rem;color:#2A7A5A;text-align:center;">✅ Thank you! Our team will review your submission and be in touch within 2–3 business days.</div>
+            <div id="sub-success" style="display:none;margin-top:0.75rem;padding:0.75rem;background:rgba(42,122,90,0.1);border:1px solid rgba(42,122,90,0.3);border-radius:4px;font-size:0.85rem;color:#2A7A5A;text-align:center;">Thank you! Our team will review your submission and be in touch within 2–3 business days.</div>
           </div>
         </div>
         </div>
@@ -1294,10 +1314,10 @@ document.addEventListener('click', function(e) {
         <p>Glatt kosher caterers serving Rockland County simchos — from full-service weddings to sushi bars and dessert tables.</p>
       </div>
       <div class="cat-grid">
-        <div class="cat-card"><span class="cat-icon">🍖</span><div class="cat-name">Full Service Caterers</div><div class="cat-desc">Complete catering packages for weddings and bar mitzvahs, from cocktail hour through dessert.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🍣</span><div class="cat-name">Sushi Stations</div><div class="cat-desc">Live sushi chefs and stations to wow your guests during cocktail hour.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🎂</span><div class="cat-name">Cakes & Desserts</div><div class="cat-desc">Custom kosher cakes, pastry chefs, candy buffets, and dessert catering.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🥗</span><div class="cat-name">Smorgasbord</div><div class="cat-desc">Elegant smorgasbord stations and appetizer spreads for pre-ceremony receptions.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Full Service Caterers</div><div class="cat-desc">Complete catering packages for weddings and bar mitzvahs, from cocktail hour through dessert.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Sushi Stations</div><div class="cat-desc">Live sushi chefs and stations to wow your guests during cocktail hour.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Cakes & Desserts</div><div class="cat-desc">Custom kosher cakes, pastry chefs, candy buffets, and dessert catering.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Smorgasbord</div><div class="cat-desc">Elegant smorgasbord stations and appetizer spreads for pre-ceremony receptions.</div><span class="coming-soon">Vendors coming soon</span></div>
       </div>
       <div class="list-biz"><h3>Are You a <em>Caterer</em>?</h3><p>Get listed on Simcha Map and connect with families planning their Rockland County simcha.</p><a href="index.html#contact" class="btn-gold">List Your Business</a></div>
     </div>
@@ -1309,10 +1329,10 @@ document.addEventListener('click', function(e) {
         <p>Photographers and videographers specializing in simcha moments — from the smorgasbord to the last dance.</p>
       </div>
       <div class="cat-grid">
-        <div class="cat-card"><span class="cat-icon">📷</span><div class="cat-name">Photographers</div><div class="cat-desc">Simcha photographers capturing every moment with artistry and warmth.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🎬</span><div class="cat-name">Videographers</div><div class="cat-desc">Cinematic wedding and bar mitzvah films you'll watch for generations.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🖼️</span><div class="cat-name">Photo Booths</div><div class="cat-desc">Fun, branded photo booth rentals with instant prints and digital galleries.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🎞️</span><div class="cat-name">Same-Day Edits</div><div class="cat-desc">Highlight reels screened at your event — the crowd goes wild every time.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Photographers</div><div class="cat-desc">Simcha photographers capturing every moment with artistry and warmth.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Videographers</div><div class="cat-desc">Cinematic wedding and bar mitzvah films you'll watch for generations.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Photo Booths</div><div class="cat-desc">Fun, branded photo booth rentals with instant prints and digital galleries.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Same-Day Edits</div><div class="cat-desc">Highlight reels screened at your event — the crowd goes wild every time.</div><span class="coming-soon">Vendors coming soon</span></div>
       </div>
       <div class="list-biz"><h3>Are You a <em>Photographer?</em></h3><p>Get listed on Simcha Map and connect with families planning their Rockland County simcha.</p><a href="index.html#contact" class="btn-gold">List Your Business</a></div>
     </div>
@@ -1324,10 +1344,10 @@ document.addEventListener('click', function(e) {
         <p>DJs, live bands, and entertainers who know how to make a simcha come alive.</p>
       </div>
       <div class="cat-grid">
-        <div class="cat-card"><span class="cat-icon">🎷</span><div class="cat-name">Live Bands</div><div class="cat-desc">Jewish music bands and orchestras for weddings and bar mitzvahs.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🎧</span><div class="cat-name">DJs & MCs</div><div class="cat-desc">Experienced simcha DJs who keep the energy up all night long.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🕺</span><div class="cat-name">Hora Leaders</div><div class="cat-desc">Professional dance leaders who get the whole room dancing.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🎪</span><div class="cat-name">Kids' Entertainment</div><div class="cat-desc">Magicians, face painters, and activities to keep little guests happy.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Live Bands</div><div class="cat-desc">Jewish music bands and orchestras for weddings and bar mitzvahs.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">DJs & MCs</div><div class="cat-desc">Experienced simcha DJs who keep the energy up all night long.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Hora Leaders</div><div class="cat-desc">Professional dance leaders who get the whole room dancing.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Kids' Entertainment</div><div class="cat-desc">Magicians, face painters, and activities to keep little guests happy.</div><span class="coming-soon">Vendors coming soon</span></div>
       </div>
       <div class="list-biz"><h3>Are You a <em>Musician or DJ?</em></h3><p>Get listed on Simcha Map and connect with families planning their Rockland County simcha.</p><a href="index.html#contact" class="btn-gold">List Your Business</a></div>
     </div>
@@ -1339,14 +1359,14 @@ document.addEventListener('click', function(e) {
         <p>Everything else you need — from invitations to flowers to transportation.</p>
       </div>
       <div class="cat-grid">
-        <div class="cat-card"><span class="cat-icon">💌</span><div class="cat-name">Invitations & Stationery</div><div class="cat-desc">Custom invitations, benchers, kippot, and seating charts.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">💐</span><div class="cat-name">Flowers & Décor</div><div class="cat-desc">Floral arrangements, centerpieces, and room transformation.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">👔</span><div class="cat-name">Clothing & Styling</div><div class="cat-desc">Boys' suits, girls' dresses, hair and makeup styling.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🚌</span><div class="cat-name">Transportation</div><div class="cat-desc">Shuttle services, limo rentals, and guest transportation.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🎁</span><div class="cat-name">Gifts & Favors</div><div class="cat-desc">Personalized gifts, party favors, and Judaica.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🕍</span><div class="cat-name">Bar Mitzvah Tutors</div><div class="cat-desc">Experienced tutors to prepare your son for his big day.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">🏨</span><div class="cat-name">Accommodations</div><div class="cat-desc">Hotels and Shabbos-friendly lodging for out-of-town guests.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon">📋</span><div class="cat-name">Event Planners</div><div class="cat-desc">Full-service simcha planners who handle every detail.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Invitations & Stationery</div><div class="cat-desc">Custom invitations, benchers, kippot, and seating charts.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Flowers & Décor</div><div class="cat-desc">Floral arrangements, centerpieces, and room transformation.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Clothing & Styling</div><div class="cat-desc">Boys' suits, girls' dresses, hair and makeup styling.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Transportation</div><div class="cat-desc">Shuttle services, limo rentals, and guest transportation.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Gifts & Favors</div><div class="cat-desc">Personalized gifts, party favors, and Judaica.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Bar Mitzvah Tutors</div><div class="cat-desc">Experienced tutors to prepare your son for his big day.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Accommodations</div><div class="cat-desc">Hotels and Shabbos-friendly lodging for out-of-town guests.</div><span class="coming-soon">Vendors coming soon</span></div>
+        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Event Planners</div><div class="cat-desc">Full-service simcha planners who handle every detail.</div><span class="coming-soon">Vendors coming soon</span></div>
       </div>
       <div class="list-biz"><h3>Want to Be <em>Listed?</em></h3><p>Join the Simcha Map directory and reach thousands of families in Rockland County.</p><a href="index.html#contact" class="btn-gold">List Your Business</a></div>
     </div>
@@ -1377,7 +1397,7 @@ document.addEventListener('click', function(e) {
   // Get Directions buttons
   document.querySelectorAll('.venue-more').forEach(btn => {
     btn.addEventListener('click', function() {
-      const address = this.closest('.venue-card').querySelector('.venue-location').textContent.replace('📍 ', '');
+      const address = this.closest('.venue-card').querySelector('.venue-location').textContent.replace('', '');
       window.open('https://maps.google.com?q=' + encodeURIComponent(address), '_blank');
     });
   });
@@ -1490,17 +1510,17 @@ function ratingToStars(rating) {
   var full = Math.floor(rating);
   var half = rating % 1 >= 0.5 ? 1 : 0;
   var empty = 5 - full - half;
-  return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+  return ''.repeat(full) + (half ? '½' : '') + ''.repeat(empty);
 }
 
 function toggleReviews(btn) {
   var container = btn.nextElementSibling;
   if (container.style.display === 'block') {
     container.style.display = 'none';
-    btn.textContent = 'Show Google Reviews ▾';
+    btn.textContent = 'Show Google Reviews ';
   } else {
     container.style.display = 'block';
-    btn.textContent = 'Hide Reviews ▴';
+    btn.textContent = 'Hide Reviews ';
   }
 }
 
@@ -1510,5 +1530,95 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+
+<script>
+// SORT
+function sortVenues(order, btn) {
+  var grid = document.getElementById('venues-grid');
+  var cards = Array.from(grid.querySelectorAll('.venue-card:not(.cta-card)'));
+  cards.sort(function(a, b) {
+    var nameA = (a.querySelector('.venue-name') || {}).textContent || '';
+    var nameB = (b.querySelector('.venue-name') || {}).textContent || '';
+    // Strip The/Cong for sorting
+    nameA = nameA.replace(/^(The |Cong\. )/i, '').trim();
+    nameB = nameB.replace(/^(The |Cong\. )/i, '').trim();
+    return order === 'az' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+  });
+  var cta = grid.querySelector('.cta-card');
+  cards.forEach(function(c) { grid.insertBefore(c, cta); });
+  // Update button styles
+  document.querySelectorAll('.sort-btn').forEach(function(b) {
+    b.style.background = 'none'; b.style.color = 'var(--muted)'; b.style.fontWeight = '400';
+  });
+  btn.style.background = 'var(--gold)'; btn.style.color = 'var(--deep)'; btn.style.fontWeight = '600';
+}
+
+// VIEW TOGGLE
+function setView(view, btn) {
+  var grid = document.getElementById('venues-grid');
+  if (view === 'list') {
+    grid.style.gridTemplateColumns = '1fr';
+    grid.querySelectorAll('.venue-card:not(.cta-card)').forEach(function(card) {
+      card.style.display = 'grid';
+      card.style.gridTemplateColumns = '1fr 2fr';
+    });
+  } else {
+    grid.style.gridTemplateColumns = 'repeat(auto-fill,minmax(280px,1fr))';
+    grid.querySelectorAll('.venue-card:not(.cta-card)').forEach(function(card) {
+      card.style.display = 'flex';
+      card.style.flexDirection = 'column';
+      card.style.gridTemplateColumns = '';
+    });
+  }
+  document.querySelectorAll('.view-btn').forEach(function(b) {
+    b.style.background = 'none'; b.style.color = 'var(--muted)';
+  });
+  btn.style.background = 'var(--gold)'; btn.style.color = 'var(--deep)';
+}
+</script>
+
+<script>
+// EVENT TYPE FILTER
+document.querySelectorAll('.event-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var event = this.getAttribute('data-event');
+    var cards = document.querySelectorAll('#venues-grid .venue-card:not(.cta-card)');
+    var count = 0;
+    cards.forEach(function(card) {
+      var tags = card.querySelectorAll('.venue-tag');
+      var tagTexts = Array.from(tags).map(function(t) { return t.textContent.trim(); });
+      var show = event === 'all' || tagTexts.some(function(t) { return t.toLowerCase().includes(event.toLowerCase()); });
+      // Also check best-for
+      var bestFor = (card.querySelector('.detail-value') || {}).textContent || '';
+      if (event !== 'all' && bestFor.toLowerCase().includes(event.toLowerCase())) show = true;
+      card.style.display = show ? '' : 'none';
+      if (show) count++;
+    });
+    document.getElementById('venue-count').textContent = 'Showing ' + count + ' hall' + (count !== 1 ? 's' : '');
+    document.querySelectorAll('.event-btn').forEach(function(b) {
+      b.style.background = 'none'; b.style.color = 'var(--muted)'; b.style.border = '1px solid rgba(201,168,76,0.25)'; b.style.fontWeight = '400';
+    });
+    this.style.background = 'var(--gold)'; this.style.color = 'var(--deep)'; this.style.border = 'none'; this.style.fontWeight = '600';
+  });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function() {
+  var sb = window.supabase.createClient('https://gzbcwzjxycbyzpqhpdgx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M');
+  sb.auth.getSession().then(function(r) {
+    var loginBtn = document.getElementById('nav-login-btn');
+    var dashBtn = document.getElementById('nav-dash-btn');
+    if (r.data.session) {
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (dashBtn) dashBtn.style.display = 'inline-block';
+    } else {
+      if (loginBtn) loginBtn.style.display = 'inline-block';
+      if (dashBtn) dashBtn.style.display = 'none';
+    }
+  });
+})();
+</script>
 </body>
 </html>

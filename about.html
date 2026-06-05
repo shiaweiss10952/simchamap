@@ -313,7 +313,15 @@
   </ul>
 
   <!-- DESKTOP CTA -->
-  <a href="index.html#planner" id="nav-cta" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
+  <div style="display:flex;gap:0.5rem;align-items:center;">
+    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:inline-block;">Sign In</a>
+    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:inline-block;">Sign In</a>
+    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
+    <a href="index.html#planner" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
+  </div>
+  </div>
 
   <!-- HAMBURGER (mobile only) -->
   <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;cursor:pointer;padding:0.25rem;flex-direction:column;gap:5px;">
@@ -327,11 +335,11 @@
 <!-- MOBILE MENU DROPDOWN -->
 <div id="mobile-menu" style="display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(250,246,238,0.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 1.5rem 1.5rem;flex-direction:column;gap:0;">
   <a href="index.html#categories" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Services</a>
-  <a href="index.html#planner" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">AI Planner ✨</a>
+  <a href="index.html#planner" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">AI Planner </a>
   <a href="index.html#timeline" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Planning Timeline</a>
   <a href="about.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">About Us</a>
-  <a href="rockland.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">📍 Rockland County Venues</a>
-  <a href="index.html#planner" onclick="closeMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.85rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;">✨ Start Planning</a>
+  <a href="rockland.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);"> Rockland County Venues</a>
+  <a href="index.html#planner" onclick="closeMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.85rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;"> Start Planning</a>
 </div>
 
 <style>
@@ -387,13 +395,21 @@ document.addEventListener('click', function(e) {
   </ul>
 
   <!-- CTA -->
-  <a href="index.html#planner" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.6rem 1.4rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;border-radius:2px;white-space:nowrap;transition:background 0.2s;">Start Planning</a>
+  <div style="display:flex;gap:0.5rem;align-items:center;">
+    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:inline-block;">Sign In</a>
+    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:inline-block;">Sign In</a>
+    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
+    <a href="index.html#planner" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
+  </div>
+  </div>
 
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <p class="hero-eyebrow">✦ Our Story ✦</p>
+  <p class="hero-eyebrow"> Our Story </p>
   <h1>Born From<br><em>One Family's</em><br>Simcha</h1>
   <p class="hero-sub">Simcha Map started with a bar mitzvah, a lot of questions, and the realization that every Jewish family deserves a better way to plan.</p>
 </section>
@@ -448,22 +464,22 @@ document.addEventListener('click', function(e) {
     </div>
     <div class="values-grid">
       <div class="value-card">
-        <span class="value-icon">🤝</span>
+        <span class="value-icon"></span>
         <h3>Community First</h3>
         <p>We're part of the Jewish community. We understand what makes a simcha meaningful — and we built this for our own people.</p>
       </div>
       <div class="value-card">
-        <span class="value-icon">✨</span>
+        <span class="value-icon"></span>
         <h3>Simplicity</h3>
         <p>Planning should be simple. We cut through the noise and give you exactly what you need, when you need it.</p>
       </div>
       <div class="value-card">
-        <span class="value-icon">🛡️</span>
+        <span class="value-icon"></span>
         <h3>Trust</h3>
         <p>Every vendor in our directory is there because we'd recommend them to our own family. Quality over quantity, always.</p>
       </div>
       <div class="value-card">
-        <span class="value-icon">🎉</span>
+        <span class="value-icon"></span>
         <h3>Joy</h3>
         <p>A simcha is a celebration. Our job is to handle the details so you can focus on the moments that matter most.</p>
       </div>
@@ -490,5 +506,23 @@ document.addEventListener('click', function(e) {
   <div class="footer-copy">© 2026 SimchaMap. All rights reserved.</div>
 </footer>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function() {
+  var sb = window.supabase.createClient('https://gzbcwzjxycbyzpqhpdgx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M');
+  sb.auth.getSession().then(function(r) {
+    var loginBtn = document.getElementById('nav-login-btn');
+    var dashBtn = document.getElementById('nav-dash-btn');
+    if (r.data.session) {
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (dashBtn) dashBtn.style.display = 'inline-block';
+    } else {
+      if (loginBtn) loginBtn.style.display = 'inline-block';
+      if (dashBtn) dashBtn.style.display = 'none';
+    }
+  });
+})();
+</script>
 </body>
 </html>

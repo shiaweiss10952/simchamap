@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Dashboard — SimchaMap</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --gold: #C9A84C; --gold-light: #E8C97A; --gold-pale: #F7EDD4;
+  --deep: #1A1209; --cream: #FAF6EE; --warm: #F2E8D0;
+  --text: #2C1F0A; --muted: #8A7355; --green: #2A7A5A;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--cream); color:var(--text); font-family:'DM Sans',sans-serif; }
+
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0.85rem 2rem; background:rgba(250,246,238,0.97);
+  backdrop-filter:blur(12px); border-bottom:1px solid rgba(201,168,76,0.2);
+}
+.nav-logo { text-decoration:none; display:flex; align-items:center; gap:0.65rem; }
+.nav-logo-text { font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:900; color:#2C1F0A; }
+.nav-logo-tag { display:block; font-size:0.55rem; font-weight:500; color:#C9A84C; letter-spacing:0.12em; text-transform:uppercase; }
+.nav-right { display:flex; align-items:center; gap:1rem; }
+.nav-user { font-size:0.85rem; color:var(--muted); }
+.signout-btn { background:none; border:1px solid rgba(201,168,76,0.3); color:var(--muted); padding:0.45rem 1rem; border-radius:4px; cursor:pointer; font-size:0.82rem; font-family:'DM Sans',sans-serif; transition:all 0.2s; }
+.signout-btn:hover { border-color:var(--gold); color:var(--gold); }
+
+.main { max-width:1100px; margin:0 auto; padding:6rem 1.5rem 4rem; }
+
+.welcome { margin-bottom:2.5rem; }
+.welcome h1 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:var(--deep); margin-bottom:0.3rem; }
+.welcome h1 em { font-style:italic; color:var(--gold); }
+.welcome p { color:var(--muted); font-size:0.95rem; }
+
+.dashboard-grid { display:grid; grid-template-columns:2fr 1fr; gap:2rem; align-items:start; }
+
+/* CHECKLIST */
+.checklist-card { background:white; border:1px solid rgba(201,168,76,0.2); border-radius:10px; overflow:hidden; }
+.card-header { padding:1.5rem; border-bottom:1px solid var(--warm); display:flex; align-items:center; justify-content:space-between; }
+.card-header h2 { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--deep); }
+.progress-info { font-size:0.82rem; color:var(--muted); }
+.progress-bar-wrap { padding:0 1.5rem 0; background:white; }
+.progress-bar { background:var(--warm); border-radius:100px; height:6px; margin:1rem 0; overflow:hidden; }
+.progress-fill { background:linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius:100px; height:100%; transition:width 0.5s; }
+
+.phase-section { border-bottom:1px solid var(--warm); }
+.phase-title { padding:1rem 1.5rem 0.5rem; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); font-weight:600; display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+.phase-toggle { font-size:0.8rem; color:var(--muted); }
+.phase-items { padding:0 1.5rem 1rem; }
+.check-item { display:flex; align-items:flex-start; gap:0.85rem; padding:0.65rem 0; border-bottom:1px solid rgba(201,168,76,0.07); cursor:pointer; transition:background 0.15s; }
+.check-item:last-child { border-bottom:none; }
+.check-item:hover { background:rgba(201,168,76,0.03); margin:0 -1.5rem; padding:0.65rem 1.5rem; }
+.checkbox { width:18px; height:18px; border:1.5px solid rgba(201,168,76,0.4); border-radius:3px; flex-shrink:0; margin-top:0.1rem; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+.check-item.done .checkbox { background:var(--green); border-color:var(--green); }
+.check-item.done .checkbox::after { content:'✓'; color:white; font-size:0.7rem; font-weight:700; }
+.check-item.done .check-label { text-decoration:line-through; color:var(--muted); opacity:0.6; }
+.check-label { font-size:0.875rem; color:var(--text); line-height:1.4; }
+.check-note { font-size:0.75rem; color:var(--muted); margin-top:0.15rem; line-height:1.4; }
+
+/* SIDEBAR */
+.sidebar { display:flex; flex-direction:column; gap:1.5rem; position:sticky; top:85px; }
+.sidebar-card { background:white; border:1px solid rgba(201,168,76,0.2); border-radius:10px; padding:1.5rem; }
+.sidebar-card h3 { font-family:'Playfair Display',serif; font-size:1rem; color:var(--deep); margin-bottom:1rem; }
+.stat-row { display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:1px solid var(--warm); font-size:0.85rem; }
+.stat-row:last-child { border:none; padding-bottom:0; }
+.stat-label { color:var(--muted); }
+.stat-value { font-weight:600; color:var(--deep); }
+.stat-value.gold { color:var(--gold); }
+
+.quick-link { display:flex; align-items:center; gap:0.75rem; padding:0.65rem 0; border-bottom:1px solid var(--warm); text-decoration:none; color:var(--text); font-size:0.875rem; font-weight:500; transition:color 0.2s; }
+.quick-link:last-child { border:none; padding-bottom:0; }
+.quick-link:hover { color:var(--gold); }
+.quick-link-icon { width:28px; height:28px; background:var(--gold-pale); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:0.75rem; color:var(--gold); font-weight:700; flex-shrink:0; }
+
+.upgrade-card { background:var(--deep); border-radius:10px; padding:1.5rem; }
+.upgrade-card h3 { font-family:'Playfair Display',serif; color:var(--cream); font-size:1rem; margin-bottom:0.5rem; }
+.upgrade-card p { color:rgba(250,246,238,0.55); font-size:0.82rem; line-height:1.6; margin-bottom:1.25rem; }
+.upgrade-btn { display:block; background:var(--gold); color:var(--deep); text-decoration:none; padding:0.7rem; text-align:center; border-radius:6px; font-weight:600; font-size:0.85rem; transition:background 0.2s; border:none; cursor:pointer; width:100%; font-family:'DM Sans',sans-serif; }
+.upgrade-btn:hover { background:var(--gold-light); }
+
+.saving-indicator { font-size:0.72rem; color:var(--green); opacity:0; transition:opacity 0.3s; text-align:right; padding:0.25rem 1.5rem 0.5rem; }
+.saving-indicator.show { opacity:1; }
+
+@media (max-width:768px) { .dashboard-grid { grid-template-columns:1fr; } .sidebar { position:static; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="30" height="36" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg">
+      <path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/>
+      <circle cx="44" cy="34" r="14" fill="#FAF6EE"/>
+      <circle cx="44" cy="34" r="5" fill="#C9A84C"/>
+    </svg>
+    <div><span class="nav-logo-text">SimchaMap</span><span class="nav-logo-tag">Every Detail. One Place.</span></div>
+  </a>
+  <div class="nav-right">
+    <span class="nav-user" id="user-email"></span>
+    <button class="signout-btn" onclick="signOut()">Sign Out</button>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="welcome">
+    <h1>Good to see you, <em id="user-name">there</em>!</h1>
+    <p>Track your Bar Mitzvah planning progress. Your checklist saves automatically.</p>
+  </div>
+
+  <div class="dashboard-grid">
+    <!-- CHECKLIST -->
+    <div class="checklist-card">
+      <div class="card-header">
+        <h2>Bar Mitzvah Planning Checklist</h2>
+        <span class="progress-info" id="progress-text">0 of 30 complete</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="saving-indicator" id="saving-indicator">Saved</div>
+
+      <div id="checklist-container"></div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-card">
+        <h3>Your Progress</h3>
+        <div class="stat-row"><span class="stat-label">Tasks Complete</span><span class="stat-value gold" id="stat-done">0</span></div>
+        <div class="stat-row"><span class="stat-label">Tasks Remaining</span><span class="stat-value" id="stat-remaining">30</span></div>
+        <div class="stat-row"><span class="stat-label">Completion</span><span class="stat-value" id="stat-pct">0%</span></div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Quick Links</h3>
+        <a href="rockland.html" class="quick-link"><div class="quick-link-icon">H</div>Browse Halls</a>
+        <a href="bar-mitzvah-guide.html" class="quick-link"><div class="quick-link-icon">G</div>Full Planning Guide</a>
+        <a href="index.html#planner" class="quick-link"><div class="quick-link-icon">AI</div>AI Simcha Planner</a>
+        <a href="index.html#categories" class="quick-link"><div class="quick-link-icon">V</div>All Vendors</a>
+      </div>
+
+      <div class="upgrade-card">
+        <h3>Vendor Listings</h3>
+        <p>Are you a vendor? List your business on SimchaMap and reach thousands of families planning their simcha.</p>
+        <button class="upgrade-btn" onclick="alert('Vendor listings coming soon! Email us at hello@simchamap.com to get listed.')">List Your Business</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://gzbcwzjxycbyzpqhpdgx.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+var currentUser = null;
+var checklist = {};
+var saveTimer = null;
+
+const PHASES = [
+  { id: '18mo', label: '18 Months Before', items: [
+    { id: 'date', text: 'Confirm Bar Mitzvah date with Rabbi' },
+    { id: 'hall', text: 'Book your hall / venue' },
+    { id: 'budget', text: 'Set overall budget' },
+    { id: 'guestlist', text: 'Start guest list' },
+    { id: 'tutor', text: 'Find a Bar Mitzvah tutor' },
+  ]},
+  { id: '12mo', label: '12 Months Before', items: [
+    { id: 'photo', text: 'Book photographer & videographer' },
+    { id: 'music', text: 'Book band or DJ' },
+    { id: 'caterer', text: 'Book caterer' },
+    { id: 'theme', text: 'Choose a theme or concept' },
+    { id: 'savedate', text: 'Send save the dates' },
+    { id: 'invites-research', text: 'Research invitation designers' },
+  ]},
+  { id: '9mo', label: '9 Months Before', items: [
+    { id: 'invites', text: 'Order invitations' },
+    { id: 'kippot', text: 'Order kippot and benchers' },
+    { id: 'florist', text: 'Book florist & decor' },
+    { id: 'lighting', text: 'Book lighting & AV' },
+    { id: 'kids-ent', text: 'Book kids entertainment' },
+    { id: 'hotel', text: 'Reserve hotel blocks for guests' },
+  ]},
+  { id: '6mo', label: '6 Months Before', items: [
+    { id: 'suit', text: 'Buy Bar Mitzvah boy suit' },
+    { id: 'outfits', text: 'Plan family outfits' },
+    { id: 'tallis', text: 'Buy tallis and tefillin' },
+    { id: 'hair', text: 'Book hair and makeup' },
+    { id: 'menu', text: 'Finalize menu with caterer' },
+    { id: 'cake', text: 'Order Bar Mitzvah cake' },
+  ]},
+  { id: '3mo', label: '3 Months Before', items: [
+    { id: 'mail-invites', text: 'Mail invitations' },
+    { id: 'transport', text: 'Book transportation' },
+    { id: 'montage', text: 'Start working on montage' },
+    { id: 'candles', text: 'Plan candle lighting ceremony' },
+    { id: 'playlist', text: 'Plan music playlist with DJ/band' },
+    { id: 'speeches', text: 'Write speeches and divrei Torah' },
+  ]},
+  { id: '1mo', label: '1 Month Before', items: [
+    { id: 'rsvps', text: 'Chase outstanding RSVPs' },
+    { id: 'headcount', text: 'Give final headcount to caterer' },
+    { id: 'seating', text: 'Send seating chart to hall' },
+    { id: 'confirm-vendors', text: 'Confirm all vendors' },
+    { id: 'payments', text: 'Prepare vendor payments and tips' },
+  ]},
+];
+
+// Build checklist HTML
+function buildChecklist() {
+  var container = document.getElementById('checklist-container');
+  var html = '';
+  PHASES.forEach(function(phase) {
+    html += '<div class="phase-section">';
+    html += '<div class="phase-title" onclick="togglePhase(\'' + phase.id + '\')">' + phase.label + '<span class="phase-toggle" id="toggle-' + phase.id + '">Hide</span></div>';
+    html += '<div class="phase-items" id="phase-' + phase.id + '">';
+    phase.items.forEach(function(item) {
+      var done = checklist[item.id] ? 'done' : '';
+      html += '<div class="check-item ' + done + '" id="item-' + item.id + '" onclick="toggleItem(\'' + item.id + '\')">';
+      html += '<div class="checkbox"></div>';
+      html += '<div><div class="check-label">' + item.text + '</div></div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+  container.innerHTML = html;
+  updateProgress();
+}
+
+function togglePhase(id) {
+  var el = document.getElementById('phase-' + id);
+  var toggle = document.getElementById('toggle-' + id);
+  if (el.style.display === 'none') {
+    el.style.display = 'block';
+    toggle.textContent = 'Hide';
+  } else {
+    el.style.display = 'none';
+    toggle.textContent = 'Show';
+  }
+}
+
+function toggleItem(id) {
+  checklist[id] = !checklist[id];
+  var item = document.getElementById('item-' + id);
+  item.classList.toggle('done', checklist[id]);
+  updateProgress();
+  scheduleSave();
+}
+
+function updateProgress() {
+  var total = 0;
+  var done = 0;
+  PHASES.forEach(function(phase) {
+    phase.items.forEach(function(item) {
+      total++;
+      if (checklist[item.id]) done++;
+    });
+  });
+  var pct = total ? Math.round((done / total) * 100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = done + ' of ' + total + ' complete';
+  document.getElementById('stat-done').textContent = done;
+  document.getElementById('stat-remaining').textContent = total - done;
+  document.getElementById('stat-pct').textContent = pct + '%';
+}
+
+function scheduleSave() {
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveChecklist, 1000);
+}
+
+async function saveChecklist() {
+  if (!currentUser) return;
+  var result = await supabase.from('checklists').upsert({
+    user_id: currentUser.id,
+    data: checklist,
+    updated_at: new Date().toISOString()
+  }, { onConflict: 'user_id' });
+  
+  if (!result.error) {
+    var indicator = document.getElementById('saving-indicator');
+    indicator.classList.add('show');
+    setTimeout(function() { indicator.classList.remove('show'); }, 2000);
+  }
+}
+
+async function loadChecklist() {
+  if (!currentUser) return;
+  var result = await supabase.from('checklists').select('data').eq('user_id', currentUser.id).single();
+  if (result.data && result.data.data) {
+    checklist = result.data.data;
+  }
+  buildChecklist();
+}
+
+async function signOut() {
+  await supabase.auth.signOut();
+  window.location.href = 'login.html';
+}
+
+// Init
+supabase.auth.getSession().then(function(result) {
+  if (!result.data.session) {
+    window.location.href = 'login.html';
+    return;
+  }
+  currentUser = result.data.session.user;
+  var name = (currentUser.user_metadata && currentUser.user_metadata.full_name) 
+    ? currentUser.user_metadata.full_name.split(' ')[0] 
+    : currentUser.email.split('@')[0];
+  document.getElementById('user-name').textContent = name;
+  document.getElementById('user-email').textContent = currentUser.email;
+  loadChecklist();
+});
+</script>
+</body>
+</html>

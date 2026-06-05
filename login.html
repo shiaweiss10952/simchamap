@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — SimchaMap</title>
+<meta name="description" content="Sign in to SimchaMap to save your planning checklist and track your simcha.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-pale: #F7EDD4;
+  --deep: #1A1209;
+  --cream: #FAF6EE;
+  --warm: #F2E8D0;
+  --text: #2C1F0A;
+  --muted: #8A7355;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--cream); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+
+nav { display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem; background:rgba(250,246,238,0.97); border-bottom:1px solid rgba(201,168,76,0.2); }
+.nav-logo { text-decoration:none; display:flex; align-items:center; gap:0.65rem; }
+.nav-logo-text { font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:900; color:#2C1F0A; }
+.nav-logo-tag { display:block; font-size:0.55rem; font-weight:500; color:#C9A84C; letter-spacing:0.12em; text-transform:uppercase; }
+
+.auth-container { flex:1; display:flex; align-items:center; justify-content:center; padding:3rem 1.5rem; }
+.auth-card {
+  background:white; border:1px solid rgba(201,168,76,0.2);
+  border-radius:12px; padding:2.5rem; width:100%; max-width:420px;
+  box-shadow:0 20px 60px rgba(44,31,10,0.08);
+}
+.auth-logo { text-align:center; margin-bottom:2rem; }
+.auth-logo-title { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:900; color:var(--deep); }
+.auth-logo-sub { font-size:0.75rem; color:var(--muted); letter-spacing:0.12em; text-transform:uppercase; margin-top:0.25rem; }
+
+.tabs { display:flex; border-bottom:2px solid var(--warm); margin-bottom:2rem; }
+.tab { flex:1; padding:0.75rem; text-align:center; font-size:0.9rem; font-weight:500; cursor:pointer; color:var(--muted); border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.2s; background:none; border-top:none; border-left:none; border-right:none; font-family:'DM Sans',sans-serif; }
+.tab.active { color:var(--gold); border-bottom-color:var(--gold); }
+
+.form-group { margin-bottom:1.25rem; }
+.form-group label { display:block; font-size:0.8rem; font-weight:500; color:var(--muted); margin-bottom:0.4rem; letter-spacing:0.03em; }
+.form-group input {
+  width:100%; padding:0.75rem 1rem;
+  border:1px solid rgba(201,168,76,0.3); border-radius:6px;
+  font-family:'DM Sans',sans-serif; font-size:0.95rem; color:var(--text);
+  background:var(--cream); outline:none; transition:border-color 0.2s;
+}
+.form-group input:focus { border-color:var(--gold); background:white; }
+
+.submit-btn {
+  width:100%; background:var(--gold); color:var(--deep);
+  border:none; padding:0.9rem; border-radius:6px;
+  font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:600;
+  cursor:pointer; transition:all 0.2s; margin-top:0.5rem;
+}
+.submit-btn:hover { background:var(--gold-light); transform:translateY(-1px); }
+.submit-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+
+.divider { display:flex; align-items:center; gap:1rem; margin:1.5rem 0; }
+.divider-line { flex:1; height:1px; background:var(--warm); }
+.divider-text { font-size:0.78rem; color:var(--muted); }
+
+.google-btn {
+  width:100%; background:white; color:var(--text);
+  border:1.5px solid rgba(44,31,10,0.15); padding:0.85rem;
+  border-radius:6px; font-family:'DM Sans',sans-serif;
+  font-size:0.95rem; font-weight:500; cursor:pointer;
+  transition:all 0.2s; display:flex; align-items:center;
+  justify-content:center; gap:0.75rem;
+}
+.google-btn:hover { border-color:var(--gold); background:var(--cream); }
+.google-logo { width:18px; height:18px; }
+
+.message { padding:0.75rem 1rem; border-radius:6px; font-size:0.85rem; margin-bottom:1rem; display:none; }
+.message.error { background:rgba(220,50,50,0.08); border:1px solid rgba(220,50,50,0.2); color:#C03030; }
+.message.success { background:rgba(42,122,90,0.08); border:1px solid rgba(42,122,90,0.2); color:#2A7A5A; }
+
+.forgot-link { text-align:center; margin-top:1rem; font-size:0.82rem; color:var(--muted); }
+.forgot-link a { color:var(--gold); text-decoration:none; }
+.forgot-link a:hover { text-decoration:underline; }
+
+.terms { font-size:0.75rem; color:var(--muted); text-align:center; margin-top:1.25rem; line-height:1.6; }
+
+footer { background:var(--deep); padding:1.5rem 2rem; text-align:center; }
+.footer-text { color:rgba(250,246,238,0.3); font-size:0.8rem; }
+.footer-logo { font-family:'Playfair Display',serif; font-size:1rem; font-weight:900; color:var(--cream); }
+.footer-logo span { color:var(--gold); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="30" height="36" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg">
+      <path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/>
+      <circle cx="44" cy="34" r="14" fill="#FAF6EE"/>
+      <circle cx="44" cy="34" r="5" fill="#C9A84C"/>
+    </svg>
+    <div><span class="nav-logo-text">SimchaMap</span><span class="nav-logo-tag">Every Detail. One Place.</span></div>
+  </a>
+  <a href="index.html" style="text-decoration:none;color:var(--muted);font-size:0.85rem;">Back to Home</a>
+</nav>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="auth-logo-title">Welcome</div>
+      <div class="auth-logo-sub">Sign in to save your simcha planning progress</div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('login')">Sign In</button>
+      <button class="tab" onclick="switchTab('signup')">Create Account</button>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <!-- LOGIN FORM -->
+    <div id="login-form">
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="login-email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-password" placeholder="Your password" onkeydown="if(event.key==='Enter') signIn()">
+      </div>
+      <button class="submit-btn" onclick="signIn()" id="login-btn">Sign In</button>
+      <div class="forgot-link"><a href="#" onclick="forgotPassword()">Forgot your password?</a></div>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-text">or</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <button class="google-btn" onclick="signInWithGoogle()">
+        <svg class="google-logo" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div id="signup-form" style="display:none;">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="signup-name" placeholder="Your name">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="signup-email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="signup-password" placeholder="Minimum 6 characters" onkeydown="if(event.key==='Enter') signUp()">
+      </div>
+      <button class="submit-btn" onclick="signUp()" id="signup-btn">Create Account</button>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-text">or</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <button class="google-btn" onclick="signInWithGoogle()">
+        <svg class="google-logo" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+
+      <div class="terms">By creating an account you agree to our Terms of Service and Privacy Policy.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Simcha<span>Map</span></div>
+  <div class="footer-text" style="margin-top:0.4rem;">Every Detail. One Place.</div>
+</footer>
+
+<script>
+const supabase = window.supabase.createClient(
+  'https://gzbcwzjxycbyzpqhpdgx.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M'
+);
+
+// Check if already logged in
+supabase.auth.getSession().then(function(result) {
+  if (result.data.session) {
+    window.location.href = 'dashboard.html';
+  }
+});
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  event.target.classList.add('active');
+  document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('signup-form').style.display = tab === 'signup' ? 'block' : 'none';
+  hideMessage();
+}
+
+function showMessage(text, type) {
+  var el = document.getElementById('message');
+  el.textContent = text;
+  el.className = 'message ' + type;
+  el.style.display = 'block';
+}
+
+function hideMessage() {
+  document.getElementById('message').style.display = 'none';
+}
+
+async function signIn() {
+  var email = document.getElementById('login-email').value.trim();
+  var password = document.getElementById('login-password').value;
+  if (!email || !password) { showMessage('Please enter your email and password.', 'error'); return; }
+  
+  var btn = document.getElementById('login-btn');
+  btn.disabled = true; btn.textContent = 'Signing in...';
+  
+  var result = await supabase.auth.signInWithPassword({ email: email, password: password });
+  
+  if (result.error) {
+    showMessage(result.error.message, 'error');
+    btn.disabled = false; btn.textContent = 'Sign In';
+  } else {
+    showMessage('Welcome back! Redirecting...', 'success');
+    setTimeout(function() { window.location.href = 'dashboard.html'; }, 1000);
+  }
+}
+
+async function signUp() {
+  var name = document.getElementById('signup-name').value.trim();
+  var email = document.getElementById('signup-email').value.trim();
+  var password = document.getElementById('signup-password').value;
+  
+  if (!name || !email || !password) { showMessage('Please fill in all fields.', 'error'); return; }
+  if (password.length < 6) { showMessage('Password must be at least 6 characters.', 'error'); return; }
+  
+  var btn = document.getElementById('signup-btn');
+  btn.disabled = true; btn.textContent = 'Creating account...';
+  
+  var result = await supabase.auth.signUp({
+    email: email,
+    password: password,
+    options: { data: { full_name: name } }
+  });
+  
+  if (result.error) {
+    showMessage(result.error.message, 'error');
+    btn.disabled = false; btn.textContent = 'Create Account';
+  } else if (result.data.user && !result.data.session) {
+    showMessage('Account created! Please check your email to confirm your account.', 'success');
+    btn.disabled = false; btn.textContent = 'Create Account';
+  } else {
+    showMessage('Account created! Redirecting...', 'success');
+    setTimeout(function() { window.location.href = 'dashboard.html'; }, 1000);
+  }
+}
+
+async function signInWithGoogle() {
+  var result = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.origin + '/dashboard.html' }
+  });
+  if (result.error) showMessage(result.error.message, 'error');
+}
+
+async function forgotPassword() {
+  var email = document.getElementById('login-email').value.trim();
+  if (!email) { showMessage('Please enter your email address first.', 'error'); return; }
+  var result = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + '/login.html'
+  });
+  if (result.error) { showMessage(result.error.message, 'error'); }
+  else { showMessage('Password reset email sent! Check your inbox.', 'success'); }
+}
+</script>
+</body>
+</html>
