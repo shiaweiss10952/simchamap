@@ -39,7 +39,7 @@
     overflow-x: hidden;
   }
 
-  /* ── NAV ── */
+  /*  NAV  */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
@@ -74,7 +74,7 @@
   }
   .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
 
-  /* ── HERO ── */
+  /*  HERO  */
   .hero {
     min-height: 100vh;
     display: flex; flex-direction: column;
@@ -146,7 +146,7 @@
     opacity: 0; animation: fadeUp 0.8s 1s forwards;
   }
 
-  /* ── OCCASIONS ── */
+  /*  OCCASIONS  */
   .occasions {
     padding: 5rem 2rem;
     text-align: center;
@@ -171,7 +171,7 @@
   }
   .occasion-pill:hover { background: var(--gold); color: var(--deep); border-color: var(--gold); }
 
-  /* ── SECTION COMMON ── */
+  /*  SECTION COMMON  */
   .section { padding: 6rem 2rem; }
   .section-inner { max-width: 1200px; margin: 0 auto; }
   .section-header { text-align: center; margin-bottom: 4rem; }
@@ -194,7 +194,7 @@
     line-height: 1.7;
   }
 
-  /* ── CATEGORY GRID ── */
+  /*  CATEGORY GRID  */
   .categories { background: var(--cream); }
   .cat-grid {
     display: grid;
@@ -234,7 +234,7 @@
     font-weight: 500; letter-spacing: 0.05em;
   }
 
-  /* ── TIMELINE ── */
+  /*  TIMELINE  */
   .timeline-section { background: var(--deep); }
   .timeline-section .section-title { color: var(--cream); }
   .timeline-section .section-eyebrow { color: var(--gold); }
@@ -277,7 +277,7 @@
   }
   .tl-content p { font-size: 0.875rem; color: rgba(250,246,238,0.55); line-height: 1.6; }
 
-  /* ── HOW IT WORKS ── */
+  /*  HOW IT WORKS  */
   .how { background: var(--gold-pale); }
   .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
   .step { text-align: center; padding: 1.5rem; }
@@ -294,7 +294,7 @@
   }
   .step p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
 
-  /* ── CTA ── */
+  /*  CTA  */
   .cta-section {
     background: linear-gradient(135deg, var(--deep) 0%, #2C1F0A 100%);
     text-align: center; padding: 6rem 2rem;
@@ -317,7 +317,7 @@
     margin-bottom: 2.5rem; position: relative;
   }
 
-  /* ── FOOTER ── */
+  /*  FOOTER  */
   footer {
     background: var(--deep); border-top: 1px solid rgba(201,168,76,0.1);
     padding: 3rem 2rem;
@@ -335,14 +335,14 @@
   .footer-links a:hover { color: var(--gold); }
   .footer-copy { color: rgba(250,246,238,0.25); font-size: 0.8rem; }
 
-  /* ── ANIMATIONS ── */
+  /*  ANIMATIONS  */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
   
-  /* ── AI PLANNER ── */
+  /*  AI PLANNER  */
   .ai-section { padding:5rem 2rem; background:linear-gradient(135deg,#1A1209 0%,#2C1F0A 100%); position:relative; overflow:hidden; }
   .ai-section::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(201,168,76,0.07),transparent); }
   .ai-inner { max-width:800px; margin:0 auto; position:relative; }
@@ -367,7 +367,7 @@
   .ai-dot:nth-child(2){animation-delay:0.2s} .ai-dot:nth-child(3){animation-delay:0.4s}
   @keyframes aidot { 0%,80%,100%{opacity:0.2;transform:scale(0.8)} 40%{opacity:1;transform:scale(1)} }
 
-  /* ── MOBILE ── */
+  /*  MOBILE  */
   @media (max-width:768px) {
     nav { padding:0.9rem 1rem; }
     .nav-links { display:none; }
@@ -424,7 +424,15 @@
   </ul>
 
   <!-- DESKTOP CTA -->
-  <a href="index.html#planner" id="nav-cta" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
+  <div style="display:flex;gap:0.5rem;align-items:center;">
+    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">Sign In</a>
+    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+    <a href="login.html" id="nav-login-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">Sign In</a>
+    <a href="dashboard.html" id="nav-dash-btn" style="flex-shrink:0;background:none;border:1.5px solid rgba(201,168,76,0.4);color:var(--deep);text-decoration:none;padding:0.5rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;transition:all 0.2s;display:none;">My Dashboard</a>
+    <a href="index.html#planner" style="flex-shrink:0;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
+  </div>
+  </div>
 
   <!-- HAMBURGER (mobile only) -->
   <button id="hamburger" onclick="toggleMenu()" style="display:none;background:none;border:none;cursor:pointer;padding:0.25rem;flex-direction:column;gap:5px;">
@@ -438,11 +446,11 @@
 <!-- MOBILE MENU DROPDOWN -->
 <div id="mobile-menu" style="display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:rgba(250,246,238,0.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);padding:1rem 1.5rem 1.5rem;flex-direction:column;gap:0;">
   <a href="index.html#categories" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Services</a>
-  <a href="index.html#planner" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">AI Planner ✨</a>
+  <a href="index.html#planner" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">AI Planner </a>
   <a href="index.html#timeline" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Planning Timeline</a>
   <a href="about.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">About Us</a>
-  <a href="rockland.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">📍 Rockland County Venues</a>
-  <a href="index.html#planner" onclick="closeMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.85rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;">✨ Start Planning</a>
+  <a href="rockland.html" onclick="closeMenu()" style="display:block;padding:0.85rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);"> Rockland County Venues</a>
+  <a href="index.html#planner" onclick="closeMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.85rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;"> Start Planning</a>
 </div>
 
 <style>
@@ -504,7 +512,7 @@ document.addEventListener('click', function(e) {
 
 <!-- HERO -->
 <section class="hero">
-  <p class="hero-eyebrow">✦ Your Complete Simcha Guide ✦</p>
+  <p class="hero-eyebrow"> Your Complete Simcha Guide </p>
   <h1>Every Detail.<br><em>One Place.</em></h1>
   <p class="hero-sub">From the first invitation to the last dance, Simcha Map connects you with everything you need to celebrate life's most meaningful moments.</p>
   <div class="hero-btns">
@@ -518,29 +526,29 @@ document.addEventListener('click', function(e) {
 <!-- AI PLANNER -->
 <section class="ai-section" id="planner">
   <div class="ai-inner">
-    <p class="ai-eyebrow">✦ Powered by AI ✦</p>
+    <p class="ai-eyebrow"> Powered by AI </p>
     <h2 class="ai-title">Plan Your <em>Simcha</em><br>in Seconds</h2>
     <p class="ai-sub">Tell us about your simcha and we'll create a personalized planning checklist, timeline, and vendor guide — just for you.</p>
     <div class="ai-box">
       <p style="color:rgba(250,246,238,0.6);font-size:0.8rem;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.1em;">What are you planning?</p>
       <div class="ai-chips">
-        <span class="ai-chip active" onclick="selectChip(this)">🎉 Bar Mitzvah</span>
-        <span class="ai-chip" onclick="selectChip(this)">🎉 Bat Mitzvah</span>
-        <span class="ai-chip" onclick="selectChip(this)">💍 Wedding</span>
-        <span class="ai-chip" onclick="selectChip(this)">🌸 Vort</span>
-        <span class="ai-chip" onclick="selectChip(this)">👶 Bris</span>
-        <span class="ai-chip" onclick="selectChip(this)">🕍 Upsherin</span>
-        <span class="ai-chip" onclick="selectChip(this)">🎊 Sheva Brachos</span>
-        <span class="ai-chip" onclick="selectChip(this)">🎂 Birthday</span>
+        <span class="ai-chip active" onclick="selectChip(this)"> Bar Mitzvah</span>
+        <span class="ai-chip" onclick="selectChip(this)"> Bat Mitzvah</span>
+        <span class="ai-chip" onclick="selectChip(this)"> Wedding</span>
+        <span class="ai-chip" onclick="selectChip(this)"> Vort</span>
+        <span class="ai-chip" onclick="selectChip(this)"> Bris</span>
+        <span class="ai-chip" onclick="selectChip(this)"> Upsherin</span>
+        <span class="ai-chip" onclick="selectChip(this)"> Sheva Brachos</span>
+        <span class="ai-chip" onclick="selectChip(this)"> Birthday</span>
       </div>
       <textarea class="ai-textarea" id="planner-input" placeholder="Tell us more... e.g. Bar mitzvah for 150 guests in Monsey, budget around $20,000, date is in 10 months. We need a hall, caterer, photographer and DJ."></textarea>
-      <button class="ai-btn" id="planner-btn" onclick="runPlanner()">✨ Create My Simcha Plan</button>
+      <button class="ai-btn" id="planner-btn" onclick="runPlanner()"> Create My Simcha Plan</button>
       <div id="ai-loading" style="text-align:center;padding:1.5rem;display:none;">
         <span class="ai-dot"></span><span class="ai-dot"></span><span class="ai-dot"></span>
         <p style="color:rgba(250,246,238,0.5);font-size:0.85rem;margin-top:0.75rem;">Building your personalized plan...</p>
       </div>
       <div class="ai-response" id="ai-response">
-        <h4>✦ Your Personalized Simcha Plan</h4>
+        <h4> Your Personalized Simcha Plan</h4>
         <div class="ai-response-text" id="ai-response-text"></div>
         <button onclick="resetPlanner()" style="margin-top:1.25rem;background:none;border:1px solid rgba(201,168,76,0.4);color:#C9A84C;padding:0.5rem 1.2rem;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.85rem;">↩ Start Over</button>
       </div>
@@ -604,12 +612,12 @@ function resetPlanner() {
   <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:var(--cream);margin-bottom:0.75rem;">Where Is Your <em style="color:var(--gold);font-style:italic;">Simcha?</em></h2>
   <p style="color:rgba(250,246,238,0.5);margin-bottom:2.5rem;font-size:0.95rem;">Select your area to find local vendors and venues</p>
   <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;max-width:900px;margin:0 auto;">
-    <a href="rockland.html" style="background:var(--gold);color:var(--deep);text-decoration:none;padding:1rem 2rem;border-radius:4px;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;transition:all 0.2s;">📍 Rockland County / Monsey</a>
-    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;">📍 Williamsburg <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
-    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;">📍 Boro Park <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
-    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;">📍 Lakewood <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
-    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;">📍 Crown Heights <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
-    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;">📍 Five Towns <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
+    <a href="rockland.html" style="background:var(--gold);color:var(--deep);text-decoration:none;padding:1rem 2rem;border-radius:4px;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;transition:all 0.2s;"> Rockland County / Monsey</a>
+    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;"> Williamsburg <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
+    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;"> Boro Park <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
+    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;"> Lakewood <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
+    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;"> Crown Heights <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
+    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;"> Five Towns <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
   </div>
 </section>
 
@@ -617,18 +625,18 @@ function resetPlanner() {
 <section class="occasions">
   <p class="occasions-label">We cover every occasion</p>
   <div class="occasions-grid">
-    <span class="occasion-pill">🎉 Bar Mitzvah</span>
-    <span class="occasion-pill">🎉 Bat Mitzvah</span>
-    <span class="occasion-pill">💍 Wedding</span>
-    <span class="occasion-pill">👶 Bris</span>
-    <span class="occasion-pill">🌸 Vort / L'chaim</span>
-    <span class="occasion-pill">🎊 Sheva Brachos</span>
-    <span class="occasion-pill">🍼 Baby Naming</span>
-    <span class="occasion-pill">🎓 Graduation Party</span>
-    <span class="occasion-pill">🏡 Shalom Zachor</span>
-    <span class="occasion-pill">🕍 Upsherin</span>
-    <span class="occasion-pill">🎂 Birthday Celebration</span>
-    <span class="occasion-pill">🕯️ Chanukah Party</span>
+    <span class="occasion-pill"> Bar Mitzvah</span>
+    <span class="occasion-pill"> Bat Mitzvah</span>
+    <span class="occasion-pill"> Wedding</span>
+    <span class="occasion-pill"> Bris</span>
+    <span class="occasion-pill"> Vort / L'chaim</span>
+    <span class="occasion-pill"> Sheva Brachos</span>
+    <span class="occasion-pill"> Baby Naming</span>
+    <span class="occasion-pill"> Graduation Party</span>
+    <span class="occasion-pill"> Shalom Zachor</span>
+    <span class="occasion-pill"> Upsherin</span>
+    <span class="occasion-pill"> Birthday Celebration</span>
+    <span class="occasion-pill"> Chanukah Party</span>
   </div>
 </section>
 
@@ -644,7 +652,7 @@ function resetPlanner() {
       <a href="tzetel-maker.html" style="text-decoration:none;">
       <div class="cat-card" style="border:1.5px solid rgba(42,122,90,0.4);position:relative;">
         <span style="position:absolute;top:1rem;right:1rem;background:#2A7A5A;color:white;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:0.05em;">FREE</span>
-        <span class="cat-icon">📜</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Tzetel Maker</div>
         <div class="cat-desc">Create a beautiful Bar Mitzvah tzetel in seconds. 3 styles, instant download.</div>
         <span class="cat-count" style="color:#2A7A5A;font-weight:600;">→ Make Your Tzetel</span>
@@ -653,8 +661,8 @@ function resetPlanner() {
 
       <a href="bar-mitzvah-guide.html" style="text-decoration:none;">
       <div class="cat-card" style="border:1.5px solid rgba(201,168,76,0.5);position:relative;">
-        <span style="position:absolute;top:1rem;right:1rem;background:#2A7A5A;color:white;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:0.05em;">NEW ✓</span>
-        <span class="cat-icon">📖</span>
+        <span style="position:absolute;top:1rem;right:1rem;background:#2A7A5A;color:white;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:0.05em;">NEW </span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Bar Mitzvah Guide</div>
         <div class="cat-desc">Complete step-by-step planning guide with checklists, timeline, budget tips, and Monsey-specific advice.</div>
         <span class="cat-count" style="color:#C9A84C;font-weight:600;">→ Read the Full Guide</span>
@@ -663,99 +671,99 @@ function resetPlanner() {
 
       <a href="rockland.html" style="text-decoration:none;">
       <div class="cat-card" style="border:1.5px solid rgba(201,168,76,0.5); position:relative;">
-        <span style="position:absolute;top:1rem;right:1rem;background:#C9A84C;color:#1A1209;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:0.05em;">LIVE ✓</span>
-        <span class="cat-icon">🏛️</span>
+        <span style="position:absolute;top:1rem;right:1rem;background:#C9A84C;color:#1A1209;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:0.05em;">LIVE </span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Venues & Halls</div>
         <div class="cat-desc">Elegant ballrooms, banquet halls, synagogue spaces, and outdoor venues for every size and style.</div>
         <span class="cat-count" style="color:#C9A84C;font-weight:600;">→ Browse Rockland County</span>
       </div>
       </a>
       <div class="cat-card">
-        <span class="cat-icon">🍽️</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Catering & Food</div>
         <div class="cat-desc">Kosher caterers, sushi stations, dessert tables, candy buffets, and full-service dining.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">📸</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Photography & Video</div>
         <div class="cat-desc">Photographers and videographers specializing in simcha moments, from candid to cinematic.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">🎵</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Music & Entertainment</div>
         <div class="cat-desc">DJs, live bands, hora leaders, kaparot, and entertainment that keeps the simcha going.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">💌</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Invitations & Stationery</div>
         <div class="cat-desc">Custom invitation design, printing, calligraphy, benchers, and seating chart design.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">💐</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Flowers & Décor</div>
         <div class="cat-desc">Floral arrangements, centerpieces, room transformation, balloon art, and themed décor.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">🎁</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Gifts & Favors</div>
         <div class="cat-desc">Kippot, personalized gifts, party favors, gift registries, and Judaica.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">👔</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Clothing & Styling</div>
         <div class="cat-desc">Boys' suits, girls' dresses, tuxedo rental, hair and makeup, and family wardrobe coordination.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">🎨</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Theme & Design</div>
         <div class="cat-desc">Event designers, theme consultants, lighting specialists, and creative directors.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">🚌</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Transportation</div>
         <div class="cat-desc">Shuttle services, limo rentals, party buses, and guest transportation coordination.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">🎪</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Kids' Activities</div>
         <div class="cat-desc">Face painters, magicians, bounce houses, game stations, and child entertainment.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">🕍</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Rabbinical Services</div>
         <div class="cat-desc">Bar/Bat Mitzvah tutors, officiants, cantors, and religious coordination.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">🎂</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Cakes & Desserts</div>
         <div class="cat-desc">Custom kosher cakes, pastry chefs, donut walls, macaron towers, and dessert catering.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">🏨</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Accommodations</div>
         <div class="cat-desc">Hotel blocks, Shabbos-friendly lodging, and out-of-town guest coordination.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">📋</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Event Planning</div>
         <div class="cat-desc">Full-service simcha planners and coordinators who handle every detail for you.</div>
         <span class="cat-count">Coming Soon</span>
       </div>
       <div class="cat-card">
-        <span class="cat-icon">🖨️</span>
+        <span class="cat-icon"></span>
         <div class="cat-name">Printing & Signage</div>
         <div class="cat-desc">Custom banners, photo booths, welcome signs, menus, and printed programs.</div>
         <span class="cat-count">Coming Soon</span>
@@ -825,7 +833,7 @@ function resetPlanner() {
         <div class="tl-time">The Big Day</div>
         <div class="tl-dot"></div>
         <div class="tl-content">
-          <h3>Celebrate! 🎉</h3>
+          <h3>Celebrate! </h3>
           <p>You've planned everything. Now enjoy every moment of this incredible milestone. Mazel Tov!</p>
         </div>
       </div>
@@ -888,5 +896,23 @@ function resetPlanner() {
   <div class="footer-copy">© 2026 SimchaMap. All rights reserved.</div>
 </footer>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function() {
+  var sb = window.supabase.createClient('https://gzbcwzjxycbyzpqhpdgx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M');
+  sb.auth.getSession().then(function(r) {
+    var loginBtn = document.getElementById('nav-login-btn');
+    var dashBtn = document.getElementById('nav-dash-btn');
+    if (r.data.session) {
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (dashBtn) dashBtn.style.display = 'inline-block';
+    } else {
+      if (loginBtn) loginBtn.style.display = 'inline-block';
+      if (dashBtn) dashBtn.style.display = 'none';
+    }
+  });
+})();
+</script>
 </body>
 </html>
