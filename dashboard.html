@@ -14,6 +14,19 @@
 @media(max-width:960px){.layout{grid-template-columns:1fr}.side{display:none}.mobile-tabbar{background:var(--cream);border-bottom:1px solid var(--line);display:flex;gap:.5rem;overflow:auto;padding:.75rem 1rem;position:sticky;top:66px;z-index:20}.mobile-tabbar button{background:#fff;border:1px solid var(--line);border-radius:999px;flex:0 0 auto;padding:.55rem .75rem}.mobile-tabbar button.active{background:var(--deep);color:var(--cream)}.content{padding-top:1rem}.hero{align-items:start;flex-direction:column}.summary-grid{grid-template-columns:1fr}.form-grid,.calendar-layout{grid-template-columns:1fr}.field.wide{grid-column:1}.checklist{grid-template-columns:1fr}.main-nav{display:none}.user-email{display:none}}
 @media(max-width:620px){.topbar{padding:.75rem 1rem}.brand-tag{display:none}.nav-right{gap:.4rem}.hero-actions{flex-direction:column;width:100%}.hero-actions>*{text-align:center;width:100%}.day{min-height:74px;padding:.3rem}.event-chip{font-size:.66rem}.calendar-head{align-items:flex-start;flex-direction:column;gap:.5rem}}
 </style>
+<style>
+@media (min-width: 900px) {
+  body { font-size: 17px; }
+  .nav-pill { font-size: .92rem; }
+  .side h2 { font-size: 1.45rem; }
+  .side p, .tool-head p, .event-item span { font-size: .95rem; }
+  .tool-head h2 { font-size: 1.42rem; }
+  .summary-value { font-size: 2rem; }
+  .data-table th { font-size: .78rem; }
+  .data-table td, .field input, .field select, .field textarea { font-size: .96rem; }
+}
+.upcoming-item{align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:7px;display:grid;gap:.25rem;padding:.75rem}.upcoming-date{color:var(--gold);font-size:.76rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.upcoming-title{font-weight:900}.upcoming-meta{color:var(--muted);font-size:.84rem}
+</style>
 </head>
 <body>
 <nav class="topbar">
@@ -24,6 +37,7 @@
   <div class="main-nav">
     <a class="nav-pill" href="rockland.html">Vendor Directory</a>
     <a class="nav-pill active" href="dashboard.html">My Organizer</a>
+    <a class="nav-pill" href="account.html">My Account</a>
     <a class="nav-pill" href="resources.html">Resource Hub</a>
     <a class="nav-pill" href="vendor-standards.html">Vendor Standards</a>
   </div>
@@ -99,7 +113,8 @@ function renderExpenses(){var body=document.getElementById('expense-body');body.
 function renderVendors(){var body=document.getElementById('vendor-body');body.innerHTML=state.vendors.map((v,i)=>'<tr><td><input value="'+esc(v.name)+'" oninput="updateVendor('+i+',\\'name\\',this)"></td><td><input value="'+esc(v.category)+'" oninput="updateVendor('+i+',\\'category\\',this)"></td><td><select onchange="updateVendor('+i+',\\'status\\',this)">'+['Reached Out','Waiting for Reply','Booked'].map(s=>'<option '+(v.status===s?'selected':'')+'>'+s+'</option>').join('')+'</select><div style="margin-top:.35rem">'+badge(v.status)+'</div></td><td><textarea oninput="updateVendor('+i+',\\'notes\\',this)">'+esc(v.notes)+'</textarea></td><td><button class="delete-btn" onclick="deleteVendor('+i+')">Delete</button></td></tr>').join('')||'<tr><td colspan="5" class="empty">No vendors yet.</td></tr>'}
 function badge(s){var c=s==='Booked'?'booked':s==='Waiting for Reply'?'waiting':'reached';return '<span class="badge '+c+'">'+s+'</span>'}
 function renderCalendar(){var grid=document.getElementById('calendar-grid');var y=viewDate.getFullYear(),m=viewDate.getMonth();document.getElementById('calendar-title').textContent=viewDate.toLocaleString('default',{month:'long',year:'numeric'});var first=new Date(y,m,1).getDay();var days=new Date(y,m+1,0).getDate();var html=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>'<div class="day-name">'+d+'</div>').join('');for(var b=0;b<first;b++)html+='<div class="day"></div>';for(var d=1;d<=days;d++){var ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');var evs=state.events.filter(e=>e.date===ds);html+='<div class="day"><div class="day-num">'+d+'</div>'+evs.slice(0,2).map(e=>'<div class="event-chip">'+esc(e.title)+'</div>').join('')+'</div>'}grid.innerHTML=html;renderEvents()}
-function renderEvents(){var sorted=state.events.map((e,i)=>({...e,i})).sort((a,b)=>(a.date||'').localeCompare(b.date||''));var item=e=>'<div class="event-item"><strong>'+esc(e.title)+'</strong><span>'+esc(e.date)+' - '+esc(e.type)+'</span><p style="color:var(--muted);font-size:.82rem;line-height:1.5;margin-top:.35rem">'+esc(e.notes||'')+'</p><button class="delete-btn" onclick="deleteEvent('+e.i+')">Delete</button></div>';document.getElementById('all-events').innerHTML=sorted.map(item).join('')||'<div class="empty">No calendar items yet.</div>';document.getElementById('upcoming-list').innerHTML=sorted.filter(e=>e.date>=new Date().toISOString().slice(0,10)).slice(0,5).map(item).join('')||'<div class="empty">No upcoming items yet.</div>'}
+function renderEvents(){var today=new Date().toISOString().slice(0,10);var sorted=state.events.map((e,i)=>({...e,i})).sort((a,b)=>(a.date||'').localeCompare(b.date||''));var item=e=>'<div class="event-item"><strong>'+esc(e.title)+'</strong><span>'+esc(e.date)+' - '+esc(e.type)+'</span><p style="color:var(--muted);font-size:.82rem;line-height:1.5;margin-top:.35rem">'+esc(e.notes||'')+'</p><button class="delete-btn" onclick="deleteEvent('+e.i+')">Delete</button></div>';var upcoming=e=>'<div class="upcoming-item"><div class="upcoming-date">'+esc(formatDate(e.date))+'</div><div class="upcoming-title">'+esc(e.title)+'</div><div class="upcoming-meta">'+esc(e.type)+(e.notes?' - '+esc(e.notes):'')+'</div></div>';document.getElementById('all-events').innerHTML=sorted.map(item).join('')||'<div class="empty">No calendar items yet.</div>';document.getElementById('upcoming-list').innerHTML=sorted.filter(e=>e.date>=today).slice(0,6).map(upcoming).join('')||'<div class="empty">No upcoming items yet.</div>'}
+function formatDate(d){if(!d)return '';var parts=d.split('-');return new Date(Number(parts[0]),Number(parts[1])-1,Number(parts[2])).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}
 function renderChecklist(){document.getElementById('checklist-grid').innerHTML=checklistItems.map((t,i)=>'<div class="check '+(state.checks[i]?'done':'')+'"><input type="checkbox" '+(state.checks[i]?'checked':'')+' onchange="state.checks['+i+']=this.checked;save()"><label>'+t+'</label></div>').join('')}
 function renderSummary(){var total=state.expenses.reduce((s,e)=>s+(Number(e.cost)||0),0),paid=state.expenses.reduce((s,e)=>s+(Number(e.paid)||0),0),hall=state.expenses.reduce((s,e)=>s+(e.hall?Math.max((Number(e.cost)||0)-(Number(e.paid)||0),0):0),0),booked=state.vendors.filter(v=>v.status==='Booked').length;document.getElementById('sum-budget').textContent=money(total);document.getElementById('sum-paid').textContent=money(paid);document.getElementById('sum-outstanding').textContent=money(Math.max(total-paid,0));document.getElementById('sum-vendors').textContent=state.vendors.length;document.getElementById('sum-booked').textContent=booked;document.getElementById('sum-hall').textContent=money(hall)}
 function renderAll(){renderSummary();renderExpenses();renderVendors();renderCalendar();renderChecklist()}function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}

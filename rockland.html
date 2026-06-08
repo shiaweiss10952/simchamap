@@ -176,6 +176,27 @@
   .reviews-container { display:none; }
   .rating-loading { font-size:0.75rem; color:#8A7355; animation:pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+  .vendor-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.25rem; }
+  .vendor-card { background:#fff; border:1px solid rgba(201,168,76,0.18); border-radius:8px; padding:1.25rem; box-shadow:0 10px 30px rgba(44,31,10,0.05); }
+  .vendor-card h3 { font-family:'Playfair Display',serif; font-size:1.35rem; color:var(--deep); margin-bottom:0.3rem; }
+  .vendor-meta { color:var(--gold); font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.65rem; }
+  .vendor-card p { color:var(--muted); font-size:0.96rem; line-height:1.65; margin-bottom:0.85rem; }
+  .vendor-actions { display:flex; gap:0.55rem; flex-wrap:wrap; margin-top:0.8rem; }
+  .vendor-actions a, .review-chip { border:1px solid rgba(201,168,76,0.3); border-radius:4px; color:var(--deep); display:inline-block; font-size:0.84rem; font-weight:700; padding:0.48rem 0.65rem; text-decoration:none; }
+  .review-chip { background:var(--gold-pale); color:var(--muted); }
+  .standards-note { background:#fff8e6; border:1px solid rgba(201,168,76,0.45); border-radius:8px; color:#5f4b28; font-size:0.98rem; line-height:1.65; margin-bottom:1.25rem; padding:1rem 1.1rem; }
+  .desktop-readable { font-size:1rem; line-height:1.7; }
+  @media (min-width: 900px) {
+    body { font-size:17px; }
+    .hero-desc, .section-intro p, .list-biz p { font-size:1.06rem; }
+    .section-intro h2 { font-size:2.35rem; }
+    .venue-name { font-size:1.48rem; }
+    .venue-desc, .cat-desc { font-size:0.98rem; }
+    .detail-value, .venue-phone, .venue-more { font-size:0.94rem; }
+    .cat-name { font-size:1.32rem; }
+    .cat-grid { grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); }
+    .tab-btn { font-size:0.98rem; }
+  }
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1305,6 +1326,11 @@ document.addEventListener('click', function(e) {
     <div class="panel" id="panel-catering">
       <div class="section-intro">
         <h2>Catering & <em>Food</em></h2>
+        <div class="standards-note">Only Rockland-area kosher/frum-appropriate food vendors should appear here. Families should confirm current hashgacha, menu, hall rules, and availability directly before booking.</div>
+        <div class="vendor-grid" style="margin:1rem 0 1.5rem;">
+          <article class="vendor-card"><div class="vendor-meta">Catering / Monsey</div><h3>Rockland Kosher Catering</h3><p>Monsey-based kosher catering lead for simchos, brunches, and local events. Confirm current hashgacha and event capacity before booking.</p><div class="vendor-actions"><a href="https://rocklandkoshercatering.com/" target="_blank">Website</a><span class="review-chip">Confirm kashrus</span></div></article>
+          <article class="vendor-card"><div class="vendor-meta">Catering / Airmont</div><h3>Yoffee</h3><p>Rockland County catering lead listed for bris, shul, hall, and home events. Confirm supervision, menu, and availability directly.</p><div class="vendor-actions"><a href="tel:8453563100">Call</a><a href="https://www.gokosher.com/en/s99205" target="_blank">Listing</a><span class="review-chip">Review before booking</span></div></article>
+        </div>
         <p>Glatt kosher caterers serving Rockland County simchos — from full-service weddings to sushi bars and dessert tables.</p>
       </div>
       <div class="cat-grid">
@@ -1320,6 +1346,11 @@ document.addEventListener('click', function(e) {
     <div class="panel" id="panel-photo">
       <div class="section-intro">
         <h2>Photography & <em>Video</em></h2>
+        <div class="standards-note">Photography listings are intentionally held for manual review. A photographer or videographer should not be listed if their public website, gallery, or social media shows immodest photos.</div>
+        <div class="vendor-grid" style="margin:1rem 0 1.5rem;">
+          <article class="vendor-card"><div class="vendor-meta">Manual Review Required</div><h3>Photographers</h3><p>No public photographer names are approved yet. Add only after checking the public gallery and social media for tznius.</p><div class="vendor-actions"><a href="vendor-standards.html">Review Standards</a><span class="review-chip">Do not auto-list</span></div></article>
+          <article class="vendor-card"><div class="vendor-meta">Manual Review Required</div><h3>Videographers</h3><p>Video samples must be reviewed for modest content before any vendor is shown to families.</p><div class="vendor-actions"><a href="vendor-standards.html">Review Standards</a><span class="review-chip">Portfolio check needed</span></div></article>
+        </div>
         <p>Photographers and videographers specializing in simcha moments, with modest public galleries appropriate for frum families.</p>
       </div>
       <div class="cat-grid">
@@ -1335,6 +1366,11 @@ document.addEventListener('click', function(e) {
     <div class="panel" id="panel-music">
       <div class="section-intro">
         <h2>Music & <em>Entertainment</em></h2>
+        <div class="vendor-grid" style="margin:1rem 0 1.5rem;">
+          <article class="vendor-card"><div class="vendor-meta">Music / Monsey Events</div><h3>Mendy Fisch Music</h3><p>One-man band, singer, keyboard, and DJ-style simcha music lead with Monsey event references.</p><div class="vendor-actions"><a href="https://www.mendyfisch.com/" target="_blank">Website</a><a href="tel:9177573950">Call</a><span class="review-chip">Frum simcha focus</span></div></article>
+          <article class="vendor-card"><div class="vendor-meta">Music / Monsey Service Area</div><h3>Bassline Productions</h3><p>Jewish music production serving the frum community, with Monsey listed among performance areas.</p><div class="vendor-actions"><a href="https://basslinepro.com/live-music/" target="_blank">Website</a><span class="review-chip">Service area check</span></div></article>
+          <article class="vendor-card"><div class="vendor-meta">Music / Tri-State</div><h3>Ratzon Orchestra</h3><p>Jewish wedding and simcha orchestra serving the tri-state area. Confirm Rockland availability before booking.</p><div class="vendor-actions"><a href="https://ratzonorchestra.com/" target="_blank">Website</a><span class="review-chip">Availability check</span></div></article>
+        </div>
         <p>DJs, live bands, and entertainers who know how to make a simcha come alive.</p>
       </div>
       <div class="cat-grid">
@@ -1350,6 +1386,12 @@ document.addEventListener('click', function(e) {
     <div class="panel" id="panel-more">
       <div class="section-intro">
         <h2>More <em>Services</em></h2>
+        <div class="standards-note">Clothing, styling, photography-adjacent, and visual vendors are not shown until public photos and promotional materials are reviewed for tznius.</div>
+        <div class="vendor-grid" style="margin:1rem 0 1.5rem;">
+          <article class="vendor-card"><div class="vendor-meta">Clothing / Review Queue</div><h3>Clothing & Styling</h3><p>Do not add gown, dress, sheitel, makeup, or styling vendors until public photos and social pages are reviewed for tznius.</p><div class="vendor-actions"><a href="vendor-standards.html">Review Standards</a><span class="review-chip">Manual approval only</span></div></article>
+          <article class="vendor-card"><div class="vendor-meta">Decor / Review Queue</div><h3>Flowers & Decor</h3><p>Decor vendors can be added after checking event galleries for appropriate presentation and Rockland availability.</p><div class="vendor-actions"><span class="review-chip">Screen first</span></div></article>
+          <article class="vendor-card"><div class="vendor-meta">Other Services</div><h3>Invitations, Favors, Tutors, Transportation</h3><p>These categories are ready for Rockland-area vendors once each listing is checked for community fit and accurate contact details.</p><div class="vendor-actions"><span class="review-chip">Rockland only</span></div></article>
+        </div>
         <p>Everything else you need — from invitations to flowers to transportation.</p>
       </div>
       <div class="cat-grid">
