@@ -3,345 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Dashboard — SimchaMap</title>
+<title>My Organizer - SimchaMap</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root {
-  --gold: #C9A84C; --gold-light: #E8C97A; --gold-pale: #F7EDD4;
-  --deep: #1A1209; --cream: #FAF6EE; --warm: #F2E8D0;
-  --text: #2C1F0A; --muted: #8A7355; --green: #2A7A5A;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:var(--cream); color:var(--text); font-family:'DM Sans',sans-serif; }
-
-nav {
-  position:fixed; top:0; left:0; right:0; z-index:100;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0.85rem 2rem; background:rgba(250,246,238,0.97);
-  backdrop-filter:blur(12px); border-bottom:1px solid rgba(201,168,76,0.2);
-}
-.nav-logo { text-decoration:none; display:flex; align-items:center; gap:0.65rem; }
-.nav-logo-text { font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:900; color:#2C1F0A; }
-.nav-logo-tag { display:block; font-size:0.55rem; font-weight:500; color:#C9A84C; letter-spacing:0.12em; text-transform:uppercase; }
-.nav-right { display:flex; align-items:center; gap:1rem; }
-.nav-user { font-size:0.85rem; color:var(--muted); }
-.signout-btn { background:none; border:1px solid rgba(201,168,76,0.3); color:var(--muted); padding:0.45rem 1rem; border-radius:4px; cursor:pointer; font-size:0.82rem; font-family:'DM Sans',sans-serif; transition:all 0.2s; }
-.signout-btn:hover { border-color:var(--gold); color:var(--gold); }
-
-.main { max-width:1100px; margin:0 auto; padding:6rem 1.5rem 4rem; }
-
-.welcome { margin-bottom:2.5rem; }
-.welcome h1 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:var(--deep); margin-bottom:0.3rem; }
-.welcome h1 em { font-style:italic; color:var(--gold); }
-.welcome p { color:var(--muted); font-size:0.95rem; }
-
-.dashboard-grid { display:grid; grid-template-columns:2fr 1fr; gap:2rem; align-items:start; }
-
-/* CHECKLIST */
-.checklist-card { background:white; border:1px solid rgba(201,168,76,0.2); border-radius:10px; overflow:hidden; }
-.card-header { padding:1.5rem; border-bottom:1px solid var(--warm); display:flex; align-items:center; justify-content:space-between; }
-.card-header h2 { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--deep); }
-.progress-info { font-size:0.82rem; color:var(--muted); }
-.progress-bar-wrap { padding:0 1.5rem 0; background:white; }
-.progress-bar { background:var(--warm); border-radius:100px; height:6px; margin:1rem 0; overflow:hidden; }
-.progress-fill { background:linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius:100px; height:100%; transition:width 0.5s; }
-
-.phase-section { border-bottom:1px solid var(--warm); }
-.phase-title { padding:1rem 1.5rem 0.5rem; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); font-weight:600; display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
-.phase-toggle { font-size:0.8rem; color:var(--muted); }
-.phase-items { padding:0 1.5rem 1rem; }
-.check-item { display:flex; align-items:flex-start; gap:0.85rem; padding:0.65rem 0; border-bottom:1px solid rgba(201,168,76,0.07); cursor:pointer; transition:background 0.15s; }
-.check-item:last-child { border-bottom:none; }
-.check-item:hover { background:rgba(201,168,76,0.03); margin:0 -1.5rem; padding:0.65rem 1.5rem; }
-.checkbox { width:18px; height:18px; border:1.5px solid rgba(201,168,76,0.4); border-radius:3px; flex-shrink:0; margin-top:0.1rem; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
-.check-item.done .checkbox { background:var(--green); border-color:var(--green); }
-.check-item.done .checkbox::after { content:'✓'; color:white; font-size:0.7rem; font-weight:700; }
-.check-item.done .check-label { text-decoration:line-through; color:var(--muted); opacity:0.6; }
-.check-label { font-size:0.875rem; color:var(--text); line-height:1.4; }
-.check-note { font-size:0.75rem; color:var(--muted); margin-top:0.15rem; line-height:1.4; }
-
-/* SIDEBAR */
-.sidebar { display:flex; flex-direction:column; gap:1.5rem; position:sticky; top:85px; }
-.sidebar-card { background:white; border:1px solid rgba(201,168,76,0.2); border-radius:10px; padding:1.5rem; }
-.sidebar-card h3 { font-family:'Playfair Display',serif; font-size:1rem; color:var(--deep); margin-bottom:1rem; }
-.stat-row { display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:1px solid var(--warm); font-size:0.85rem; }
-.stat-row:last-child { border:none; padding-bottom:0; }
-.stat-label { color:var(--muted); }
-.stat-value { font-weight:600; color:var(--deep); }
-.stat-value.gold { color:var(--gold); }
-
-.quick-link { display:flex; align-items:center; gap:0.75rem; padding:0.65rem 0; border-bottom:1px solid var(--warm); text-decoration:none; color:var(--text); font-size:0.875rem; font-weight:500; transition:color 0.2s; }
-.quick-link:last-child { border:none; padding-bottom:0; }
-.quick-link:hover { color:var(--gold); }
-.quick-link-icon { width:28px; height:28px; background:var(--gold-pale); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:0.75rem; color:var(--gold); font-weight:700; flex-shrink:0; }
-
-.upgrade-card { background:var(--deep); border-radius:10px; padding:1.5rem; }
-.upgrade-card h3 { font-family:'Playfair Display',serif; color:var(--cream); font-size:1rem; margin-bottom:0.5rem; }
-.upgrade-card p { color:rgba(250,246,238,0.55); font-size:0.82rem; line-height:1.6; margin-bottom:1.25rem; }
-.upgrade-btn { display:block; background:var(--gold); color:var(--deep); text-decoration:none; padding:0.7rem; text-align:center; border-radius:6px; font-weight:600; font-size:0.85rem; transition:background 0.2s; border:none; cursor:pointer; width:100%; font-family:'DM Sans',sans-serif; }
-.upgrade-btn:hover { background:var(--gold-light); }
-
-.saving-indicator { font-size:0.72rem; color:var(--green); opacity:0; transition:opacity 0.3s; text-align:right; padding:0.25rem 1.5rem 0.5rem; }
-.saving-indicator.show { opacity:1; }
-.status-message { margin:1rem 1.5rem; padding:0.75rem 1rem; border-radius:6px; font-size:0.85rem; line-height:1.5; display:none; }
-.status-message.error { display:block; background:rgba(200,50,50,0.08); border:1px solid rgba(200,50,50,0.2); color:#9b2424; }
-.status-message.success { display:block; background:rgba(42,122,90,0.08); border:1px solid rgba(42,122,90,0.2); color:var(--green); }
-.status-message button { margin-left:0.5rem; background:none; border:none; color:inherit; font:inherit; font-weight:700; text-decoration:underline; cursor:pointer; }
-
-@media (max-width:768px) { .dashboard-grid { grid-template-columns:1fr; } .sidebar { position:static; } }
+:root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-pale:#F7EDD4;--deep:#1A1209;--cream:#FAF6EE;--warm:#F2E8D0;--text:#2C1F0A;--muted:#8A7355;--green:#2A7A5A;--red:#9B2C2C;--line:rgba(201,168,76,.22);--white:#FEFCF7}
+*{box-sizing:border-box;margin:0;padding:0}body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.topbar{align-items:center;background:rgba(250,246,238,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;gap:1rem;justify-content:space-between;left:0;padding:.85rem clamp(1rem,3vw,2rem);position:fixed;right:0;top:0;z-index:50}.brand{align-items:center;display:flex;gap:.65rem;text-decoration:none}.brand-name{font-family:'Playfair Display',serif;font-size:1.22rem;font-weight:900}.brand-tag{color:var(--gold);display:block;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase}.main-nav{align-items:center;display:flex;gap:.4rem}.nav-pill{border-radius:999px;color:var(--muted);font-size:.85rem;font-weight:700;padding:.55rem .9rem;text-decoration:none}.nav-pill.active,.nav-pill:hover{background:var(--gold-pale);color:var(--deep)}.nav-right{align-items:center;display:flex;gap:.75rem}.user-email{color:var(--muted);font-size:.82rem}.ghost-btn{background:#fff;border:1px solid var(--line);border-radius:6px;color:var(--muted);padding:.48rem .8rem}.layout{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh;padding-top:66px}.side{background:#fff;border-right:1px solid var(--line);padding:1.25rem;position:sticky;top:66px;height:calc(100vh - 66px);overflow:auto}.side h2{font-family:'Playfair Display',serif;font-size:1.25rem;margin-bottom:.35rem}.side p{color:var(--muted);font-size:.84rem;line-height:1.55;margin-bottom:1.25rem}.section-tabs{display:flex;flex-direction:column;gap:.45rem}.tab{align-items:center;background:transparent;border:1px solid transparent;border-radius:8px;color:var(--text);display:flex;gap:.7rem;padding:.75rem;text-align:left}.tab span:first-child{align-items:center;background:var(--gold-pale);border-radius:6px;color:var(--gold);display:flex;font-size:.75rem;font-weight:800;height:28px;justify-content:center;min-width:28px}.tab.active{background:var(--deep);color:var(--cream)}.tab.active span:first-child{background:var(--gold);color:var(--deep)}.content{padding:2rem clamp(1rem,3vw,2.5rem) 4rem}.hero{align-items:end;display:flex;gap:1.5rem;justify-content:space-between;margin-bottom:1.6rem}.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);line-height:1.05}.hero h1 em{color:var(--gold);font-style:italic}.hero p{color:var(--muted);line-height:1.6;margin-top:.6rem;max-width:650px}.hero-actions{display:flex;gap:.7rem;white-space:nowrap}.primary-btn,.small-btn{background:var(--gold);border:0;border-radius:6px;color:var(--deep);font-weight:800;padding:.75rem 1rem}.small-btn{font-size:.84rem;padding:.55rem .75rem}.secondary-btn{background:#fff;border:1px solid var(--line);border-radius:6px;color:var(--deep);font-weight:700;padding:.75rem 1rem;text-decoration:none}.summary-grid{display:grid;gap:1rem;grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:1.4rem}.summary-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:1.15rem}.summary-label{color:var(--muted);font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.summary-value{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;margin-top:.35rem}.panel{display:none}.panel.active{display:block}.tool-card{background:#fff;border:1px solid var(--line);border-radius:8px;margin-bottom:1.25rem;overflow:hidden}.tool-head{align-items:center;border-bottom:1px solid var(--line);display:flex;gap:1rem;justify-content:space-between;padding:1rem 1.1rem}.tool-head h2{font-family:'Playfair Display',serif;font-size:1.2rem}.tool-head p{color:var(--muted);font-size:.84rem;margin-top:.2rem}.form-grid{display:grid;gap:.75rem;grid-template-columns:repeat(5,minmax(0,1fr));padding:1rem}.field{display:flex;flex-direction:column;gap:.3rem}.field label{color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase}.field input,.field select,.field textarea{background:var(--white);border:1px solid var(--line);border-radius:6px;color:var(--text);padding:.65rem;width:100%}.field textarea{min-height:82px;resize:vertical}.field.wide{grid-column:span 2}.field.full{grid-column:1/-1}.table-wrap{overflow:auto}.data-table{border-collapse:collapse;width:100%}.data-table th{background:var(--white);color:var(--muted);font-size:.72rem;letter-spacing:.08em;padding:.8rem;text-align:left;text-transform:uppercase;white-space:nowrap}.data-table td{border-top:1px solid rgba(201,168,76,.14);padding:.75rem;vertical-align:top}.data-table input,.data-table select,.data-table textarea{background:#fff;border:1px solid var(--line);border-radius:5px;padding:.55rem;width:100%}.data-table textarea{min-height:62px;resize:vertical}.checkbox-cell{text-align:center}.delete-btn{background:rgba(155,44,44,.08);border:1px solid rgba(155,44,44,.18);border-radius:5px;color:var(--red);font-weight:800;padding:.45rem .6rem}.badge{border-radius:999px;display:inline-block;font-size:.72rem;font-weight:800;padding:.25rem .55rem}.badge.booked{background:rgba(42,122,90,.12);color:var(--green)}.badge.waiting{background:var(--gold-pale);color:#8A641C}.badge.reached{background:#F0E8D9;color:var(--muted)}.calendar-layout{display:grid;gap:1rem;grid-template-columns:minmax(0,1.25fr) 330px;padding:1rem}.calendar{border:1px solid var(--line);border-radius:8px;overflow:hidden}.calendar-head{align-items:center;background:var(--deep);color:var(--cream);display:flex;justify-content:space-between;padding:.9rem}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr)}.day-name{background:var(--gold-pale);color:var(--muted);font-size:.7rem;font-weight:800;padding:.55rem;text-align:center;text-transform:uppercase}.day{background:#fff;border-right:1px solid rgba(201,168,76,.12);border-top:1px solid rgba(201,168,76,.12);min-height:92px;padding:.45rem}.day:nth-child(7n){border-right:0}.day-num{color:var(--muted);font-size:.78rem;font-weight:800}.event-chip{background:var(--gold-pale);border-left:3px solid var(--gold);border-radius:3px;font-size:.72rem;line-height:1.25;margin-top:.35rem;padding:.3rem}.event-list{display:flex;flex-direction:column;gap:.65rem}.event-item{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:.75rem}.event-item strong{display:block}.event-item span{color:var(--muted);font-size:.82rem}.checklist{display:grid;gap:.65rem;grid-template-columns:repeat(2,minmax(0,1fr));padding:1rem}.check{align-items:flex-start;background:var(--white);border:1px solid rgba(201,168,76,.14);border-radius:6px;display:flex;gap:.7rem;padding:.75rem}.check input{margin-top:.2rem}.check.done{opacity:.62}.check.done label{text-decoration:line-through}.save-note{color:var(--green);font-size:.8rem;font-weight:800;opacity:0;transition:.2s}.save-note.show{opacity:1}.empty{color:var(--muted);font-size:.9rem;padding:1rem}.mobile-tabbar{display:none}
+@media(max-width:960px){.layout{grid-template-columns:1fr}.side{display:none}.mobile-tabbar{background:var(--cream);border-bottom:1px solid var(--line);display:flex;gap:.5rem;overflow:auto;padding:.75rem 1rem;position:sticky;top:66px;z-index:20}.mobile-tabbar button{background:#fff;border:1px solid var(--line);border-radius:999px;flex:0 0 auto;padding:.55rem .75rem}.mobile-tabbar button.active{background:var(--deep);color:var(--cream)}.content{padding-top:1rem}.hero{align-items:start;flex-direction:column}.summary-grid{grid-template-columns:1fr}.form-grid,.calendar-layout{grid-template-columns:1fr}.field.wide{grid-column:1}.checklist{grid-template-columns:1fr}.main-nav{display:none}.user-email{display:none}}
+@media(max-width:620px){.topbar{padding:.75rem 1rem}.brand-tag{display:none}.nav-right{gap:.4rem}.hero-actions{flex-direction:column;width:100%}.hero-actions>*{text-align:center;width:100%}.day{min-height:74px;padding:.3rem}.event-chip{font-size:.66rem}.calendar-head{align-items:flex-start;flex-direction:column;gap:.5rem}}
 </style>
 </head>
 <body>
-
-<nav>
-  <a href="index.html" class="nav-logo">
-    <svg width="30" height="36" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg">
-      <path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/>
-      <circle cx="44" cy="34" r="14" fill="#FAF6EE"/>
-      <circle cx="44" cy="34" r="5" fill="#C9A84C"/>
-    </svg>
-    <div><span class="nav-logo-text">SimchaMap</span><span class="nav-logo-tag">Every Detail. One Place.</span></div>
+<nav class="topbar">
+  <a href="index.html" class="brand">
+    <svg width="30" height="36" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg"><path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/><circle cx="44" cy="34" r="14" fill="#FAF6EE"/><circle cx="44" cy="34" r="5" fill="#C9A84C"/></svg>
+    <span><span class="brand-name">SimchaMap</span><span class="brand-tag">Every Detail. One Place.</span></span>
   </a>
-  <div class="nav-right">
-    <span class="nav-user" id="user-email"></span>
-    <button class="signout-btn" onclick="signOut()">Sign Out</button>
+  <div class="main-nav">
+    <a class="nav-pill" href="rockland.html">Vendor Directory</a>
+    <a class="nav-pill active" href="dashboard.html">My Organizer</a>
+    <a class="nav-pill" href="resources.html">Resource Hub</a>
+    <a class="nav-pill" href="vendor-standards.html">Vendor Standards</a>
   </div>
+  <div class="nav-right"><span id="user-email" class="user-email"></span><button class="ghost-btn" onclick="signOut()">Sign Out</button></div>
 </nav>
-
-<div class="main">
-  <div class="welcome">
-    <h1>Good to see you, <em id="user-name">there</em>!</h1>
-    <p>Track your Bar Mitzvah planning progress. Your checklist saves automatically.</p>
-  </div>
-
-  <div class="dashboard-grid">
-    <!-- CHECKLIST -->
-    <div class="checklist-card">
-      <div class="card-header">
-        <h2>Bar Mitzvah Planning Checklist</h2>
-        <span class="progress-info" id="progress-text">0 of 30 complete</span>
-      </div>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
-      </div>
-      <div class="saving-indicator" id="saving-indicator">Saved</div>
-      <div class="status-message" id="checklist-status"></div>
-
-      <div id="checklist-container"></div>
+<div class="layout">
+  <aside class="side">
+    <h2>My Organizer</h2>
+    <p>Track the moving pieces of your simcha from one calm command center.</p>
+    <div class="section-tabs">
+      <button class="tab active" data-panel="overview"><span>O</span>Overview</button>
+      <button class="tab" data-panel="budget"><span>$</span>Budget & Balances</button>
+      <button class="tab" data-panel="crm"><span>C</span>Vendor CRM</button>
+      <button class="tab" data-panel="calendar"><span>D</span>Calendar</button>
+      <button class="tab" data-panel="checklist"><span>L</span>Checklist</button>
     </div>
-
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-      <div class="sidebar-card">
-        <h3>Your Progress</h3>
-        <div class="stat-row"><span class="stat-label">Tasks Complete</span><span class="stat-value gold" id="stat-done">0</span></div>
-        <div class="stat-row"><span class="stat-label">Tasks Remaining</span><span class="stat-value" id="stat-remaining">30</span></div>
-        <div class="stat-row"><span class="stat-label">Completion</span><span class="stat-value" id="stat-pct">0%</span></div>
+  </aside>
+  <main>
+    <div class="mobile-tabbar">
+      <button class="active" data-panel="overview">Overview</button><button data-panel="budget">Budget</button><button data-panel="crm">CRM</button><button data-panel="calendar">Calendar</button><button data-panel="checklist">Checklist</button>
+    </div>
+    <div class="content">
+      <section class="hero">
+        <div><h1>Your <em>Simcha Organizer</em></h1><p>Replace the notebook, loose papers, and scattered texts with one organized place for money, vendors, meetings, due dates, and planning notes.</p></div>
+        <div class="hero-actions"><a class="secondary-btn" href="rockland.html">Vendor Directory</a><a class="secondary-btn" href="resources.html">Resource Hub</a></div>
+      </section>
+      <section class="summary-grid">
+        <div class="summary-card"><div class="summary-label">Total Budget</div><div class="summary-value" id="sum-budget">$0</div></div>
+        <div class="summary-card"><div class="summary-label">Total Paid</div><div class="summary-value" id="sum-paid">$0</div></div>
+        <div class="summary-card"><div class="summary-label">Outstanding</div><div class="summary-value" id="sum-outstanding">$0</div></div>
+      </section>
+      <div id="overview" class="panel active">
+        <div class="tool-card"><div class="tool-head"><div><h2>Planner Snapshot</h2><p>Your next decisions, unpaid balances, and vendor conversations at a glance.</p></div><span class="save-note" id="save-note">Saved locally</span></div><div class="summary-grid" style="padding:1rem;margin:0"><div class="summary-card"><div class="summary-label">Vendors Tracked</div><div class="summary-value" id="sum-vendors">0</div></div><div class="summary-card"><div class="summary-label">Booked Vendors</div><div class="summary-value" id="sum-booked">0</div></div><div class="summary-card"><div class="summary-label">Balance To Bring</div><div class="summary-value" id="sum-hall">$0</div></div></div></div>
+        <div class="tool-card"><div class="tool-head"><div><h2>Upcoming Calendar Items</h2><p>Appointments, meetings, and payment dates.</p></div><button class="small-btn" onclick="showPanel('calendar')">Add Date</button></div><div id="upcoming-list" class="event-list" style="padding:1rem"></div></div>
       </div>
-
-      <div class="sidebar-card">
-        <h3>Quick Links</h3>
-        <a href="rockland.html" class="quick-link"><div class="quick-link-icon">H</div>Browse Halls</a>
-        <a href="bar-mitzvah-guide.html" class="quick-link"><div class="quick-link-icon">G</div>Full Planning Guide</a>
-        <a href="index.html#planner" class="quick-link"><div class="quick-link-icon">AI</div>AI Simcha Planner</a>
-        <a href="index.html#categories" class="quick-link"><div class="quick-link-icon">V</div>All Vendors</a>
+      <div id="budget" class="panel">
+        <div class="tool-card"><div class="tool-head"><div><h2>Financial & Logistics Tracker</h2><p>Track vendor costs, deposits, remaining balances, and what needs to come to the hall.</p></div><button class="small-btn" onclick="addExpense()">Add Row</button></div>
+          <div class="form-grid"><div class="field"><label>Vendor Service</label><input id="expense-service" placeholder="Photographer"></div><div class="field"><label>Total Cost</label><input id="expense-cost" type="number" min="0" placeholder="2500"></div><div class="field"><label>Deposit Paid</label><input id="expense-paid" type="number" min="0" placeholder="500"></div><div class="field"><label>Bring Balance?</label><select id="expense-hall"><option value="yes">Yes</option><option value="no">No</option></select></div><div class="field"><label>&nbsp;</label><button class="primary-btn" onclick="addExpenseFromForm()">Save Expense</button></div></div>
+          <div class="table-wrap"><table class="data-table"><thead><tr><th>Vendor Service</th><th>Total Cost</th><th>Deposit Paid</th><th>Remaining Balance</th><th>Bring balance to the hall</th><th></th></tr></thead><tbody id="expense-body"></tbody></table></div>
+        </div>
       </div>
-
-      <div class="upgrade-card">
-        <h3>Vendor Listings</h3>
-        <p>Are you a vendor? List your business on SimchaMap and reach thousands of families planning their simcha.</p>
-        <button class="upgrade-btn" onclick="alert('Vendor listings coming soon! Email us at hello@simchamap.com to get listed.')">List Your Business</button>
+      <div id="crm" class="panel">
+        <div class="tool-card"><div class="tool-head"><div><h2>Vendor CRM & Communication Log</h2><p>Track every vendor conversation, status, and important message.</p></div><button class="small-btn" onclick="addVendor()">Add Vendor</button></div>
+          <div class="form-grid"><div class="field"><label>Vendor Name</label><input id="vendor-name" placeholder="ABC Photography"></div><div class="field"><label>Category</label><input id="vendor-category" placeholder="Photographer"></div><div class="field"><label>Status</label><select id="vendor-status"><option>Reached Out</option><option>Waiting for Reply</option><option>Booked</option></select></div><div class="field wide"><label>Meeting Notes / Messages</label><textarea id="vendor-notes" placeholder="Discussed package, waiting on contract..."></textarea></div><div class="field"><label>&nbsp;</label><button class="primary-btn" onclick="addVendorFromForm()">Save Vendor</button></div></div>
+          <div class="table-wrap"><table class="data-table"><thead><tr><th>Vendor Name</th><th>Service</th><th>Contact Status</th><th>Meeting Notes / Messages</th><th></th></tr></thead><tbody id="vendor-body"></tbody></table></div>
+        </div>
+      </div>
+      <div id="calendar" class="panel">
+        <div class="tool-card"><div class="tool-head"><div><h2>Calendar</h2><p>Booked vendor appointments, meetings, and payment due dates in one place.</p></div><button class="small-btn" onclick="addEvent()">Add Event</button></div>
+          <div class="calendar-layout"><div class="calendar"><div class="calendar-head"><button class="ghost-btn" onclick="moveMonth(-1)">Prev</button><strong id="calendar-title"></strong><button class="ghost-btn" onclick="moveMonth(1)">Next</button></div><div class="calendar-grid" id="calendar-grid"></div></div><div><div class="form-grid" style="grid-template-columns:1fr;padding:0 0 1rem"><div class="field"><label>Title</label><input id="event-title" placeholder="Meeting with caterer"></div><div class="field"><label>Date</label><input id="event-date" type="date"></div><div class="field"><label>Type</label><select id="event-type"><option>Vendor Appointment</option><option>Payment Due</option><option>Family Meeting</option><option>Reminder</option></select></div><div class="field"><label>Notes</label><textarea id="event-notes" placeholder="Bring contract, menu questions..."></textarea></div><button class="primary-btn" onclick="addEventFromForm()">Save Event</button></div><h3 style="font-family:'Playfair Display',serif;margin-bottom:.75rem">All Calendar Items</h3><div id="all-events" class="event-list"></div></div></div>
+        </div>
+      </div>
+      <div id="checklist" class="panel">
+        <div class="tool-card"><div class="tool-head"><div><h2>Planning Checklist</h2><p>A clean checklist for the basics while the detailed tools handle money, vendors, and dates.</p></div></div><div id="checklist-grid" class="checklist"></div></div>
       </div>
     </div>
-  </div>
+  </main>
 </div>
-
 <script>
-const SUPABASE_URL = 'https://gzbcwzjxycbyzpqhpdgx.supabase.co';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-
-var currentUser = null;
-var checklist = {};
-var saveTimer = null;
-
-const PHASES = [
-  { id: '18mo', label: '18 Months Before', items: [
-    { id: 'date', text: 'Confirm Bar Mitzvah date with Rabbi' },
-    { id: 'hall', text: 'Book your hall / venue' },
-    { id: 'budget', text: 'Set overall budget' },
-    { id: 'guestlist', text: 'Start guest list' },
-    { id: 'tutor', text: 'Find a Bar Mitzvah tutor' },
-  ]},
-  { id: '12mo', label: '12 Months Before', items: [
-    { id: 'photo', text: 'Book photographer & videographer' },
-    { id: 'music', text: 'Book band or DJ' },
-    { id: 'caterer', text: 'Book caterer' },
-    { id: 'theme', text: 'Choose a theme or concept' },
-    { id: 'savedate', text: 'Send save the dates' },
-    { id: 'invites-research', text: 'Research invitation designers' },
-  ]},
-  { id: '9mo', label: '9 Months Before', items: [
-    { id: 'invites', text: 'Order invitations' },
-    { id: 'kippot', text: 'Order kippot and benchers' },
-    { id: 'florist', text: 'Book florist & decor' },
-    { id: 'lighting', text: 'Book lighting & AV' },
-    { id: 'kids-ent', text: 'Book kids entertainment' },
-    { id: 'hotel', text: 'Reserve hotel blocks for guests' },
-  ]},
-  { id: '6mo', label: '6 Months Before', items: [
-    { id: 'suit', text: 'Buy Bar Mitzvah boy suit' },
-    { id: 'outfits', text: 'Plan family outfits' },
-    { id: 'tallis', text: 'Buy tallis and tefillin' },
-    { id: 'hair', text: 'Book hair and makeup' },
-    { id: 'menu', text: 'Finalize menu with caterer' },
-    { id: 'cake', text: 'Order Bar Mitzvah cake' },
-  ]},
-  { id: '3mo', label: '3 Months Before', items: [
-    { id: 'mail-invites', text: 'Mail invitations' },
-    { id: 'transport', text: 'Book transportation' },
-    { id: 'montage', text: 'Start working on montage' },
-    { id: 'candles', text: 'Plan candle lighting ceremony' },
-    { id: 'playlist', text: 'Plan music playlist with DJ/band' },
-    { id: 'speeches', text: 'Write speeches and divrei Torah' },
-  ]},
-  { id: '1mo', label: '1 Month Before', items: [
-    { id: 'rsvps', text: 'Chase outstanding RSVPs' },
-    { id: 'headcount', text: 'Give final headcount to caterer' },
-    { id: 'seating', text: 'Send seating chart to hall' },
-    { id: 'confirm-vendors', text: 'Confirm all vendors' },
-    { id: 'payments', text: 'Prepare vendor payments and tips' },
-  ]},
-];
-
-// Build checklist HTML
-function buildChecklist() {
-  var container = document.getElementById('checklist-container');
-  var html = '';
-  PHASES.forEach(function(phase) {
-    html += '<div class="phase-section">';
-    html += '<div class="phase-title" onclick="togglePhase(\'' + phase.id + '\')">' + phase.label + '<span class="phase-toggle" id="toggle-' + phase.id + '">Hide</span></div>';
-    html += '<div class="phase-items" id="phase-' + phase.id + '">';
-    phase.items.forEach(function(item) {
-      var done = checklist[item.id] ? 'done' : '';
-      html += '<div class="check-item ' + done + '" id="item-' + item.id + '" onclick="toggleItem(\'' + item.id + '\')">';
-      html += '<div class="checkbox"></div>';
-      html += '<div><div class="check-label">' + item.text + '</div></div>';
-      html += '</div>';
-    });
-    html += '</div></div>';
-  });
-  container.innerHTML = html;
-  updateProgress();
-}
-
-function togglePhase(id) {
-  var el = document.getElementById('phase-' + id);
-  var toggle = document.getElementById('toggle-' + id);
-  if (el.style.display === 'none') {
-    el.style.display = 'block';
-    toggle.textContent = 'Hide';
-  } else {
-    el.style.display = 'none';
-    toggle.textContent = 'Show';
-  }
-}
-
-function toggleItem(id) {
-  checklist[id] = !checklist[id];
-  var item = document.getElementById('item-' + id);
-  item.classList.toggle('done', checklist[id]);
-  updateProgress();
-  scheduleSave();
-}
-
-function updateProgress() {
-  var total = 0;
-  var done = 0;
-  PHASES.forEach(function(phase) {
-    phase.items.forEach(function(item) {
-      total++;
-      if (checklist[item.id]) done++;
-    });
-  });
-  var pct = total ? Math.round((done / total) * 100) : 0;
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-text').textContent = done + ' of ' + total + ' complete';
-  document.getElementById('stat-done').textContent = done;
-  document.getElementById('stat-remaining').textContent = total - done;
-  document.getElementById('stat-pct').textContent = pct + '%';
-}
-
-function scheduleSave() {
-  if (saveTimer) clearTimeout(saveTimer);
-  saveTimer = setTimeout(saveChecklist, 1000);
-}
-
-function showChecklistStatus(message, type, retry) {
-  var el = document.getElementById('checklist-status');
-  if (!el) return;
-  el.className = 'status-message' + (type ? ' ' + type : '');
-  el.innerHTML = message ? message + (retry ? ' <button type="button" onclick="' + retry + '">Try again</button>' : '') : '';
-  el.style.display = message ? 'block' : 'none';
-}
-
-async function saveChecklist() {
-  if (!currentUser) return;
-  try {
-    var result = await supabase.from('checklists').upsert({
-      user_id: currentUser.id,
-      data: checklist,
-      updated_at: new Date().toISOString()
-    }, { onConflict: 'user_id' });
-
-    if (result.error) throw result.error;
-    showChecklistStatus('', '');
-    var indicator = document.getElementById('saving-indicator');
-    indicator.classList.add('show');
-    setTimeout(function() { indicator.classList.remove('show'); }, 2000);
-  } catch (error) {
-    showChecklistStatus('Your checklist did not save. This is usually a database policy or connection issue.', 'error', 'saveChecklist()');
-  }
-}
-
-async function loadChecklist() {
-  if (!currentUser) return;
-  try {
-    var result = await supabase.from('checklists').select('data').eq('user_id', currentUser.id).maybeSingle();
-    if (result.error) throw result.error;
-    if (result.data && result.data.data) {
-      checklist = result.data.data;
-    }
-    showChecklistStatus('', '');
-    buildChecklist();
-  } catch (error) {
-    checklist = {};
-    buildChecklist();
-    showChecklistStatus('Could not load your saved checklist. New changes may not save until this is fixed.', 'error', 'loadChecklist()');
-  }
-}
-
-async function signOut() {
-  await supabase.auth.signOut();
-  window.location.href = 'login.html';
-}
-
-// Init
-supabase.auth.getSession().then(function(result) {
-  if (!result.data.session) {
-    window.location.href = 'login.html';
-    return;
-  }
-  currentUser = result.data.session.user;
-  var name = (currentUser.user_metadata && currentUser.user_metadata.full_name) 
-    ? currentUser.user_metadata.full_name.split(' ')[0] 
-    : currentUser.email.split('@')[0];
-  document.getElementById('user-name').textContent = name;
-  document.getElementById('user-email').textContent = currentUser.email;
-  loadChecklist();
-});
+const SUPABASE_URL='https://gzbcwzjxycbyzpqhpdgx.supabase.co';
+const SUPABASE_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M';
+var supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
+var state=JSON.parse(localStorage.getItem('simchamap_organizer')||'null')||{expenses:[{service:'Hall / Venue',cost:0,paid:0,hall:true},{service:'Photographer',cost:0,paid:0,hall:false}],vendors:[{name:'',category:'Photographer',status:'Reached Out',notes:''},{name:'',category:'Caterer',status:'Waiting for Reply',notes:''}],events:[],checks:{}};
+var viewDate=new Date();var checklistItems=['Book hall','Book caterer','Book photographer','Book music','Order invitations','Finalize guest list','Plan seating chart','Prepare vendor payment envelopes','Confirm timeline with hall','Pack balance checks for hall'];
+function money(n){return '$'+(Number(n)||0).toLocaleString()}function persist(){localStorage.setItem('simchamap_organizer',JSON.stringify(state))}function flashSaved(){var n=document.getElementById('save-note');if(n){n.classList.add('show');setTimeout(()=>n.classList.remove('show'),1200)}}function save(){persist();flashSaved();renderAll()}
+function showPanel(id){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('[data-panel]').forEach(b=>b.classList.toggle('active',b.dataset.panel===id))}
+document.querySelectorAll('[data-panel]').forEach(b=>b.addEventListener('click',()=>showPanel(b.dataset.panel)));
+function addExpense(){state.expenses.push({service:'',cost:0,paid:0,hall:false});save()}function addExpenseFromForm(){state.expenses.push({service:val('expense-service')||'New Vendor',cost:num('expense-cost'),paid:num('expense-paid'),hall:val('expense-hall')==='yes'});['expense-service','expense-cost','expense-paid'].forEach(id=>document.getElementById(id).value='');save()}function updateExpense(i,k,v){state.expenses[i][k]=k==='hall'?v.checked:(k==='cost'||k==='paid'?Number(v.value)||0:v.value);persist();flashSaved();renderSummary();var rem=document.getElementById('expense-rem-'+i);if(rem)rem.textContent=money((state.expenses[i].cost||0)-(state.expenses[i].paid||0))}function deleteExpense(i){state.expenses.splice(i,1);save()}
+function addVendor(){state.vendors.push({name:'',category:'',status:'Reached Out',notes:''});save()}function addVendorFromForm(){state.vendors.push({name:val('vendor-name')||'New Vendor',category:val('vendor-category')||'Vendor',status:val('vendor-status'),notes:val('vendor-notes')});['vendor-name','vendor-category','vendor-notes'].forEach(id=>document.getElementById(id).value='');save()}function updateVendor(i,k,v){state.vendors[i][k]=v.value;persist();flashSaved();renderSummary();if(k==='status')renderVendors()}function deleteVendor(i){state.vendors.splice(i,1);save()}
+function addEvent(){state.events.push({title:'New Event',date:new Date().toISOString().slice(0,10),type:'Reminder',notes:''});save()}function addEventFromForm(){if(!val('event-title')||!val('event-date'))return alert('Please add a title and date.');state.events.push({title:val('event-title'),date:val('event-date'),type:val('event-type'),notes:val('event-notes')});['event-title','event-date','event-notes'].forEach(id=>document.getElementById(id).value='');save()}function deleteEvent(i){state.events.splice(i,1);save()}function moveMonth(n){viewDate.setMonth(viewDate.getMonth()+n);renderCalendar()}
+function val(id){return document.getElementById(id).value.trim()}function num(id){return Number(document.getElementById(id).value)||0}
+function renderExpenses(){var body=document.getElementById('expense-body');body.innerHTML=state.expenses.map((e,i)=>'<tr><td><input value="'+esc(e.service)+'" oninput="updateExpense('+i+',\\'service\\',this)"></td><td><input type="number" value="'+(e.cost||0)+'" oninput="updateExpense('+i+',\\'cost\\',this)"></td><td><input type="number" value="'+(e.paid||0)+'" oninput="updateExpense('+i+',\\'paid\\',this)"></td><td><strong id="expense-rem-'+i+'">'+money((e.cost||0)-(e.paid||0))+'</strong></td><td class="checkbox-cell"><input type="checkbox" '+(e.hall?'checked':'')+' onchange="updateExpense('+i+',\\'hall\\',this)"></td><td><button class="delete-btn" onclick="deleteExpense('+i+')">Delete</button></td></tr>').join('')||'<tr><td colspan="6" class="empty">No expenses yet.</td></tr>'}
+function renderVendors(){var body=document.getElementById('vendor-body');body.innerHTML=state.vendors.map((v,i)=>'<tr><td><input value="'+esc(v.name)+'" oninput="updateVendor('+i+',\\'name\\',this)"></td><td><input value="'+esc(v.category)+'" oninput="updateVendor('+i+',\\'category\\',this)"></td><td><select onchange="updateVendor('+i+',\\'status\\',this)">'+['Reached Out','Waiting for Reply','Booked'].map(s=>'<option '+(v.status===s?'selected':'')+'>'+s+'</option>').join('')+'</select><div style="margin-top:.35rem">'+badge(v.status)+'</div></td><td><textarea oninput="updateVendor('+i+',\\'notes\\',this)">'+esc(v.notes)+'</textarea></td><td><button class="delete-btn" onclick="deleteVendor('+i+')">Delete</button></td></tr>').join('')||'<tr><td colspan="5" class="empty">No vendors yet.</td></tr>'}
+function badge(s){var c=s==='Booked'?'booked':s==='Waiting for Reply'?'waiting':'reached';return '<span class="badge '+c+'">'+s+'</span>'}
+function renderCalendar(){var grid=document.getElementById('calendar-grid');var y=viewDate.getFullYear(),m=viewDate.getMonth();document.getElementById('calendar-title').textContent=viewDate.toLocaleString('default',{month:'long',year:'numeric'});var first=new Date(y,m,1).getDay();var days=new Date(y,m+1,0).getDate();var html=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>'<div class="day-name">'+d+'</div>').join('');for(var b=0;b<first;b++)html+='<div class="day"></div>';for(var d=1;d<=days;d++){var ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');var evs=state.events.filter(e=>e.date===ds);html+='<div class="day"><div class="day-num">'+d+'</div>'+evs.slice(0,2).map(e=>'<div class="event-chip">'+esc(e.title)+'</div>').join('')+'</div>'}grid.innerHTML=html;renderEvents()}
+function renderEvents(){var sorted=state.events.map((e,i)=>({...e,i})).sort((a,b)=>(a.date||'').localeCompare(b.date||''));var item=e=>'<div class="event-item"><strong>'+esc(e.title)+'</strong><span>'+esc(e.date)+' - '+esc(e.type)+'</span><p style="color:var(--muted);font-size:.82rem;line-height:1.5;margin-top:.35rem">'+esc(e.notes||'')+'</p><button class="delete-btn" onclick="deleteEvent('+e.i+')">Delete</button></div>';document.getElementById('all-events').innerHTML=sorted.map(item).join('')||'<div class="empty">No calendar items yet.</div>';document.getElementById('upcoming-list').innerHTML=sorted.filter(e=>e.date>=new Date().toISOString().slice(0,10)).slice(0,5).map(item).join('')||'<div class="empty">No upcoming items yet.</div>'}
+function renderChecklist(){document.getElementById('checklist-grid').innerHTML=checklistItems.map((t,i)=>'<div class="check '+(state.checks[i]?'done':'')+'"><input type="checkbox" '+(state.checks[i]?'checked':'')+' onchange="state.checks['+i+']=this.checked;save()"><label>'+t+'</label></div>').join('')}
+function renderSummary(){var total=state.expenses.reduce((s,e)=>s+(Number(e.cost)||0),0),paid=state.expenses.reduce((s,e)=>s+(Number(e.paid)||0),0),hall=state.expenses.reduce((s,e)=>s+(e.hall?Math.max((Number(e.cost)||0)-(Number(e.paid)||0),0):0),0),booked=state.vendors.filter(v=>v.status==='Booked').length;document.getElementById('sum-budget').textContent=money(total);document.getElementById('sum-paid').textContent=money(paid);document.getElementById('sum-outstanding').textContent=money(Math.max(total-paid,0));document.getElementById('sum-vendors').textContent=state.vendors.length;document.getElementById('sum-booked').textContent=booked;document.getElementById('sum-hall').textContent=money(hall)}
+function renderAll(){renderSummary();renderExpenses();renderVendors();renderCalendar();renderChecklist()}function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+async function signOut(){try{await supabaseClient.auth.signOut()}catch(e){}window.location.href='login.html'}
+supabaseClient.auth.getSession().then(function(r){var u=r.data&&r.data.session&&r.data.session.user;if(u){document.getElementById('user-email').textContent=u.email}else{document.getElementById('user-email').textContent='Local organizer'}});renderAll();
 </script>
 </body>
 </html>
