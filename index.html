@@ -472,6 +472,86 @@
   #nav-tagline { display: none !important; }
   #hamburger-btn { display: flex !important; }
 }
+
+/* Final responsive layout guardrails. These override the mixed inline styles above. */
+@media (min-width: 769px) {
+  nav {
+    padding: 0.95rem clamp(1.5rem, 3vw, 3rem) !important;
+  }
+  #nav-desktop-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: clamp(1rem, 2vw, 2rem) !important;
+  }
+  #nav-desktop-btns {
+    display: flex !important;
+    align-items: center !important;
+  }
+  #nav-tagline {
+    display: block !important;
+  }
+  #hamburger-btn,
+  #simcha-mobile-menu {
+    display: none !important;
+  }
+  .hero {
+    min-height: 92vh !important;
+    padding: 8rem 2rem 4rem !important;
+  }
+  .hero h1 {
+    font-size: clamp(4rem, 7vw, 7rem) !important;
+  }
+  .section {
+    padding: 6rem 2rem !important;
+  }
+  .cat-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 1.5rem !important;
+  }
+  .cat-card {
+    padding: 2rem 1.75rem !important;
+  }
+  .cat-desc {
+    display: block !important;
+  }
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+  footer {
+    flex-direction: row !important;
+    text-align: left !important;
+  }
+  .footer-links {
+    justify-content: flex-start !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .cat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  nav {
+    padding: 0.9rem 1rem !important;
+  }
+  #nav-desktop-links,
+  #nav-desktop-btns,
+  #nav-tagline {
+    display: none !important;
+  }
+  #hamburger-btn {
+    display: flex !important;
+  }
+  .hero {
+    min-height: auto !important;
+    padding: 6.5rem 1.2rem 3rem !important;
+  }
+  .cat-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
 </style>
 
 <script>
