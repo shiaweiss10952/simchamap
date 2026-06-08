@@ -85,6 +85,10 @@ nav {
 
 .saving-indicator { font-size:0.72rem; color:var(--green); opacity:0; transition:opacity 0.3s; text-align:right; padding:0.25rem 1.5rem 0.5rem; }
 .saving-indicator.show { opacity:1; }
+.status-message { margin:1rem 1.5rem; padding:0.75rem 1rem; border-radius:6px; font-size:0.85rem; line-height:1.5; display:none; }
+.status-message.error { display:block; background:rgba(200,50,50,0.08); border:1px solid rgba(200,50,50,0.2); color:#9b2424; }
+.status-message.success { display:block; background:rgba(42,122,90,0.08); border:1px solid rgba(42,122,90,0.2); color:var(--green); }
+.status-message button { margin-left:0.5rem; background:none; border:none; color:inherit; font:inherit; font-weight:700; text-decoration:underline; cursor:pointer; }
 
 @media (max-width:768px) { .dashboard-grid { grid-template-columns:1fr; } .sidebar { position:static; } }
 </style>
@@ -123,6 +127,7 @@ nav {
         <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
       </div>
       <div class="saving-indicator" id="saving-indicator">Saved</div>
+      <div class="status-message" id="checklist-status"></div>
 
       <div id="checklist-container"></div>
     </div>
@@ -274,28 +279,48 @@ function scheduleSave() {
   saveTimer = setTimeout(saveChecklist, 1000);
 }
 
+function showChecklistStatus(message, type, retry) {
+  var el = document.getElementById('checklist-status');
+  if (!el) return;
+  el.className = 'status-message' + (type ? ' ' + type : '');
+  el.innerHTML = message ? message + (retry ? ' <button type="button" onclick="' + retry + '">Try again</button>' : '') : '';
+  el.style.display = message ? 'block' : 'none';
+}
+
 async function saveChecklist() {
   if (!currentUser) return;
-  var result = await supabase.from('checklists').upsert({
-    user_id: currentUser.id,
-    data: checklist,
-    updated_at: new Date().toISOString()
-  }, { onConflict: 'user_id' });
-  
-  if (!result.error) {
+  try {
+    var result = await supabase.from('checklists').upsert({
+      user_id: currentUser.id,
+      data: checklist,
+      updated_at: new Date().toISOString()
+    }, { onConflict: 'user_id' });
+
+    if (result.error) throw result.error;
+    showChecklistStatus('', '');
     var indicator = document.getElementById('saving-indicator');
     indicator.classList.add('show');
     setTimeout(function() { indicator.classList.remove('show'); }, 2000);
+  } catch (error) {
+    showChecklistStatus('Your checklist did not save. This is usually a database policy or connection issue.', 'error', 'saveChecklist()');
   }
 }
 
 async function loadChecklist() {
   if (!currentUser) return;
-  var result = await supabase.from('checklists').select('data').eq('user_id', currentUser.id).single();
-  if (result.data && result.data.data) {
-    checklist = result.data.data;
+  try {
+    var result = await supabase.from('checklists').select('data').eq('user_id', currentUser.id).maybeSingle();
+    if (result.error) throw result.error;
+    if (result.data && result.data.data) {
+      checklist = result.data.data;
+    }
+    showChecklistStatus('', '');
+    buildChecklist();
+  } catch (error) {
+    checklist = {};
+    buildChecklist();
+    showChecklistStatus('Could not load your saved checklist. New changes may not save until this is fixed.', 'error', 'loadChecklist()');
   }
-  buildChecklist();
 }
 
 async function signOut() {

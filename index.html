@@ -294,6 +294,28 @@
   }
   .step p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
 
+  /*  PLANNER  */
+  .planner-section { background: #FEFCF7; }
+  .planner-panel {
+    max-width: 760px; margin: 0 auto;
+    background: white; border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 8px; padding: 1.5rem;
+  }
+  .planner-input {
+    width: 100%; min-height: 130px; resize: vertical;
+    border: 1px solid rgba(201,168,76,0.3); border-radius: 6px;
+    padding: 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    line-height: 1.6; color: var(--text); background: var(--cream); outline: none;
+  }
+  .planner-input:focus { border-color: var(--gold); background: white; }
+  .planner-actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; margin-top: 1rem; }
+  .planner-status { font-size: 0.85rem; color: var(--muted); min-height: 1.3rem; }
+  .planner-result {
+    display: none; margin-top: 1.25rem; padding: 1rem;
+    background: var(--gold-pale); border-left: 3px solid var(--gold);
+    border-radius: 4px; color: var(--text); line-height: 1.65; white-space: pre-wrap;
+  }
+
   /*  CTA  */
   .cta-section {
     background: linear-gradient(135deg, var(--deep) 0%, #2C1F0A 100%);
@@ -359,6 +381,8 @@
     .cat-name { font-size:0.9rem; }
     .cat-desc { font-size:0.75rem; display:none; }
     .steps { grid-template-columns:1fr; }
+    .planner-panel { padding:1rem; }
+    .planner-actions { align-items:stretch; flex-direction:column; }
     .timeline::before { left:1.5rem; }
     .tl-item { grid-template-columns:1fr; padding-left:3.5rem; }
     .tl-item:nth-child(even) .tl-content { grid-column:1; }
@@ -749,19 +773,39 @@ document.addEventListener('click', function(e) {
   </div>
 </section>
 
+<!-- PLANNER -->
+<section class="section planner-section" id="planner">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-eyebrow">AI Planner</p>
+      <h2 class="section-title">Get a Quick<br><em>Planning Roadmap</em></h2>
+      <p class="section-desc">Tell us what you are planning and get a practical first-pass checklist.</p>
+    </div>
+    <div class="planner-panel">
+      <textarea id="planner-prompt" class="planner-input" placeholder="Example: I am planning a Bar Mitzvah in Monsey for about 150 guests next winter. I need help with timeline, vendors, and budget priorities."></textarea>
+      <div class="planner-actions">
+        <button class="btn-primary" id="planner-submit" onclick="runPlanner()">Create Plan</button>
+        <span class="planner-status" id="planner-status"></span>
+      </div>
+      <div class="planner-result" id="planner-result"></div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-section" id="contact">
   <h2>Ready to Plan Your<br><em>Perfect Simcha?</em></h2>
   <p>Join our waitlist and be the first to access Simcha Map when we launch.</p>
   <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;">
-    <input type="email" placeholder="Your email address" style="
+    <input type="email" id="waitlist-email" placeholder="Your email address" style="
       padding: 0.9rem 1.5rem; border: 1px solid rgba(201,168,76,0.3);
       background: rgba(255,255,255,0.05); color: white; border-radius: 2px;
       font-family: 'DM Sans', sans-serif; font-size: 1rem; width: 280px;
       outline: none;
     ">
-    <button class="btn-primary">Notify Me</button>
+    <button class="btn-primary" onclick="joinWaitlist()">Notify Me</button>
   </div>
+  <p id="waitlist-status" style="position:relative;margin-top:1rem;font-size:0.9rem;color:rgba(250,246,238,0.75);"></p>
 </section>
 
 <!-- FOOTER -->
@@ -776,7 +820,57 @@ document.addEventListener('click', function(e) {
   <div class="footer-copy">© 2026 SimchaMap. All rights reserved.</div>
 </footer>
 
+<script>
+async function runPlanner() {
+  var prompt = document.getElementById('planner-prompt').value.trim();
+  var status = document.getElementById('planner-status');
+  var result = document.getElementById('planner-result');
+  var button = document.getElementById('planner-submit');
+  if (!prompt) {
+    status.textContent = 'Add a few details first.';
+    result.style.display = 'none';
+    return;
+  }
+  status.textContent = 'Creating your plan...';
+  button.disabled = true;
+  result.style.display = 'none';
+  try {
+    var response = await fetch('/api/planner', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: prompt })
+    });
+    if (!response.ok) throw new Error('Planner API unavailable');
+    var data = await response.json();
+    result.textContent = data.result || 'No plan was returned. Please try again.';
+    result.style.display = 'block';
+    status.textContent = 'Plan ready.';
+  } catch (error) {
+    result.textContent = 'The AI planner is not connected yet. In the meantime, use the timeline above and the Rockland venue directory to start with date, hall, caterer, photographer, music, invitations, and family outfits.';
+    result.style.display = 'block';
+    status.textContent = 'Fallback shown.';
+  } finally {
+    button.disabled = false;
+  }
+}
 
+function joinWaitlist() {
+  var input = document.getElementById('waitlist-email');
+  var status = document.getElementById('waitlist-status');
+  var email = input.value.trim();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    status.textContent = 'Please enter a valid email address.';
+    return;
+  }
+  var signups = JSON.parse(localStorage.getItem('simchamap_waitlist') || '[]');
+  if (signups.indexOf(email) === -1) {
+    signups.push(email);
+    localStorage.setItem('simchamap_waitlist', JSON.stringify(signups));
+  }
+  input.value = '';
+  status.textContent = 'Thanks. You are on the local waitlist.';
+}
+</script>
 
 </body>
 </html>
