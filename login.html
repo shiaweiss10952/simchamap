@@ -190,7 +190,18 @@ async function doSignUp() {
   btn.disabled = true; btn.textContent = 'Creating account...';
   var r = await sb.auth.signUp({ email: email, password: pass, options: { data: { full_name: name } } });
   if (r.error) {
-    showMsg(r.error.message, 'error');
+    // Check if user already exists
+    if (r.error.message.toLowerCase().includes('already') || r.error.status === 400) {
+      showMsg('An account with this email already exists. Please sign in instead.', 'error');
+      setTimeout(function() { showTab('login'); document.getElementById('login-email').value = email; }, 1500);
+    } else {
+      showMsg(r.error.message, 'error');
+    }
+    btn.disabled = false; btn.textContent = 'Create Account';
+  } else if (r.data.user && r.data.user.identities && r.data.user.identities.length === 0) {
+    // User already exists (Supabase returns empty identities for existing users)
+    showMsg('An account with this email already exists. Switching to Sign In...', 'error');
+    setTimeout(function() { showTab('login'); document.getElementById('login-email').value = email; }, 1500);
     btn.disabled = false; btn.textContent = 'Create Account';
   } else if (r.data.user && !r.data.session) {
     showMsg('Account created! Please check your email to confirm, then sign in.', 'success');

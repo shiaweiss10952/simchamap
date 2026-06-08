@@ -342,32 +342,6 @@
   }
 
   
-  /*  AI PLANNER  */
-  .ai-section { padding:5rem 2rem; background:linear-gradient(135deg,#2C1F0A 0%,#3D2B10 100%); position:relative; overflow:hidden; }
-  .ai-section::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(201,168,76,0.07),transparent); }
-  .ai-inner { max-width:800px; margin:0 auto; position:relative; }
-  .ai-eyebrow { font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:#C9A84C; font-weight:500; margin-bottom:0.75rem; text-align:center; }
-  .ai-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.8rem); font-weight:900; color:#FAF6EE; text-align:center; margin-bottom:0.5rem; }
-  .ai-title em { font-style:italic; color:#C9A84C; }
-  .ai-sub { color:rgba(250,246,238,0.55); text-align:center; margin-bottom:2rem; font-size:0.95rem; line-height:1.6; }
-  .ai-box { background:rgba(255,253,248,0.04); border:1px solid rgba(201,168,76,0.25); border-radius:8px; padding:2rem; }
-  .ai-chips { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.25rem; }
-  .ai-chip { background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.25); color:#E8C97A; padding:0.35rem 0.9rem; border-radius:100px; font-size:0.8rem; cursor:pointer; transition:all 0.2s; font-family:'DM Sans',sans-serif; }
-  .ai-chip:hover,.ai-chip.active { background:#C9A84C; color:#1A1209; border-color:#C9A84C; }
-  .ai-textarea { width:100%; background:rgba(255,253,248,0.06); border:1px solid rgba(201,168,76,0.25); border-radius:4px; padding:1rem; color:#FAF6EE; font-family:'DM Sans',sans-serif; font-size:0.95rem; resize:vertical; min-height:100px; outline:none; box-sizing:border-box; }
-  .ai-textarea::placeholder { color:rgba(250,246,238,0.3); }
-  .ai-textarea:focus { border-color:rgba(201,168,76,0.6); }
-  .ai-btn { margin-top:1rem; width:100%; background:#C9A84C; color:#1A1209; border:none; padding:1rem; font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:600; border-radius:4px; cursor:pointer; transition:all 0.2s; }
-  .ai-btn:hover { background:#E8C97A; }
-  .ai-btn:disabled { opacity:0.6; cursor:not-allowed; }
-  .ai-response { margin-top:1.5rem; background:rgba(255,253,248,0.05); border:1px solid rgba(201,168,76,0.2); border-radius:6px; padding:1.5rem; display:none; }
-  .ai-response h4 { font-family:'Playfair Display',serif; color:#C9A84C; margin-bottom:1rem; font-size:1.1rem; }
-  .ai-response-text { color:rgba(250,246,238,0.85); font-size:0.9rem; line-height:1.8; white-space:pre-wrap; }
-  .ai-dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:#C9A84C; margin:0 3px; animation:aidot 1.2s infinite; }
-  .ai-dot:nth-child(2){animation-delay:0.2s} .ai-dot:nth-child(3){animation-delay:0.4s}
-  @keyframes aidot { 0%,80%,100%{opacity:0.2;transform:scale(0.8)} 40%{opacity:1;transform:scale(1)} }
-
-  /*  MOBILE  */
   @media (max-width:768px) {
     nav { padding:0.9rem 1rem; }
     .nav-links { display:none; }
@@ -419,8 +393,7 @@
   <!-- DESKTOP LINKS -->
   <ul id="nav-desktop-links" style="display:flex;gap:2rem;list-style:none;margin:0;padding:0;">
     <li><a href="index.html#categories" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Services</a></li>
-    <li><a href="index.html#planner" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">AI Planner</a></li>
-    <li><a href="index.html#timeline" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Timeline</a></li>
+        <li><a href="index.html#timeline" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Timeline</a></li>
     <li><a href="about.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">About</a></li>
   </ul>
 
@@ -428,7 +401,7 @@
   <div id="nav-desktop-btns" style="display:flex;gap:0.5rem;align-items:center;">
     <a href="login.html" id="nav-login-btn" style="background:none;border:1.5px solid rgba(201,168,76,0.4);color:#2C1F0A;text-decoration:none;padding:0.5rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;">Sign In</a>
     <a href="dashboard.html" id="nav-dash-btn" style="display:none;background:none;border:1.5px solid rgba(201,168,76,0.4);color:#2C1F0A;text-decoration:none;padding:0.5rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;">My Dashboard</a>
-    <a href="index.html#planner" style="background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
+    <a href="index.html#categories" style="background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Start Planning</a>
   </div>
 
   <!-- HAMBURGER -->
@@ -443,13 +416,12 @@
 <!-- MOBILE DROPDOWN -->
 <div id="simcha-mobile-menu" style="display:none;position:fixed;top:62px;left:0;right:0;z-index:999;background:#FAF6EE;border-bottom:2px solid rgba(201,168,76,0.2);padding:0.5rem 1.5rem 1.5rem;flex-direction:column;">
   <a href="index.html#categories" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Services</a>
-  <a href="index.html#planner" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">AI Planner</a>
-  <a href="index.html#timeline" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Timeline</a>
+    <a href="index.html#timeline" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Timeline</a>
   <a href="about.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">About</a>
   <a href="rockland.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Rockland County Venues</a>
   <a href="login.html" id="mobile-login-link" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Sign In</a>
   <a href="dashboard.html" id="mobile-dash-link" onclick="simchaCloseMenu()" style="display:none;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">My Dashboard</a>
-  <a href="index.html#planner" onclick="simchaCloseMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.9rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;">Start Planning</a>
+  <a href="index.html#categories" onclick="simchaCloseMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.9rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;">Start Planning</a>
 </div>
 
 <style>
@@ -515,7 +487,7 @@ document.addEventListener('click', function(e) {
     <button class="btn-secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How It Works</button>
   </div>
   <div style="margin-top:1.5rem;opacity:0;animation:fadeUp 0.8s 1s forwards;">
-    <p style="font-size:0.85rem;color:rgba(44,31,10,0.5);margin-bottom:0.6rem;">Already planning your simcha?</p>
+    <p style="font-size:0.85rem;color:rgba(44,31,10,0.5);margin-bottom:0.6rem;">Already have an account?</p>
     <a href="login.html" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;color:#2C1F0A;font-size:0.9rem;font-weight:600;border-bottom:1.5px solid #C9A84C;padding-bottom:0.1rem;transition:opacity 0.2s;">
       Sign in to track your progress →
     </a>
@@ -523,89 +495,6 @@ document.addEventListener('click', function(e) {
   <div class="hero-divider"></div>
 </section>
 
-
-<!-- AI PLANNER -->
-<section class="ai-section" id="planner">
-  <div class="ai-inner">
-    <p class="ai-eyebrow"> Powered by AI </p>
-    <h2 class="ai-title">Plan Your <em>Simcha</em><br>in Seconds</h2>
-    <p class="ai-sub">Tell us about your simcha and we'll create a personalized planning checklist, timeline, and vendor guide — just for you.</p>
-    <div class="ai-box">
-      <p style="color:rgba(250,246,238,0.6);font-size:0.8rem;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.1em;">What are you planning?</p>
-      <div class="ai-chips">
-        <span class="ai-chip active" onclick="selectChip(this)"> Bar Mitzvah</span>
-        <span class="ai-chip" onclick="selectChip(this)"> Bat Mitzvah</span>
-        <span class="ai-chip" onclick="selectChip(this)"> Wedding</span>
-        <span class="ai-chip" onclick="selectChip(this)"> Vort</span>
-        <span class="ai-chip" onclick="selectChip(this)"> Bris</span>
-        <span class="ai-chip" onclick="selectChip(this)"> Upsherin</span>
-        <span class="ai-chip" onclick="selectChip(this)"> Sheva Brachos</span>
-        <span class="ai-chip" onclick="selectChip(this)"> Birthday</span>
-      </div>
-      <textarea class="ai-textarea" id="planner-input" placeholder="Tell us more... e.g. Bar mitzvah for 150 guests in Monsey, budget around $20,000, date is in 10 months. We need a hall, caterer, photographer and DJ."></textarea>
-      <button class="ai-btn" id="planner-btn" onclick="runPlanner()"> Create My Simcha Plan</button>
-      <div id="ai-loading" style="text-align:center;padding:1.5rem;display:none;">
-        <span class="ai-dot"></span><span class="ai-dot"></span><span class="ai-dot"></span>
-        <p style="color:rgba(250,246,238,0.5);font-size:0.85rem;margin-top:0.75rem;">Building your personalized plan...</p>
-      </div>
-      <div class="ai-response" id="ai-response">
-        <h4> Your Personalized Simcha Plan</h4>
-        <div class="ai-response-text" id="ai-response-text"></div>
-        <button onclick="resetPlanner()" style="margin-top:1.25rem;background:none;border:1px solid rgba(201,168,76,0.4);color:#C9A84C;padding:0.5rem 1.2rem;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.85rem;">↩ Start Over</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-function selectChip(el) {
-  document.querySelectorAll('.ai-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-}
-
-async function runPlanner() {
-  var chip = document.querySelector('.ai-chip.active');
-  var simchaType = chip ? chip.textContent.trim() : 'Simcha';
-  var details = document.getElementById('planner-input').value.trim();
-
-  document.getElementById('planner-btn').disabled = true;
-  document.getElementById('ai-loading').style.display = 'block';
-  document.getElementById('ai-response').style.display = 'none';
-
-  var prompt = 'You are a warm, knowledgeable Jewish simcha planning expert specializing in the Rockland County and Monsey, New York area. A family is planning a ' + simchaType + '. ' +
-    (details ? 'Their details: ' + details + '. ' : '') +
-    'Create a practical, personalized simcha planning guide. Include:\n\n' +
-    '1. TIMELINE — Month-by-month breakdown of what to book and when\n' +
-    '2. COMPLETE CHECKLIST — Every vendor, item, and task they need\n' +
-    '3. MONSEY/ROCKLAND TIPS — Specific advice for the local community\n' +
-    '4. BUDGET TIPS — Smart ways to save money\n\n' +
-    'Be warm, specific, and encouraging. Use Jewish terms naturally (smorgasbord, vort, l\'chaim, benchers, kippot, etc.). Format with clear sections and bullet points.';
-
-  try {
-    var response = await fetch('/api/planner', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt: prompt })
-    });
-    var data = await response.json();
-    var text = data.result || 'Sorry, something went wrong. Please try again.';
-    document.getElementById('ai-response-text').textContent = text;
-    document.getElementById('ai-response').style.display = 'block';
-  } catch(e) {
-    document.getElementById('ai-response-text').textContent = 'Something went wrong. Please try again in a moment.';
-    document.getElementById('ai-response').style.display = 'block';
-  }
-
-  document.getElementById('ai-loading').style.display = 'none';
-  document.getElementById('planner-btn').disabled = false;
-}
-
-function resetPlanner() {
-  document.getElementById('ai-response').style.display = 'none';
-  document.getElementById('planner-input').value = '';
-  document.querySelectorAll('.ai-chip').forEach((c,i) => { c.classList.remove('active'); if(i===0) c.classList.add('active'); });
-}
-</script>
 
 <!-- AREAS -->
 <section style="padding:4rem 2rem; background:#2C1F0A; text-align:center;" id="areas">
