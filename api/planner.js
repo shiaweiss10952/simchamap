@@ -16,11 +16,20 @@ export default async function handler(req, res) {
 
   try {
     const { prompt } = req.body;
+    const cleanPrompt = typeof prompt === 'string' ? prompt.trim() : '';
+
+    if (!cleanPrompt) {
+      return res.status(400).json({ error: 'Prompt is required' });
+    }
+
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return res.status(500).json({ error: 'Planner API key is not configured' });
+    }
 
     const requestBody = JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 1200,
-      messages: [{ role: 'user', content: prompt }]
+      messages: [{ role: 'user', content: cleanPrompt }]
     });
 
     const result = await new Promise((resolve, reject) => {
@@ -37,7 +46,17 @@ export default async function handler(req, res) {
       }, (response) => {
         let data = '';
         response.on('data', chunk => data += chunk);
-        response.on('end', () => resolve(JSON.parse(data)));
+        response.on('end', () => {
+          try {
+            const parsed = JSON.parse(data);
+            if (response.statusCode < 200 || response.statusCode >= 300) {
+              return reject(new Error(parsed.error?.message || 'Planner API request failed'));
+            }
+            resolve(parsed);
+          } catch (error) {
+            reject(new Error('Planner API returned an invalid response'));
+          }
+        });
       });
       request.on('error', reject);
       request.write(requestBody);
