@@ -455,6 +455,23 @@
   #nav-tagline { display: none !important; }
   #hamburger-btn { display: flex !important; }
 }
+
+@media (min-width: 901px) {
+  #nav-desktop-links { display: flex !important; }
+  #nav-desktop-btns { display: flex !important; }
+  #nav-tagline { display: block !important; }
+  #hamburger-btn,
+  #simcha-mobile-menu { display: none !important; }
+  .cat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  #nav-desktop-links { display: none !important; }
+  #nav-desktop-btns { display: none !important; }
+  #nav-tagline { display: none !important; }
+  #hamburger-btn { display: flex !important; }
+}
 </style>
 
 <script>
@@ -810,13 +827,13 @@ document.addEventListener('click', function(e) {
 
 <!-- FOOTER -->
 <footer>
-    <li><a href="privacy.html">Privacy Policy</a></li>
   <div class="footer-logo">Simcha<span>Map</span></div>
   <ul class="footer-links">
     <li><a href="#categories">Services</a></li>
     <li><a href="#timeline">Planning Guide</a></li>
     <li><a href="#how">How It Works</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="privacy.html">Privacy Policy</a></li>
   </ul>
   <div class="footer-copy">© 2026 SimchaMap. All rights reserved.</div>
 </footer>
