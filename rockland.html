@@ -186,6 +186,9 @@
   .review-chip { background:var(--gold-pale); color:var(--muted); }
   .standards-note { background:#fff8e6; border:1px solid rgba(201,168,76,0.45); border-radius:8px; color:#5f4b28; font-size:0.98rem; line-height:1.65; margin-bottom:1.25rem; padding:1rem 1.1rem; }
   .desktop-readable { font-size:1rem; line-height:1.7; }
+  .panel:not(#panel-venues) > .cat-grid { display:none; }
+  .panel:not(#panel-venues) .list-biz { margin-top:1.75rem; }
+  .tab-btn, .btn-gold, .vendor-actions a, .venue-phone, .venue-more { min-height:42px; }
   @media (min-width: 900px) {
     body { font-size:17px; }
     .hero-desc, .section-intro p, .list-biz p { font-size:1.06rem; }
@@ -222,7 +225,7 @@
   <ul id="nav-desktop-links" style="display:flex;gap:2rem;list-style:none;margin:0;padding:0;">
     <li><a href="rockland.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Vendor Directory</a></li>
     <li><a href="dashboard.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">My Organizer</a></li>
-    <li><a href="index.html#planner" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">AI Planner</a></li>
+    <li><a href="account.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">My Account</a></li>
     <li><a href="index.html#timeline" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Timeline</a></li>
     <li><a href="vendor-standards.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Standards</a></li>
     <li><a href="about.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">About</a></li>
@@ -247,14 +250,14 @@
 <!-- MOBILE DROPDOWN -->
 <div id="simcha-mobile-menu" style="display:none;position:fixed;top:62px;left:0;right:0;z-index:999;background:#FAF6EE;border-bottom:2px solid rgba(201,168,76,0.2);padding:0.5rem 1.5rem 1.5rem;flex-direction:column;">
   <a href="index.html#categories" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Services</a>
-  <a href="index.html#planner" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">AI Planner</a>
+  <a href="dashboard.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">My Organizer</a>
   <a href="index.html#timeline" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Timeline</a>
   <a href="about.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">About</a>
   <a href="rockland.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Rockland County Venues</a>
   <a href="vendor-standards.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Vendor Standards</a>
   <a href="login.html" id="mobile-login-link" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Sign In</a>
   <a href="dashboard.html" id="mobile-dash-link" onclick="simchaCloseMenu()" style="display:none;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">My Dashboard</a>
-  <a href="index.html#planner" onclick="simchaCloseMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.9rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;">Start Planning</a>
+  <a href="dashboard.html" onclick="simchaCloseMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.9rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;">Open Organizer</a>
 </div>
 
 <style>
@@ -349,11 +352,11 @@ document.addEventListener('click', function(e) {
   <div class="tabs-inner">
     <p class="tabs-label">Browse by category</p>
     <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('venues', this)">Venues & Halls</button>
-      <button class="tab-btn" onclick="switchTab('catering', this)">Catering</button>
-      <button class="tab-btn" onclick="switchTab('photo', this)">Photography</button>
-      <button class="tab-btn" onclick="switchTab('music', this)">Music & Entertainment</button>
-      <button class="tab-btn" onclick="switchTab('more', this)">More Services</button>
+      <button class="tab-btn active" data-tab="venues" onclick="switchTab('venues', this)">Venues & Halls</button>
+      <button class="tab-btn" data-tab="catering" onclick="switchTab('catering', this)">Catering</button>
+      <button class="tab-btn" data-tab="photo" onclick="switchTab('photo', this)">Photography</button>
+      <button class="tab-btn" data-tab="music" onclick="switchTab('music', this)">Music & Entertainment</button>
+      <button class="tab-btn" data-tab="more" onclick="switchTab('more', this)">More Services</button>
     </div>
   </div>
 </div>
@@ -1333,12 +1336,6 @@ document.addEventListener('click', function(e) {
         </div>
         <p>Glatt kosher caterers serving Rockland County simchos — from full-service weddings to sushi bars and dessert tables.</p>
       </div>
-      <div class="cat-grid">
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Full Service Caterers</div><div class="cat-desc">Complete catering packages for weddings and bar mitzvahs, from cocktail hour through dessert.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Sushi Stations</div><div class="cat-desc">Live sushi chefs and stations to wow your guests during cocktail hour.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Cakes & Desserts</div><div class="cat-desc">Custom kosher cakes, pastry chefs, candy buffets, and dessert catering.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Smorgasbord</div><div class="cat-desc">Elegant smorgasbord stations and appetizer spreads for pre-ceremony receptions.</div><span class="coming-soon">Vendors coming soon</span></div>
-      </div>
       <div class="list-biz"><h3>Are You a <em>Caterer</em>?</h3><p>Only kosher, frum-family appropriate vendors are accepted. Review the standards before applying.</p><a href="vendor-standards.html" class="btn-gold">Review Standards</a></div>
     </div>
 
@@ -1353,12 +1350,6 @@ document.addEventListener('click', function(e) {
         </div>
         <p>Photographers and videographers specializing in simcha moments, with modest public galleries appropriate for frum families.</p>
       </div>
-      <div class="cat-grid">
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Photographers</div><div class="cat-desc">Simcha photographers capturing every moment with artistry and warmth.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Videographers</div><div class="cat-desc">Cinematic wedding and bar mitzvah films you'll watch for generations.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Photo Booths</div><div class="cat-desc">Fun, branded photo booth rentals with instant prints and digital galleries.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Same-Day Edits</div><div class="cat-desc">Highlight reels screened at your event — the crowd goes wild every time.</div><span class="coming-soon">Vendors coming soon</span></div>
-      </div>
       <div class="list-biz"><h3>Are You a <em>Photographer?</em></h3><p>Photographers with immodest public portfolios cannot be listed. Review our standards before applying.</p><a href="vendor-standards.html" class="btn-gold">Review Standards</a></div>
     </div>
 
@@ -1372,12 +1363,6 @@ document.addEventListener('click', function(e) {
           <article class="vendor-card"><div class="vendor-meta">Music / Tri-State</div><h3>Ratzon Orchestra</h3><p>Jewish wedding and simcha orchestra serving the tri-state area. Confirm Rockland availability before booking.</p><div class="vendor-actions"><a href="https://ratzonorchestra.com/" target="_blank">Website</a><span class="review-chip">Availability check</span></div></article>
         </div>
         <p>DJs, live bands, and entertainers who know how to make a simcha come alive.</p>
-      </div>
-      <div class="cat-grid">
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Live Bands</div><div class="cat-desc">Jewish music bands and orchestras for weddings and bar mitzvahs.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">DJs & MCs</div><div class="cat-desc">Experienced simcha DJs who keep the energy up all night long.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Hora Leaders</div><div class="cat-desc">Professional dance leaders who get the whole room dancing.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Kids' Entertainment</div><div class="cat-desc">Magicians, face painters, and activities to keep little guests happy.</div><span class="coming-soon">Vendors coming soon</span></div>
       </div>
       <div class="list-biz"><h3>Are You a <em>Musician or DJ?</em></h3><p>Entertainment vendors must be appropriate for frum simchos and respectful of community standards.</p><a href="vendor-standards.html" class="btn-gold">Review Standards</a></div>
     </div>
@@ -1394,16 +1379,6 @@ document.addEventListener('click', function(e) {
         </div>
         <p>Everything else you need — from invitations to flowers to transportation.</p>
       </div>
-      <div class="cat-grid">
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Invitations & Stationery</div><div class="cat-desc">Custom invitations, benchers, kippot, and seating charts.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Flowers & Décor</div><div class="cat-desc">Floral arrangements, centerpieces, and room transformation.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Clothing & Styling</div><div class="cat-desc">Boys' suits, girls' dresses, hair and makeup styling.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Transportation</div><div class="cat-desc">Shuttle services, limo rentals, and guest transportation.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Gifts & Favors</div><div class="cat-desc">Personalized gifts, party favors, and Judaica.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Bar Mitzvah Tutors</div><div class="cat-desc">Experienced tutors to prepare your son for his big day.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Accommodations</div><div class="cat-desc">Hotels and Shabbos-friendly lodging for out-of-town guests.</div><span class="coming-soon">Vendors coming soon</span></div>
-        <div class="cat-card"><span class="cat-icon"></span><div class="cat-name">Event Planners</div><div class="cat-desc">Full-service simcha planners who handle every detail.</div><span class="coming-soon">Vendors coming soon</span></div>
-      </div>
       <div class="list-biz"><h3>Want to Be <em>Listed?</em></h3><p>SimchaMap accepts only vendors that fit frum community standards, including modest and appropriate public materials.</p><a href="vendor-standards.html" class="btn-gold">Review Standards</a></div>
     </div>
 
@@ -1415,6 +1390,7 @@ document.addEventListener('click', function(e) {
   <ul class="footer-links">
     <li><a href="rockland.html">Vendor Directory</a></li>
     <li><a href="dashboard.html">My Organizer</a></li>
+    <li><a href="account.html">My Account</a></li>
     <li><a href="index.html#timeline">Planning Guide</a></li>
     <li><a href="about.html">About Us</a></li>
     <li><a href="index.html#contact">Contact</a></li>
@@ -1425,13 +1401,23 @@ document.addEventListener('click', function(e) {
 </footer>
 
 <script>
-  function switchTab(name, btn) {
+  function switchTab(name, btn, shouldScroll) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('panel-' + name).classList.add('active');
-    document.querySelector('.panels').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!btn) btn = document.querySelector('.tab-btn[data-tab="' + name + '"]');
+    if (btn) btn.classList.add('active');
+    var panel = document.getElementById('panel-' + name);
+    if (panel) panel.classList.add('active');
+    if (history.replaceState) history.replaceState(null, '', 'rockland.html?tab=' + encodeURIComponent(name));
+    if (shouldScroll !== false) document.querySelector('.panels').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+
+  function openTabFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    var tab = params.get('tab') || (window.location.hash || '').replace('#', '');
+    if (tab && document.getElementById('panel-' + tab)) switchTab(tab, null, false);
+  }
+  document.addEventListener('DOMContentLoaded', openTabFromUrl);
 
   // Get Directions buttons
   document.querySelectorAll('.venue-more').forEach(btn => {

@@ -418,6 +418,7 @@
   <ul id="nav-desktop-links" style="display:flex;gap:2rem;list-style:none;margin:0;padding:0;">
     <li><a href="rockland.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Vendor Directory</a></li>
     <li><a href="dashboard.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">My Organizer</a></li>
+    <li><a href="account.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">My Account</a></li>
         <li><a href="index.html#timeline" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Timeline</a></li>
     <li><a href="resources.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Resources</a></li>
     <li><a href="vendor-standards.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Standards</a></li>
@@ -444,6 +445,7 @@
 <div id="simcha-mobile-menu" style="display:none;position:fixed;top:62px;left:0;right:0;z-index:999;background:#FAF6EE;border-bottom:2px solid rgba(201,168,76,0.2);padding:0.5rem 1.5rem 1.5rem;flex-direction:column;">
   <a href="rockland.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Vendor Directory</a>
   <a href="dashboard.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">My Organizer</a>
+  <a href="account.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">My Account</a>
     <a href="index.html#timeline" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Timeline</a>
   <a href="resources.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Resource Hub</a>
   <a href="vendor-standards.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Vendor Standards</a>
@@ -676,104 +678,104 @@ document.addEventListener('click', function(e) {
       </div>
       </a>
 
-      <a href="rockland.html" style="text-decoration:none;">
+      <a href="rockland.html?tab=venues" style="text-decoration:none;">
       <div class="cat-card" style="border:1.5px solid rgba(201,168,76,0.5); position:relative;">
         
         <span class="cat-icon"></span>
         <div class="cat-name">Venues & Halls</div>
         <div class="cat-desc">Elegant ballrooms, banquet halls, synagogue spaces, and outdoor venues for every size and style.</div>
-        <span class="cat-count" style="color:#C9A84C;font-weight:600;">→ Browse Rockland County</span>
+        <span class="cat-count" style="color:#C9A84C;font-weight:600;">Browse Rockland County</span>
       </div>
       </a>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=catering'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Catering & Food</div>
         <div class="cat-desc">Kosher caterers, sushi stations, dessert tables, candy buffets, and full-service dining.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Browse Rockland</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=photo'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Photography & Video</div>
         <div class="cat-desc">Photographers and videographers specializing in simcha moments, with modest portfolios appropriate for frum families.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Review Queue</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=music'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Music & Entertainment</div>
         <div class="cat-desc">DJs, live bands, hora leaders, kaparot, and entertainment that keeps the simcha going.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Browse Rockland</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Invitations & Stationery</div>
         <div class="cat-desc">Custom invitation design, printing, calligraphy, benchers, and seating chart design.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Review Queue</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Flowers & Décor</div>
         <div class="cat-desc">Floral arrangements, centerpieces, room transformation, balloon art, and themed décor.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Review Queue</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Gifts & Favors</div>
         <div class="cat-desc">Kippot, personalized gifts, party favors, gift registries, and Judaica.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Review Queue</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Clothing & Styling</div>
         <div class="cat-desc">Boys' suits, girls' dresses, tuxedo rental, hair and makeup, and family wardrobe coordination.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Review Queue</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Theme & Design</div>
         <div class="cat-desc">Event designers, theme consultants, lighting specialists, and creative directors.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Review Queue</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Transportation</div>
         <div class="cat-desc">Shuttle services, limo rentals, party buses, and guest transportation coordination.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Review Queue</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=music'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Kids' Activities</div>
         <div class="cat-desc">Face painters, magicians, bounce houses, game stations, and child entertainment.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Review Queue</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Rabbinical Services</div>
         <div class="cat-desc">Bar/Bat Mitzvah tutors, officiants, cantors, and religious coordination.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Review Queue</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=catering'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Cakes & Desserts</div>
         <div class="cat-desc">Custom kosher cakes, pastry chefs, donut walls, macaron towers, and dessert catering.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Browse Rockland</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Accommodations</div>
         <div class="cat-desc">Hotel blocks, Shabbos-friendly lodging, and out-of-town guest coordination.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Review Queue</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Event Planning</div>
         <div class="cat-desc">Full-service simcha planners and coordinators who handle every detail for you.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Review Queue</span>
       </div>
-      <div class="cat-card">
+      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
         <span class="cat-icon"></span>
         <div class="cat-name">Printing & Signage</div>
         <div class="cat-desc">Custom banners, photo booths, welcome signs, menus, and printed programs.</div>
-        <span class="cat-count">Coming Soon</span>
+        <span class="cat-count">Review Queue</span>
       </div>
     </div>
   </div>
@@ -880,14 +882,14 @@ document.addEventListener('click', function(e) {
 <section class="section planner-section" id="planner">
   <div class="section-inner">
     <div class="section-header">
-      <p class="section-eyebrow">AI Planner</p>
-      <h2 class="section-title">Get a Quick<br><em>Planning Roadmap</em></h2>
-      <p class="section-desc">Tell us what you are planning and get a practical first-pass checklist.</p>
+      <p class="section-eyebrow">Organizer Starter</p>
+      <h2 class="section-title">Plan With<br><em>One Clean Dashboard</em></h2>
+      <p class="section-desc">Use My Organizer to track budget, vendors, notes, calendar items, and family tasks.</p>
     </div>
     <div class="planner-panel">
-      <textarea id="planner-prompt" class="planner-input" placeholder="Example: I am planning a Bar Mitzvah in Monsey for about 150 guests next winter. I need help with timeline, vendors, and budget priorities."></textarea>
+      <textarea id="planner-prompt" class="planner-input" placeholder="Jot a quick planning note here, then open the organizer to turn it into budget items, vendor notes, and calendar dates."></textarea>
       <div class="planner-actions">
-        <button class="btn-primary" id="planner-submit" onclick="runPlanner()">Create Plan</button>
+        <button class="btn-primary" id="planner-submit" onclick="window.location.href='dashboard.html'">Open Organizer</button>
         <span class="planner-status" id="planner-status"></span>
       </div>
       <div class="planner-result" id="planner-result"></div>
@@ -950,7 +952,7 @@ async function runPlanner() {
     result.style.display = 'block';
     status.textContent = 'Plan ready.';
   } catch (error) {
-    result.textContent = 'The AI planner is not connected yet. In the meantime, use the timeline above and the Rockland venue directory to start with date, hall, caterer, photographer, music, invitations, and family outfits.';
+    result.innerHTML = 'The AI planner is not connected yet. Use <a href="dashboard.html" style="color:#C9A84C;font-weight:800;">My Organizer</a> to track budget, vendors, calendar items, and checklist details right now.';
     result.style.display = 'block';
     status.textContent = 'Fallback shown.';
   } finally {
@@ -974,6 +976,14 @@ function joinWaitlist() {
   input.value = '';
   status.textContent = 'Thanks. You are on the local waitlist.';
 }
+document.querySelectorAll('.cat-card[role="link"]').forEach(function(card){
+  card.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      card.click();
+    }
+  });
+});
 </script>
 
 </body>
