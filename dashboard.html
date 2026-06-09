@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Organizer - SimchaMap</title>
+  <meta name="description" content="A private Simcha planning organizer for checklist tasks, budget, vendors, calendar, notes, and saved vendors.">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,71 +28,129 @@
     </nav>
   </header>
 
-  <div class="app-layout">
-    <aside class="sidebar">
+  <div class="app-layout organizer-layout">
+    <aside class="sidebar organizer-sidebar">
       <p class="eyebrow">My Organizer</p>
-      <div class="tabs">
+      <h2>Plan the whole simcha.</h2>
+      <p class="sidebar-copy">Checklist, budget, vendors, dates, notes, and saved leads in one private workspace.</p>
+      <div class="sync-card" id="sync-card">
+        <strong id="sync-title">Saved on this device</strong>
+        <span id="sync-detail">Sign in to prepare cloud saving.</span>
+        <a href="login.html" id="sync-login">Sign in</a>
+      </div>
+      <div class="tabs organizer-tabs">
         <button class="tab active" data-panel="overview" onclick="showPanel('overview')">Overview</button>
+        <button class="tab" data-panel="profile" onclick="showPanel('profile')">Event Profile</button>
+        <button class="tab" data-panel="checklist" onclick="showPanel('checklist')">Checklist</button>
         <button class="tab" data-panel="budget" onclick="showPanel('budget')">Budget</button>
         <button class="tab" data-panel="vendors" onclick="showPanel('vendors')">Vendor CRM</button>
         <button class="tab" data-panel="calendar" onclick="showPanel('calendar')">Calendar</button>
-        <button class="tab" data-panel="checklist" onclick="showPanel('checklist')">Checklist</button>
+        <button class="tab" data-panel="notes" onclick="showPanel('notes')">Notes</button>
+        <button class="tab" data-panel="saved" onclick="showPanel('saved')">Saved Vendors</button>
       </div>
     </aside>
 
-    <main class="content">
+    <main class="content organizer-content">
       <section id="overview" class="tab-panel active">
-        <p class="eyebrow">Planning dashboard</p>
-        <h1>Everything in one place.</h1>
-        <p class="lead">Use this dashboard instead of scattered notes: money, vendor conversations, appointments, and tasks all stay together on this device.</p>
+        <div class="organizer-hero">
+          <div>
+            <p class="eyebrow">Planning dashboard</p>
+            <h1 id="overview-title">Your simcha command center.</h1>
+            <p class="lead">A practical replacement for scattered papers, texts, and mental notes. Everything here saves automatically.</p>
+            <div class="actions">
+              <button class="btn sage" onclick="showPanel('checklist')">Open Checklist</button>
+              <button class="btn secondary" onclick="showPanel('budget')">Update Budget</button>
+            </div>
+          </div>
+          <div class="panel panel-pad profile-snapshot">
+            <span class="badge gold" id="snapshot-type">Bar Mitzvah</span>
+            <h3 id="snapshot-name">My Simcha</h3>
+            <p id="snapshot-date">No date set yet</p>
+            <p id="snapshot-location">No location set yet</p>
+          </div>
+        </div>
+
         <div class="summary-grid">
           <div class="summary"><span>Total Budget</span><strong id="sum-budget">$0</strong></div>
           <div class="summary"><span>Paid</span><strong id="sum-paid">$0</strong></div>
           <div class="summary"><span>Outstanding</span><strong id="sum-outstanding">$0</strong></div>
-          <div class="summary"><span>To Hall</span><strong id="sum-hall">$0</strong></div>
+          <div class="summary"><span>Checklist Done</span><strong id="sum-checks">0%</strong></div>
         </div>
+
         <div class="grid two">
           <article class="card">
-            <div class="toolbar"><h3>Upcoming calendar items</h3><button class="btn ghost" onclick="showPanel('calendar')">Add date</button></div>
+            <div class="toolbar"><h3>Next important items</h3><button class="btn ghost" onclick="showPanel('calendar')">Add date</button></div>
             <div id="upcoming-list" class="event-list"></div>
           </article>
           <article class="card">
-            <div class="toolbar"><h3>Vendor progress</h3><button class="btn ghost" onclick="showPanel('vendors')">Update vendors</button></div>
-            <p><strong id="sum-vendors">0</strong> vendors tracked. <strong id="sum-booked">0</strong> booked.</p>
+            <div class="toolbar"><h3>Planning progress</h3><button class="btn ghost" onclick="showPanel('vendors')">Vendor CRM</button></div>
+            <div class="progress-row"><span>Vendors booked</span><strong id="sum-booked">0 / 0</strong></div>
+            <div class="progress-row"><span>Tasks finished</span><strong id="sum-task-count">0 / 0</strong></div>
+            <div class="progress-row"><span>Bring to hall</span><strong id="sum-hall">$0</strong></div>
           </article>
         </div>
       </section>
 
+      <section id="profile" class="tab-panel">
+        <div class="section-head"><div><p class="eyebrow">Event profile</p><h2>The basics</h2><p>This gives the organizer context so the checklist and dashboard match the kind of simcha you are planning.</p></div></div>
+        <div class="panel panel-pad">
+          <div class="form-grid profile-form">
+            <div class="field"><label>Simcha name</label><input id="profile-name" placeholder="Yossi's Bar Mitzvah"></div>
+            <div class="field"><label>Event type</label><select id="profile-type" onchange="updateProfile('type', this.value); renderChecklist();"><option>Bar Mitzvah</option><option>Chasunah</option><option>Vort</option><option>Sheva Brachos</option><option>Upsherin</option><option>Other</option></select></div>
+            <div class="field"><label>Event date</label><input id="profile-date" type="date"></div>
+            <div class="field"><label>Location / hall</label><input id="profile-location" placeholder="Ateres Charna"></div>
+            <div class="field"><label>Estimated guests</label><input id="profile-guests" type="number" min="0" placeholder="250"></div>
+            <div class="field"><label>Budget goal</label><input id="profile-goal" type="number" min="0" placeholder="15000"></div>
+            <div class="field full"><label>Family notes</label><textarea id="profile-notes" placeholder="Preferences, minhagim, people to ask, things not to forget..."></textarea></div>
+          </div>
+          <div class="actions"><button class="btn sage" onclick="saveProfileFromForm()">Save profile</button><button class="btn secondary" onclick="showPanel('checklist')">Open checklist</button></div>
+        </div>
+      </section>
+
+      <section id="checklist" class="tab-panel">
+        <div class="section-head">
+          <div><p class="eyebrow">Master checklist</p><h2 id="checklist-title">Planning tasks</h2><p>Grouped by timing so you can see what matters now and what can wait.</p></div>
+          <button class="btn secondary" onclick="addCustomTask()">Add custom task</button>
+        </div>
+        <div id="checklist-grid" class="stage-grid"></div>
+      </section>
+
       <section id="budget" class="tab-panel">
-        <div class="section-head"><div><p class="eyebrow">Budget</p><h2>Financial tracker</h2><p>Track total cost, deposit paid, remaining balance, and what has to be brought to the hall.</p></div></div>
+        <div class="section-head"><div><p class="eyebrow">Budget</p><h2>Financial tracker</h2><p>Track total cost, deposit paid, remaining balance, due dates, and what has to be brought to the hall.</p></div></div>
         <div class="panel panel-pad">
           <div class="form-grid">
-            <div class="field"><label>Vendor service</label><input id="expense-service" placeholder="Photographer"></div>
+            <div class="field"><label>Vendor service</label><input id="expense-service" placeholder="Photography"></div>
+            <div class="field"><label>Vendor name</label><input id="expense-vendor" placeholder="Vendor name"></div>
             <div class="field"><label>Total cost</label><input id="expense-cost" type="number" min="0" placeholder="2500"></div>
             <div class="field"><label>Deposit paid</label><input id="expense-paid" type="number" min="0" placeholder="500"></div>
+            <div class="field"><label>Payment due</label><input id="expense-due" type="date"></div>
             <div class="field"><label>Bring balance?</label><select id="expense-hall"><option value="yes">Yes</option><option value="no">No</option></select></div>
+            <div class="field full"><label>Notes</label><textarea id="expense-notes" placeholder="Cash/check, who is paying, invoice notes..."></textarea></div>
           </div>
           <div class="actions"><button class="btn sage" onclick="addExpenseFromForm()">Save expense</button><button class="btn secondary" onclick="addExpense()">Add blank row</button></div>
-          <div class="table-wrap"><table><thead><tr><th>Vendor service</th><th>Total</th><th>Paid</th><th>Remaining</th><th>Bring to hall</th><th></th></tr></thead><tbody id="expense-body"></tbody></table></div>
+          <div class="table-wrap"><table><thead><tr><th>Service</th><th>Vendor</th><th>Total</th><th>Paid</th><th>Remaining</th><th>Due</th><th>Hall</th><th></th></tr></thead><tbody id="expense-body"></tbody></table></div>
         </div>
       </section>
 
       <section id="vendors" class="tab-panel">
-        <div class="section-head"><div><p class="eyebrow">Vendor CRM</p><h2>Communication log</h2><p>Track who you contacted, where things stand, and the important notes from each conversation.</p></div></div>
+        <div class="section-head"><div><p class="eyebrow">Vendor CRM</p><h2>Communication log</h2><p>Track who you contacted, next steps, and important notes from calls or meetings.</p></div></div>
         <div class="panel panel-pad">
           <div class="form-grid">
             <div class="field"><label>Vendor name</label><input id="vendor-name" placeholder="Vendor name"></div>
-            <div class="field"><label>Category</label><input id="vendor-category" placeholder="Caterer"></div>
-            <div class="field"><label>Status</label><select id="vendor-status"><option>Reached Out</option><option>Waiting for Reply</option><option>Booked</option></select></div>
-            <div class="field full"><label>Meeting notes / messages</label><textarea id="vendor-notes" placeholder="Package details, questions, next steps..."></textarea></div>
+            <div class="field"><label>Category</label><select id="vendor-category"><option>Hall</option><option>Catering</option><option>Music</option><option>Photography & Video</option><option>Flowers & Decor</option><option>Clothing & Styling</option><option>Invitations</option><option>Other</option></select></div>
+            <div class="field"><label>Status</label><select id="vendor-status"><option>Need to Call</option><option>Reached Out</option><option>Waiting for Reply</option><option>Meeting Scheduled</option><option>Booked</option><option>Deposit Paid</option><option>Confirmed</option><option>Declined</option></select></div>
+            <div class="field"><label>Next follow-up</label><input id="vendor-follow" type="date"></div>
+            <div class="field"><label>Phone</label><input id="vendor-phone" placeholder="845..."></div>
+            <div class="field"><label>Email</label><input id="vendor-email" type="email" placeholder="name@example.com"></div>
+            <div class="field full"><label>Meeting notes / messages</label><textarea id="vendor-notes" placeholder="Package details, questions, quotes, next steps..."></textarea></div>
           </div>
           <div class="actions"><button class="btn sage" onclick="addVendorFromForm()">Save vendor</button><button class="btn secondary" onclick="addVendor()">Add blank row</button></div>
-          <div class="table-wrap"><table><thead><tr><th>Name</th><th>Category</th><th>Status</th><th>Notes</th><th></th></tr></thead><tbody id="vendor-body"></tbody></table></div>
+          <div class="table-wrap"><table><thead><tr><th>Name</th><th>Category</th><th>Status</th><th>Follow-up</th><th>Contact</th><th>Notes</th><th></th></tr></thead><tbody id="vendor-body"></tbody></table></div>
         </div>
       </section>
 
       <section id="calendar" class="tab-panel">
-        <div class="section-head"><div><p class="eyebrow">Calendar</p><h2>Appointments and due dates</h2><p>Keep vendor meetings, payment dates, and family reminders in one calendar.</p></div></div>
+        <div class="section-head"><div><p class="eyebrow">Calendar</p><h2>Appointments and due dates</h2><p>Vendor meetings, fittings, payment dates, reminders, and family planning calls.</p></div></div>
         <div class="calendar-layout">
           <div>
             <div class="calendar-head"><button class="btn ghost" onclick="moveMonth(-1)">Prev</button><strong id="calendar-title"></strong><button class="btn ghost" onclick="moveMonth(1)">Next</button></div>
@@ -100,7 +159,7 @@
           <aside class="panel panel-pad">
             <div class="field"><label>Title</label><input id="event-title" placeholder="Meeting with caterer"></div>
             <div class="field"><label>Date</label><input id="event-date" type="date"></div>
-            <div class="field"><label>Type</label><select id="event-type"><option>Vendor Appointment</option><option>Payment Due</option><option>Family Meeting</option><option>Reminder</option></select></div>
+            <div class="field"><label>Type</label><select id="event-type"><option>Vendor Appointment</option><option>Payment Due</option><option>Family Meeting</option><option>Reminder</option><option>Fitting</option><option>Deadline</option></select></div>
             <div class="field"><label>Notes</label><textarea id="event-notes" placeholder="Bring contract, menu questions..."></textarea></div>
             <div class="actions"><button class="btn sage" onclick="addEventFromForm()">Save event</button></div>
             <h3 style="margin-top:20px">All items</h3>
@@ -109,30 +168,109 @@
         </div>
       </section>
 
-      <section id="checklist" class="tab-panel">
-        <div class="section-head"><div><p class="eyebrow">Checklist</p><h2>Planning tasks</h2><p>Simple local checklist for the main moving pieces.</p></div></div>
-        <div class="checklist" id="checklist-grid"></div>
+      <section id="notes" class="tab-panel">
+        <div class="section-head"><div><p class="eyebrow">Notes</p><h2>Messages, documents, and details</h2><p>Keep contract notes, questions, family preferences, and important messages together.</p></div><button class="btn secondary" onclick="addNote()">Add note</button></div>
+        <div class="notes-grid" id="notes-grid"></div>
+      </section>
+
+      <section id="saved" class="tab-panel">
+        <div class="section-head"><div><p class="eyebrow">Saved vendors</p><h2>Your shortlist</h2><p>Keep interesting vendors here before deciding who belongs in the main CRM.</p></div><button class="btn secondary" onclick="addSavedVendor()">Add saved vendor</button></div>
+        <div class="grid three" id="saved-grid"></div>
       </section>
     </main>
   </div>
 </div>
 
 <script>
-const STORAGE_KEY = 'simchamap_organizer';
-let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || {
-  expenses: [{service:'Hall / Venue', cost:0, paid:0, hall:true}, {service:'Music', cost:0, paid:0, hall:false}],
-  vendors: [{name:'', category:'Hall', status:'Reached Out', notes:''}],
-  events: [],
-  checks: {}
-};
+const SUPABASE_URL = 'https://gzbcwzjxycbyzpqhpdgx.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M';
+const STORAGE_KEY = 'simchamap_organizer_v2';
+const LEGACY_KEY = 'simchamap_organizer';
+const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+let currentUser = null;
+let cloudReady = false;
 let viewDate = new Date();
-const checklistItems = ['Choose date', 'Book hall', 'Confirm caterer', 'Book music', 'Review photographer for tznius', 'Order invitations', 'Track deposits', 'Prepare final hall payments', 'Confirm seating/headcount', 'Pack day-of envelope'];
+let saveTimer = null;
 
-function persist(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-function money(n){ return '$' + (Number(n) || 0).toLocaleString(); }
-function val(id){ return document.getElementById(id).value.trim(); }
-function num(id){ return Number(document.getElementById(id).value) || 0; }
-function esc(s){ return String(s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+const stageTemplates = {
+  'Bar Mitzvah': {
+    'Start Here': ['Choose date', 'Create guest estimate', 'Set budget range', 'Choose neighborhood / hall area', 'List must-have vendors'],
+    'Major Bookings': ['Book hall', 'Confirm caterer and hashgacha', 'Book music', 'Book photographer after tznius review', 'Book invitations / graphics', 'Reserve lodging if needed'],
+    'Clothing & Family': ['Choose bar mitzvah boy clothing', 'Coordinate family outfits', 'Schedule haircuts / grooming', 'Order benchers or favors'],
+    'Torah & Program': ['Confirm baal koreh / tutor', 'Plan speeches', 'Prepare aliyos / kibbudim list', 'Print program if needed'],
+    'Final Week': ['Confirm all vendor arrival times', 'Finalize seating/headcount', 'Prepare payment envelopes', 'Pack day-of bag', 'Confirm transportation']
+  },
+  'Chasunah': {
+    'Start Here': ['Choose date range', 'Set budget range', 'Create family contact list', 'Draft guest estimate', 'Choose hall preferences'],
+    'Major Bookings': ['Book hall', 'Confirm caterer and hashgacha', 'Book music', 'Book photographer after tznius review', 'Book flowers / decor', 'Book makeup / sheitel / styling after review'],
+    'Kallah & Chosson': ['Track gown / clothing appointments', 'Schedule fittings', 'Prepare documents', 'Plan sheva brachos schedule', 'Track apartment / setup needs'],
+    'Invitations & Guests': ['Finalize invitation text', 'Order invitations', 'Track RSVPs', 'Prepare seating plan', 'Prepare family kibbudim list'],
+    'Final Week': ['Confirm vendor arrival times', 'Prepare payment envelopes', 'Confirm yichud room / details', 'Pack emergency bag', 'Confirm transportation']
+  },
+  'Vort': {
+    'Start Here': ['Choose date', 'Choose home / hall', 'Set guest estimate', 'Set budget', 'Choose refreshments'],
+    'Bookings': ['Book photographer after review', 'Order flowers', 'Order dessert / food', 'Confirm setup help'],
+    'Final Details': ['Prepare lchaim table', 'Confirm family arrival times', 'Prepare speech notes', 'Pack checks / payments']
+  },
+  'Sheva Brachos': {
+    'Start Here': ['Choose night', 'Choose host / location', 'Create guest list', 'Set menu plan'],
+    'Logistics': ['Confirm food', 'Arrange music / speaker if needed', 'Plan seating', 'Confirm cleanup help'],
+    'Final Day': ['Confirm time', 'Prepare payments', 'Set up room', 'Send reminders']
+  },
+  'Upsherin': {
+    'Start Here': ['Choose date', 'Choose location', 'Set guest list', 'Set budget'],
+    'Bookings': ['Book photographer after review', 'Order food', 'Plan music / entertainment', 'Order pekelach / favors'],
+    'Final Day': ['Prepare scissors / setup', 'Confirm timing', 'Pack payments', 'Send reminders']
+  },
+  'Other': {
+    'Start Here': ['Choose date', 'Set budget', 'Create guest estimate', 'List vendors needed'],
+    'Bookings': ['Book venue', 'Confirm food', 'Book music', 'Book photo/video after review'],
+    'Final Details': ['Confirm vendors', 'Prepare payments', 'Pack day-of items', 'Send reminders']
+  }
+};
+
+const defaultState = () => ({
+  profile: { name: 'My Simcha', type: 'Bar Mitzvah', date: '', location: '', guests: '', goal: '', notes: '' },
+  customTasks: [],
+  checks: {},
+  expenses: [
+    { service: 'Hall / Venue', vendor: '', cost: 0, paid: 0, due: '', hall: true, notes: '' },
+    { service: 'Music', vendor: '', cost: 0, paid: 0, due: '', hall: false, notes: '' }
+  ],
+  vendors: [
+    { name: '', category: 'Hall', status: 'Need to Call', follow: '', phone: '', email: '', notes: '' }
+  ],
+  events: [],
+  notes: [{ title: 'Questions to ask vendors', text: 'Cancellation policy, overtime cost, arrival time, payment method, and what is included.' }],
+  saved: []
+});
+
+let state = loadInitialState();
+
+function loadInitialState() {
+  const stored = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_KEY);
+  if (!stored) return defaultState();
+  try {
+    const parsed = JSON.parse(stored);
+    return normalizeState(parsed);
+  } catch (e) {
+    return defaultState();
+  }
+}
+
+function normalizeState(data) {
+  const fresh = defaultState();
+  return {
+    profile: Object.assign(fresh.profile, data.profile || {}),
+    customTasks: Array.isArray(data.customTasks) ? data.customTasks : [],
+    checks: data.checks || {},
+    expenses: Array.isArray(data.expenses) ? data.expenses.map(e => Object.assign({ service:'', vendor:'', cost:0, paid:0, due:'', hall:false, notes:'' }, e)) : fresh.expenses,
+    vendors: Array.isArray(data.vendors) ? data.vendors.map(v => Object.assign({ name:'', category:'Other', status:'Need to Call', follow:'', phone:'', email:'', notes:'' }, v)) : fresh.vendors,
+    events: Array.isArray(data.events) ? data.events : [],
+    notes: Array.isArray(data.notes) ? data.notes : fresh.notes,
+    saved: Array.isArray(data.saved) ? data.saved : []
+  };
+}
 
 function showPanel(id){
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === id));
@@ -140,68 +278,196 @@ function showPanel(id){
   if (id === 'calendar') renderCalendar();
 }
 
-function addExpense(){ state.expenses.push({service:'', cost:0, paid:0, hall:false}); save(); }
+function persist(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  if (cloudReady && currentUser) {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveCloud, 700);
+  }
+}
+
+async function initAuth(){
+  if (!sb) return;
+  try {
+    const { data } = await sb.auth.getSession();
+    currentUser = data && data.session ? data.session.user : null;
+    if (!currentUser) {
+      setSync('Saved on this device', 'Sign in to prepare private cloud saving.', false);
+      return;
+    }
+    setSync('Signed in', currentUser.email || 'Private account connected.', true);
+    const { data: row, error } = await sb.from('organizer_data').select('payload, updated_at').eq('user_id', currentUser.id).maybeSingle();
+    if (error) {
+      cloudReady = false;
+      setSync('Signed in - setup needed', 'Run the organizer SQL file to enable cloud sync.', true);
+      return;
+    }
+    cloudReady = true;
+    if (row && row.payload) {
+      state = normalizeState(row.payload);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      renderAll();
+    } else {
+      saveCloud();
+    }
+    setSync('Cloud saving ready', 'Your organizer can save privately to your account.', true);
+  } catch (e) {
+    setSync('Saved on this device', 'Cloud saving is not available yet.', false);
+  }
+}
+
+async function saveCloud(){
+  if (!sb || !currentUser) return;
+  const payload = { user_id: currentUser.id, payload: state, updated_at: new Date().toISOString() };
+  const { error } = await sb.from('organizer_data').upsert(payload, { onConflict: 'user_id' });
+  if (error) setSync('Saved on this device', 'Cloud save needs the SQL setup file.', true);
+}
+
+function setSync(title, detail, signedIn){
+  document.getElementById('sync-title').textContent = title;
+  document.getElementById('sync-detail').textContent = detail;
+  document.getElementById('sync-login').style.display = signedIn ? 'none' : 'inline-flex';
+}
+
+function money(n){ return '$' + Math.max(Number(n) || 0, 0).toLocaleString(); }
+function val(id){ return document.getElementById(id).value.trim(); }
+function num(id){ return Number(document.getElementById(id).value) || 0; }
+function esc(s){ return String(s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function formatDate(d){ if(!d) return 'No date set'; const p=d.split('-'); return new Date(Number(p[0]),Number(p[1])-1,Number(p[2])).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}); }
+
+function updateProfile(key, value){ state.profile[key] = value; save(); }
+function saveProfileFromForm(){
+  state.profile = {
+    name: val('profile-name') || 'My Simcha',
+    type: val('profile-type') || 'Bar Mitzvah',
+    date: val('profile-date'),
+    location: val('profile-location'),
+    guests: val('profile-guests'),
+    goal: val('profile-goal'),
+    notes: val('profile-notes')
+  };
+  save();
+}
+function renderProfile(){
+  const p = state.profile;
+  document.getElementById('overview-title').textContent = p.name ? p.name + ' organizer.' : 'Your simcha command center.';
+  document.getElementById('snapshot-type').textContent = p.type || 'Simcha';
+  document.getElementById('snapshot-name').textContent = p.name || 'My Simcha';
+  document.getElementById('snapshot-date').textContent = p.date ? formatDate(p.date) : 'No date set yet';
+  document.getElementById('snapshot-location').textContent = p.location || 'No location set yet';
+  setField('profile-name', p.name);
+  setField('profile-type', p.type);
+  setField('profile-date', p.date);
+  setField('profile-location', p.location);
+  setField('profile-guests', p.guests);
+  setField('profile-goal', p.goal);
+  setField('profile-notes', p.notes);
+}
+function setField(id, value){ const el = document.getElementById(id); if (el) el.value = value || ''; }
+
+function flatTasks(){
+  const template = stageTemplates[state.profile.type] || stageTemplates.Other;
+  const groups = Object.keys(template).map(stage => ({ stage, tasks: template[stage].map(title => ({ title, id: 'base:' + state.profile.type + ':' + stage + ':' + title })) }));
+  state.customTasks.forEach((task, i) => {
+    const stage = task.stage || 'Custom';
+    let group = groups.find(g => g.stage === stage);
+    if (!group) { group = { stage, tasks: [] }; groups.push(group); }
+    group.tasks.push({ title: task.title, id: 'custom:' + i, customIndex: i });
+  });
+  return groups;
+}
+function addCustomTask(){
+  const title = prompt('What task should be added?');
+  if (!title) return;
+  state.customTasks.push({ title: title.trim(), stage: 'Custom' });
+  save();
+}
+function toggleTask(id, checked){ state.checks[id] = checked; save(); }
+function deleteCustomTask(index){
+  state.customTasks.splice(index, 1);
+  save();
+}
+function renderChecklist(){
+  const type = state.profile.type || 'Bar Mitzvah';
+  document.getElementById('checklist-title').textContent = type + ' checklist';
+  const groups = flatTasks();
+  document.getElementById('checklist-grid').innerHTML = groups.map(group => `
+    <article class="card stage-card">
+      <h3>${esc(group.stage)}</h3>
+      <div class="stage-list">
+        ${group.tasks.map(task => `
+          <label class="check ${state.checks[task.id] ? 'done' : ''}">
+            <input type="checkbox" ${state.checks[task.id] ? 'checked' : ''} onchange="toggleTask('${esc(task.id)}', this.checked)">
+            <span>${esc(task.title)}</span>
+            ${task.customIndex !== undefined ? `<button type="button" class="mini-delete" onclick="deleteCustomTask(${task.customIndex})">Remove</button>` : ''}
+          </label>
+        `).join('')}
+      </div>
+    </article>
+  `).join('');
+}
+
+function addExpense(){ state.expenses.push({service:'', vendor:'', cost:0, paid:0, due:'', hall:false, notes:''}); save(); }
 function addExpenseFromForm(){
-  state.expenses.push({service:val('expense-service') || 'New vendor', cost:num('expense-cost'), paid:num('expense-paid'), hall:val('expense-hall') === 'yes'});
-  ['expense-service','expense-cost','expense-paid'].forEach(id => document.getElementById(id).value = '');
+  state.expenses.push({service:val('expense-service') || 'New expense', vendor:val('expense-vendor'), cost:num('expense-cost'), paid:num('expense-paid'), due:val('expense-due'), hall:val('expense-hall') === 'yes', notes:val('expense-notes')});
+  ['expense-service','expense-vendor','expense-cost','expense-paid','expense-due','expense-notes'].forEach(id => setField(id, ''));
   save();
 }
-function updateExpense(i,k,el){ state.expenses[i][k] = k === 'hall' ? el.checked : (k === 'cost' || k === 'paid' ? Number(el.value) || 0 : el.value); persist(); renderSummary(); renderExpenses(); }
+function updateExpense(i,k,el){ state.expenses[i][k] = k === 'hall' ? el.checked : (k === 'cost' || k === 'paid' ? Number(el.value) || 0 : el.value); save(); }
 function deleteExpense(i){ state.expenses.splice(i,1); save(); }
-
-function addVendor(){ state.vendors.push({name:'', category:'', status:'Reached Out', notes:''}); save(); }
-function addVendorFromForm(){
-  state.vendors.push({name:val('vendor-name') || 'New vendor', category:val('vendor-category') || 'Vendor', status:val('vendor-status'), notes:val('vendor-notes')});
-  ['vendor-name','vendor-category','vendor-notes'].forEach(id => document.getElementById(id).value = '');
-  save();
-}
-function updateVendor(i,k,el){ state.vendors[i][k] = el.value; persist(); renderSummary(); if(k === 'status') renderVendors(); }
-function deleteVendor(i){ state.vendors.splice(i,1); save(); }
-
-function addEventFromForm(){
-  if (!val('event-title') || !val('event-date')) return alert('Please add a title and date.');
-  state.events.push({title:val('event-title'), date:val('event-date'), type:val('event-type'), notes:val('event-notes')});
-  ['event-title','event-date','event-notes'].forEach(id => document.getElementById(id).value = '');
-  save();
-}
-function deleteEvent(i){ state.events.splice(i,1); save(); }
-function moveMonth(n){ viewDate.setMonth(viewDate.getMonth() + n); renderCalendar(); }
-
-function renderSummary(){
-  const total = state.expenses.reduce((s,e)=>s+(Number(e.cost)||0),0);
-  const paid = state.expenses.reduce((s,e)=>s+(Number(e.paid)||0),0);
-  const hall = state.expenses.reduce((s,e)=>s+(e.hall ? Math.max((Number(e.cost)||0)-(Number(e.paid)||0),0) : 0),0);
-  document.getElementById('sum-budget').textContent = money(total);
-  document.getElementById('sum-paid').textContent = money(paid);
-  document.getElementById('sum-outstanding').textContent = money(Math.max(total-paid,0));
-  document.getElementById('sum-hall').textContent = money(hall);
-  document.getElementById('sum-vendors').textContent = state.vendors.length;
-  document.getElementById('sum-booked').textContent = state.vendors.filter(v=>v.status === 'Booked').length;
-}
 function renderExpenses(){
   document.getElementById('expense-body').innerHTML = state.expenses.map((e,i)=>`
     <tr>
       <td><input value="${esc(e.service)}" oninput="updateExpense(${i}, 'service', this)"></td>
-      <td><input type="number" value="${e.cost || 0}" oninput="updateExpense(${i}, 'cost', this)"></td>
-      <td><input type="number" value="${e.paid || 0}" oninput="updateExpense(${i}, 'paid', this)"></td>
-      <td><strong>${money((e.cost || 0) - (e.paid || 0))}</strong></td>
+      <td><input value="${esc(e.vendor)}" oninput="updateExpense(${i}, 'vendor', this)"></td>
+      <td><input type="number" value="${Number(e.cost) || 0}" oninput="updateExpense(${i}, 'cost', this)"></td>
+      <td><input type="number" value="${Number(e.paid) || 0}" oninput="updateExpense(${i}, 'paid', this)"></td>
+      <td><strong>${money((Number(e.cost)||0) - (Number(e.paid)||0))}</strong></td>
+      <td><input type="date" value="${esc(e.due)}" oninput="updateExpense(${i}, 'due', this)"></td>
       <td><input type="checkbox" ${e.hall ? 'checked' : ''} onchange="updateExpense(${i}, 'hall', this)"></td>
       <td><button class="delete" onclick="deleteExpense(${i})">Delete</button></td>
     </tr>
-  `).join('') || '<tr><td colspan="6">No expenses yet.</td></tr>';
+  `).join('') || '<tr><td colspan="8">No expenses yet.</td></tr>';
+}
+
+function addVendor(){ state.vendors.push({name:'', category:'Other', status:'Need to Call', follow:'', phone:'', email:'', notes:''}); save(); }
+function addVendorFromForm(){
+  state.vendors.push({name:val('vendor-name') || 'New vendor', category:val('vendor-category'), status:val('vendor-status'), follow:val('vendor-follow'), phone:val('vendor-phone'), email:val('vendor-email'), notes:val('vendor-notes')});
+  ['vendor-name','vendor-follow','vendor-phone','vendor-email','vendor-notes'].forEach(id => setField(id, ''));
+  save();
+}
+function updateVendor(i,k,el){ state.vendors[i][k] = el.value; save(); }
+function deleteVendor(i){ state.vendors.splice(i,1); save(); }
+function promoteSaved(i){
+  const s = state.saved[i];
+  state.vendors.push({name:s.name, category:s.category || 'Other', status:'Need to Call', follow:'', phone:'', email:'', notes:s.notes || ''});
+  save();
+  showPanel('vendors');
 }
 function renderVendors(){
-  const statuses = ['Reached Out','Waiting for Reply','Booked'];
+  const statuses = ['Need to Call','Reached Out','Waiting for Reply','Meeting Scheduled','Booked','Deposit Paid','Confirmed','Declined'];
+  const cats = ['Hall','Catering','Music','Photography & Video','Flowers & Decor','Clothing & Styling','Invitations','Other'];
   document.getElementById('vendor-body').innerHTML = state.vendors.map((v,i)=>`
     <tr>
       <td><input value="${esc(v.name)}" oninput="updateVendor(${i}, 'name', this)"></td>
-      <td><input value="${esc(v.category)}" oninput="updateVendor(${i}, 'category', this)"></td>
+      <td><select onchange="updateVendor(${i}, 'category', this)">${cats.map(c=>`<option ${v.category===c?'selected':''}>${c}</option>`).join('')}</select></td>
       <td><select onchange="updateVendor(${i}, 'status', this)">${statuses.map(s=>`<option ${v.status===s?'selected':''}>${s}</option>`).join('')}</select></td>
+      <td><input type="date" value="${esc(v.follow)}" oninput="updateVendor(${i}, 'follow', this)"></td>
+      <td><input value="${esc(v.phone || v.email || '')}" oninput="updateVendor(${i}, 'phone', this)"></td>
       <td><textarea oninput="updateVendor(${i}, 'notes', this)">${esc(v.notes)}</textarea></td>
       <td><button class="delete" onclick="deleteVendor(${i})">Delete</button></td>
     </tr>
-  `).join('') || '<tr><td colspan="5">No vendors yet.</td></tr>';
+  `).join('') || '<tr><td colspan="7">No vendors yet.</td></tr>';
 }
+
+function addEventFromForm(){
+  if (!val('event-title') || !val('event-date')) return alert('Please add a title and date.');
+  state.events.push({title:val('event-title'), date:val('event-date'), type:val('event-type'), notes:val('event-notes')});
+  ['event-title','event-date','event-notes'].forEach(id => setField(id, ''));
+  save();
+}
+function deleteEvent(i){ state.events.splice(i,1); save(); }
+function moveMonth(n){ viewDate.setMonth(viewDate.getMonth() + n); renderCalendar(); }
 function renderCalendar(){
   const grid = document.getElementById('calendar-grid');
   const y = viewDate.getFullYear(), m = viewDate.getMonth();
@@ -220,21 +486,79 @@ function renderCalendar(){
 function renderEvents(){
   const today = new Date().toISOString().slice(0,10);
   const sorted = state.events.map((e,i)=>({...e,i})).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
-  const item = e => '<div class="event-item"><strong>'+esc(e.title)+'</strong><span>'+esc(e.date)+' - '+esc(e.type)+'</span><p>'+esc(e.notes||'')+'</p><button class="delete" onclick="deleteEvent('+e.i+')">Delete</button></div>';
+  const item = e => '<div class="event-item"><strong>'+esc(e.title)+'</strong><span>'+esc(formatDate(e.date))+' - '+esc(e.type)+'</span><p>'+esc(e.notes||'')+'</p><button class="delete" onclick="deleteEvent('+e.i+')">Delete</button></div>';
   const upcoming = e => '<div class="event-item"><strong>'+esc(e.title)+'</strong><span>'+esc(formatDate(e.date))+' - '+esc(e.type)+'</span></div>';
   document.getElementById('all-events').innerHTML = sorted.map(item).join('') || '<p>No calendar items yet.</p>';
   document.getElementById('upcoming-list').innerHTML = sorted.filter(e=>e.date>=today).slice(0,5).map(upcoming).join('') || '<p>No upcoming items yet.</p>';
 }
-function renderChecklist(){
-  document.getElementById('checklist-grid').innerHTML = checklistItems.map((t,i)=>'<label class="check '+(state.checks[i]?'done':'')+'"><input type="checkbox" '+(state.checks[i]?'checked':'')+' onchange="state.checks['+i+']=this.checked;save()"><span>'+esc(t)+'</span></label>').join('');
+
+function addNote(){ state.notes.unshift({title:'New note', text:''}); save(); }
+function updateNote(i,k,el){ state.notes[i][k] = el.value; save(); }
+function deleteNote(i){ state.notes.splice(i,1); save(); }
+function renderNotes(){
+  document.getElementById('notes-grid').innerHTML = state.notes.map((note,i)=>`
+    <article class="card note-card">
+      <input value="${esc(note.title)}" oninput="updateNote(${i}, 'title', this)">
+      <textarea oninput="updateNote(${i}, 'text', this)">${esc(note.text)}</textarea>
+      <button class="delete" onclick="deleteNote(${i})">Delete</button>
+    </article>
+  `).join('') || '<p>No notes yet.</p>';
 }
-function formatDate(d){ if(!d) return ''; const p=d.split('-'); return new Date(Number(p[0]),Number(p[1])-1,Number(p[2])).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}); }
+
+function addSavedVendor(){
+  const name = prompt('Vendor name to save?');
+  if (!name) return;
+  state.saved.unshift({ name:name.trim(), category:'Other', notes:'' });
+  save();
+}
+function updateSaved(i,k,el){ state.saved[i][k] = el.value; save(); }
+function deleteSaved(i){ state.saved.splice(i,1); save(); }
+function renderSaved(){
+  const cats = ['Hall','Catering','Music','Photography & Video','Flowers & Decor','Clothing & Styling','Invitations','Other'];
+  document.getElementById('saved-grid').innerHTML = state.saved.map((s,i)=>`
+    <article class="card vendor-card">
+      <input value="${esc(s.name)}" oninput="updateSaved(${i}, 'name', this)">
+      <select onchange="updateSaved(${i}, 'category', this)">${cats.map(c=>`<option ${s.category===c?'selected':''}>${c}</option>`).join('')}</select>
+      <textarea placeholder="Why you saved this vendor..." oninput="updateSaved(${i}, 'notes', this)">${esc(s.notes)}</textarea>
+      <div class="vendor-actions"><button class="small-link" onclick="promoteSaved(${i})">Move to CRM</button><button class="delete" onclick="deleteSaved(${i})">Delete</button></div>
+    </article>
+  `).join('') || '<p>No saved vendors yet. Add vendors you want to compare before booking.</p>';
+}
+
+function renderSummary(){
+  const total = state.expenses.reduce((s,e)=>s+(Number(e.cost)||0),0);
+  const paid = state.expenses.reduce((s,e)=>s+(Number(e.paid)||0),0);
+  const hall = state.expenses.reduce((s,e)=>s+(e.hall ? Math.max((Number(e.cost)||0)-(Number(e.paid)||0),0) : 0),0);
+  const groups = flatTasks();
+  const tasks = groups.flatMap(g => g.tasks);
+  const done = tasks.filter(t => state.checks[t.id]).length;
+  const booked = state.vendors.filter(v => ['Booked','Deposit Paid','Confirmed'].includes(v.status)).length;
+  document.getElementById('sum-budget').textContent = money(total);
+  document.getElementById('sum-paid').textContent = money(paid);
+  document.getElementById('sum-outstanding').textContent = money(Math.max(total-paid,0));
+  document.getElementById('sum-hall').textContent = money(hall);
+  document.getElementById('sum-checks').textContent = tasks.length ? Math.round((done / tasks.length) * 100) + '%' : '0%';
+  document.getElementById('sum-task-count').textContent = done + ' / ' + tasks.length;
+  document.getElementById('sum-booked').textContent = booked + ' / ' + state.vendors.length;
+}
+
 function save(){ persist(); renderAll(); }
-function renderAll(){ renderSummary(); renderExpenses(); renderVendors(); renderCalendar(); renderChecklist(); }
+function renderAll(){
+  renderProfile();
+  renderChecklist();
+  renderSummary();
+  renderExpenses();
+  renderVendors();
+  renderCalendar();
+  renderNotes();
+  renderSaved();
+}
+
 document.querySelectorAll('[data-panel]').forEach(function(btn){
   btn.addEventListener('click', function(){ showPanel(btn.dataset.panel); });
 });
 renderAll();
+initAuth();
 </script>
 </body>
 </html>

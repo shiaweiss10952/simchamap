@@ -129,7 +129,54 @@ function openInitialTab() {
   var tab = params.get('tab') || 'venues';
   if (document.getElementById(tab)) switchTab(tab);
 }
+function addOrganizerSaveButtons() {
+  var categoryNames = {
+    venues: 'Hall',
+    catering: 'Catering',
+    music: 'Music',
+    photo: 'Photography & Video',
+    more: 'Other'
+  };
+  document.querySelectorAll('.vendor-card').forEach(function(card) {
+    if (card.querySelector('.badge.review')) return;
+    if (card.querySelector('[data-save-vendor]')) return;
+    var title = card.querySelector('h3');
+    if (!title) return;
+    var panel = card.closest('.tab-panel');
+    var actions = card.querySelector('.vendor-actions');
+    if (!actions) {
+      actions = document.createElement('div');
+      actions.className = 'vendor-actions';
+      card.appendChild(actions);
+    }
+    var button = document.createElement('button');
+    button.className = 'small-link';
+    button.type = 'button';
+    button.dataset.saveVendor = 'true';
+    button.textContent = 'Save to Organizer';
+    button.addEventListener('click', function() {
+      var key = 'simchamap_organizer_v2';
+      var state;
+      try {
+        state = JSON.parse(localStorage.getItem(key) || '{}');
+      } catch (e) {
+        state = {};
+      }
+      if (!Array.isArray(state.saved)) state.saved = [];
+      var name = title.textContent.trim();
+      var category = categoryNames[panel ? panel.id : 'more'] || 'Other';
+      if (!state.saved.some(function(v) { return (v.name || '').toLowerCase() === name.toLowerCase(); })) {
+        state.saved.unshift({ name: name, category: category, notes: 'Saved from Rockland directory.' });
+      }
+      localStorage.setItem(key, JSON.stringify(state));
+      button.textContent = 'Saved';
+      setTimeout(function(){ button.textContent = 'Save to Organizer'; }, 1400);
+    });
+    actions.appendChild(button);
+  });
+}
 openInitialTab();
+addOrganizerSaveButtons();
 </script>
 </body>
 </html>

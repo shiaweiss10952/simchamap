@@ -40,3 +40,45 @@ on public.vendor_submissions
 for insert
 to authenticated
 with check (status = 'pending');
+
+-- Private organizer setup
+-- Each signed-in user gets one private JSON organizer document.
+
+create table if not exists public.organizer_data (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  payload jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.organizer_data enable row level security;
+
+drop policy if exists "Users can read their own organizer" on public.organizer_data;
+create policy "Users can read their own organizer"
+on public.organizer_data
+for select
+to authenticated
+using (auth.uid() = user_id);
+
+drop policy if exists "Users can create their own organizer" on public.organizer_data;
+create policy "Users can create their own organizer"
+on public.organizer_data
+for insert
+to authenticated
+with check (auth.uid() = user_id);
+
+drop policy if exists "Users can update their own organizer" on public.organizer_data;
+create policy "Users can update their own organizer"
+on public.organizer_data
+for update
+to authenticated
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
+
+drop policy if exists "Users can delete their own organizer" on public.organizer_data;
+create policy "Users can delete their own organizer"
+on public.organizer_data
+for delete
+to authenticated
+using (auth.uid() = user_id);
+
+grant select, insert, update, delete on public.organizer_data to authenticated;
