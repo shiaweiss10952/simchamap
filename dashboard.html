@@ -177,11 +177,28 @@ function renderSummary(){
   document.getElementById('sum-booked').textContent = state.vendors.filter(v=>v.status === 'Booked').length;
 }
 function renderExpenses(){
-  document.getElementById('expense-body').innerHTML = state.expenses.map((e,i)=>'<tr><td><input value="'+esc(e.service)+'" oninput="updateExpense('+i+',\\'service\\',this)"></td><td><input type="number" value="'+(e.cost||0)+'" oninput="updateExpense('+i+',\\'cost\\',this)"></td><td><input type="number" value="'+(e.paid||0)+'" oninput="updateExpense('+i+',\\'paid\\',this)"></td><td><strong>'+money((e.cost||0)-(e.paid||0))+'</strong></td><td><input type="checkbox" '+(e.hall?'checked':'')+' onchange="updateExpense('+i+',\\'hall\\',this)"></td><td><button class="delete" onclick="deleteExpense('+i+')">Delete</button></td></tr>').join('') || '<tr><td colspan="6">No expenses yet.</td></tr>';
+  document.getElementById('expense-body').innerHTML = state.expenses.map((e,i)=>`
+    <tr>
+      <td><input value="${esc(e.service)}" oninput="updateExpense(${i}, 'service', this)"></td>
+      <td><input type="number" value="${e.cost || 0}" oninput="updateExpense(${i}, 'cost', this)"></td>
+      <td><input type="number" value="${e.paid || 0}" oninput="updateExpense(${i}, 'paid', this)"></td>
+      <td><strong>${money((e.cost || 0) - (e.paid || 0))}</strong></td>
+      <td><input type="checkbox" ${e.hall ? 'checked' : ''} onchange="updateExpense(${i}, 'hall', this)"></td>
+      <td><button class="delete" onclick="deleteExpense(${i})">Delete</button></td>
+    </tr>
+  `).join('') || '<tr><td colspan="6">No expenses yet.</td></tr>';
 }
 function renderVendors(){
   const statuses = ['Reached Out','Waiting for Reply','Booked'];
-  document.getElementById('vendor-body').innerHTML = state.vendors.map((v,i)=>'<tr><td><input value="'+esc(v.name)+'" oninput="updateVendor('+i+',\\'name\\',this)"></td><td><input value="'+esc(v.category)+'" oninput="updateVendor('+i+',\\'category\\',this)"></td><td><select onchange="updateVendor('+i+',\\'status\\',this)">'+statuses.map(s=>'<option '+(v.status===s?'selected':'')+'>'+s+'</option>').join('')+'</select></td><td><textarea oninput="updateVendor('+i+',\\'notes\\',this)">'+esc(v.notes)+'</textarea></td><td><button class="delete" onclick="deleteVendor('+i+')">Delete</button></td></tr>').join('') || '<tr><td colspan="5">No vendors yet.</td></tr>';
+  document.getElementById('vendor-body').innerHTML = state.vendors.map((v,i)=>`
+    <tr>
+      <td><input value="${esc(v.name)}" oninput="updateVendor(${i}, 'name', this)"></td>
+      <td><input value="${esc(v.category)}" oninput="updateVendor(${i}, 'category', this)"></td>
+      <td><select onchange="updateVendor(${i}, 'status', this)">${statuses.map(s=>`<option ${v.status===s?'selected':''}>${s}</option>`).join('')}</select></td>
+      <td><textarea oninput="updateVendor(${i}, 'notes', this)">${esc(v.notes)}</textarea></td>
+      <td><button class="delete" onclick="deleteVendor(${i})">Delete</button></td>
+    </tr>
+  `).join('') || '<tr><td colspan="5">No vendors yet.</td></tr>';
 }
 function renderCalendar(){
   const grid = document.getElementById('calendar-grid');
@@ -212,6 +229,9 @@ function renderChecklist(){
 function formatDate(d){ if(!d) return ''; const p=d.split('-'); return new Date(Number(p[0]),Number(p[1])-1,Number(p[2])).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}); }
 function save(){ persist(); renderAll(); }
 function renderAll(){ renderSummary(); renderExpenses(); renderVendors(); renderCalendar(); renderChecklist(); }
+document.querySelectorAll('[data-panel]').forEach(function(btn){
+  btn.addEventListener('click', function(){ showPanel(btn.dataset.panel); });
+});
 renderAll();
 </script>
 </body>

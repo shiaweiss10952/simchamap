@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - SimchaMap</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
+  <style>.notice{border-radius:10px;padding:14px 16px;margin:16px 0;font-weight:800}.notice.ok{background:var(--sage-soft);color:var(--sage)}.notice.bad{background:#f2e2df;color:var(--danger)}.submission{display:grid;gap:10px}.submission small{color:var(--muted);font-weight:800}</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="index.html"><span class="brand-mark"></span><span><span class="brand-name">SimchaMap</span><span class="brand-tag">Every detail. One place.</span></span></a>
+      <div class="nav-links"><a href="rockland.html">Vendors</a><a href="dashboard.html">Organizer</a><a href="account.html">Account</a></div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Admin</p>
+        <h1>Vendor approval console.</h1>
+        <p class="lead">Admin users can review submitted vendors, approve appropriate listings, or reject vendors that do not meet SimchaMap standards.</p>
+        <div class="actions"><a class="btn secondary" href="login.html">Sign in</a><a class="btn" href="vendor-standards.html">Vendor Standards</a></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div id="admin-status" class="notice">Checking admin access...</div>
+        <div class="toolbar">
+          <h2>Pending submissions</h2>
+          <button class="btn secondary" onclick="loadSubmissions()">Refresh</button>
+        </div>
+        <div id="submission-list" class="grid two"></div>
+        <div class="panel panel-pad" style="margin-top:20px">
+          <h3>Setup required</h3>
+          <p>This page expects a Supabase table named <code>vendor_submissions</code> and an admin user with <code>app_metadata.role = "admin"</code>. I included <code>supabase-vendor-admin-setup.sql</code> in the zip for setup.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+const SUPABASE_URL='https://gzbcwzjxycbyzpqhpdgx.supabase.co';
+const SUPABASE_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M';
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
+let isAdmin=false;
+function status(msg,type){const el=document.getElementById('admin-status');el.textContent=msg;el.className='notice '+(type||'')}
+async function init(){const {data,error}=await sb.auth.getUser();if(error||!data.user){status('Please sign in first. Admins use the normal Sign In page, then open /admin.html.','bad');return}isAdmin=data.user.app_metadata&&data.user.app_metadata.role==='admin';if(!isAdmin){status('Signed in, but this account is not marked as admin in Supabase app_metadata.','bad');return}status('Admin access confirmed.','ok');loadSubmissions()}
+async function loadSubmissions(){if(!isAdmin)return;const list=document.getElementById('submission-list');list.innerHTML='<p>Loading...</p>';const {data,error}=await sb.from('vendor_submissions').select('*').order('created_at',{ascending:false}).limit(50);if(error){list.innerHTML='<div class="card"><h3>Could not load submissions</h3><p>'+error.message+'</p><p>Run the included SQL setup file in Supabase first.</p></div>';return}list.innerHTML=(data||[]).map(row=>`<article class="card submission"><span class="badge ${row.status==='approved'?'blue':row.status==='rejected'?'review':'gold'}">${row.status||'pending'}</span><h3>${esc(row.vendor_name)}</h3><small>${esc(row.category||'Vendor')} • ${esc(row.location||'Rockland')}</small><p>${esc(row.notes||'')}</p><p>${esc(row.website||'')}</p><div class="actions"><button class="btn sage" onclick="setStatus('${row.id}','approved')">Approve</button><button class="btn danger" onclick="setStatus('${row.id}','rejected')">Reject</button></div></article>`).join('')||'<p>No submissions yet.</p>'}
+async function setStatus(id,newStatus){const {error}=await sb.from('vendor_submissions').update({status:newStatus,reviewed_at:new Date().toISOString()}).eq('id',id);if(error)return alert(error.message);loadSubmissions()}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+init();
+</script>
+</body>
+</html>
