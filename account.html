@@ -1,39 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Account - SimchaMap</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
-<style>
-:root{--deep:#1a1209;--text:#2c1f0a;--muted:#7c6a52;--gold:#c9a84c;--gold-pale:#f7edd4;--cream:#faf6ee;--line:#eadfca;--ok:#2a7a5a;--bad:#a33b2f}
-*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;font-size:17px;line-height:1.65}.topbar{align-items:center;background:rgba(250,246,238,.97);border-bottom:1px solid var(--line);display:flex;gap:1rem;justify-content:space-between;padding:.9rem clamp(1rem,3vw,2rem);position:sticky;top:0;z-index:10}.brand{color:var(--deep);font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;text-decoration:none}.brand span{color:var(--gold)}.nav{display:flex;gap:.45rem;flex-wrap:wrap}.nav a{border-radius:999px;color:var(--muted);font-size:.9rem;font-weight:800;padding:.55rem .85rem;text-decoration:none}.nav a.active,.nav a:hover{background:var(--gold-pale);color:var(--deep)}main{max-width:1120px;margin:0 auto;padding:3rem 1.25rem 5rem}.hero{display:flex;justify-content:space-between;gap:1.5rem;align-items:flex-end;margin-bottom:1.5rem}.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.3rem,5vw,4rem);line-height:1.05;margin:0}.hero p{color:var(--muted);max-width:650px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:1.25rem;box-shadow:0 16px 42px rgba(44,31,10,.06)}.card h2{font-family:'Playfair Display',serif;font-size:1.7rem;margin:.1rem 0 .4rem}.field{margin:.85rem 0}.field label{color:var(--muted);display:block;font-size:.82rem;font-weight:800;letter-spacing:.07em;margin-bottom:.35rem;text-transform:uppercase}input{background:#fff;border:1px solid var(--line);border-radius:6px;color:var(--text);font:inherit;padding:.75rem;width:100%}.btn{background:var(--gold);border:0;border-radius:6px;color:var(--deep);cursor:pointer;font-weight:900;padding:.75rem 1rem}.btn.secondary{background:#fff;border:1px solid var(--line);color:var(--text)}.btn.danger{background:#fff;border:1px solid rgba(163,59,47,.35);color:var(--bad)}.row{display:flex;gap:.65rem;flex-wrap:wrap;align-items:center}.status{border-radius:6px;display:none;font-weight:700;margin-top:.85rem;padding:.7rem}.status.ok{background:rgba(42,122,90,.1);color:var(--ok);display:block}.status.bad{background:rgba(163,59,47,.1);color:var(--bad);display:block}.muted{color:var(--muted);font-size:.96rem}.qr{background:var(--cream);border:1px dashed var(--line);border-radius:8px;display:none;margin:.85rem 0;padding:1rem;text-align:center}.qr img{max-width:220px;width:100%}.factor{align-items:center;border:1px solid var(--line);border-radius:6px;display:flex;justify-content:space-between;margin-top:.6rem;padding:.7rem}.full{grid-column:1/-1}@media(max-width:820px){body{font-size:16px}.topbar,.hero{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}main{padding-top:2rem}.nav a{font-size:.86rem;padding:.45rem .6rem}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account - SimchaMap</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
+  <style>.status{display:none;margin-top:12px;border-radius:8px;padding:10px 12px;font-weight:800}.status.ok{display:block;background:var(--sage-soft);color:var(--sage)}.status.bad{display:block;background:#f2e2df;color:var(--danger)}.qr{display:none;text-align:center;background:var(--paper);border:1px dashed var(--line);border-radius:10px;padding:16px;margin-top:14px}.qr img{max-width:220px;width:100%}.factor{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:12px;margin-top:10px}</style>
 </head>
 <body>
-<header class="topbar"><a class="brand" href="index.html">Simcha<span>Map</span></a><nav class="nav"><a href="rockland.html">Vendor Directory</a><a href="dashboard.html">My Organizer</a><a class="active" href="account.html">My Account</a><a href="resources.html">Resource Hub</a></nav></header>
-<main>
-  <section class="hero"><div><h1>My Account</h1><p>Manage sign-in, password, and account security for your SimchaMap organizer.</p></div><button class="btn secondary" onclick="signOut()">Sign Out</button></section>
-  <section class="grid">
-    <article class="card"><h2>Account Details</h2><p class="muted">Signed in as</p><h3 id="account-email">Checking session...</h3><p class="muted" id="account-created"></p><div id="account-status" class="status"></div></article>
-    <article class="card"><h2>Change Password</h2><p class="muted">Enter a new password for your account. Supabase may require recent sign-in depending on your project security settings.</p><div class="field"><label>New Password</label><input id="new-password" type="password" minlength="8" autocomplete="new-password"></div><div class="field"><label>Confirm Password</label><input id="confirm-password" type="password" minlength="8" autocomplete="new-password"></div><button class="btn" onclick="changePassword()">Update Password</button><div id="password-status" class="status"></div></article>
-    <article class="card full"><h2>Two-Step Authentication</h2><p class="muted">Add an authenticator-app code for stronger account security. Scan the QR code, enter the 6-digit code, then verify.</p><div class="row"><button class="btn" onclick="startMfa()">Enable 2-Step Authentication</button><button class="btn secondary" onclick="loadFactors()">Refresh Status</button></div><div id="mfa-qr" class="qr"></div><div class="field" id="mfa-code-wrap" style="display:none"><label>Authenticator Code</label><input id="mfa-code" inputmode="numeric" maxlength="6" placeholder="123456"></div><button class="btn" id="verify-mfa-btn" style="display:none" onclick="verifyMfa()">Verify & Finish Setup</button><div id="mfa-status" class="status"></div><div id="factor-list"></div></article>
-  </section>
-</main>
+<div class="app-shell">
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="index.html"><span class="brand-mark"></span><span><span class="brand-name">SimchaMap</span><span class="brand-tag">Every detail. One place.</span></span></a>
+      <div class="nav-links"><a href="rockland.html">Vendors</a><a href="dashboard.html">Organizer</a><a href="resources.html">Resources</a><a class="active" href="account.html">Account</a></div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Account</p>
+        <h1>Manage sign-in and security.</h1>
+        <p class="lead">View your account, change your password, and set up authenticator-app two-step authentication.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container grid two">
+        <article class="card">
+          <span class="badge blue">Signed in as</span>
+          <h3 id="account-email" style="margin-top:12px">Checking session...</h3>
+          <p id="account-created"></p>
+          <div class="actions"><button class="btn secondary" onclick="signOut()">Sign Out</button></div>
+          <div id="account-status" class="status"></div>
+        </article>
+        <article class="card">
+          <h3>Change password</h3>
+          <p>Use at least 8 characters.</p>
+          <div class="field"><label>New password</label><input id="new-password" type="password" minlength="8" autocomplete="new-password"></div>
+          <div class="field"><label>Confirm password</label><input id="confirm-password" type="password" minlength="8" autocomplete="new-password"></div>
+          <div class="actions"><button class="btn sage" onclick="changePassword()">Update Password</button></div>
+          <div id="password-status" class="status"></div>
+        </article>
+        <article class="card" style="grid-column:1/-1">
+          <h3>Two-step authentication</h3>
+          <p>Add an authenticator-app code for stronger account security.</p>
+          <div class="actions"><button class="btn sage" onclick="startMfa()">Enable 2-step</button><button class="btn secondary" onclick="loadFactors()">Refresh status</button></div>
+          <div id="mfa-qr" class="qr"></div>
+          <div class="field" id="mfa-code-wrap" style="display:none;margin-top:14px"><label>Authenticator code</label><input id="mfa-code" inputmode="numeric" maxlength="6" placeholder="123456"></div>
+          <div class="actions"><button class="btn sage" id="verify-mfa-btn" style="display:none" onclick="verifyMfa()">Verify setup</button></div>
+          <div id="mfa-status" class="status"></div>
+          <div id="factor-list"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="footer-inner"><div><strong>SimchaMap</strong><br>Account security.</div><div><a href="dashboard.html">Organizer</a><a href="privacy.html">Privacy</a></div></div></footer>
+</div>
+
 <script>
 const SUPABASE_URL='https://gzbcwzjxycbyzpqhpdgx.supabase.co';
 const SUPABASE_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
-let currentUser=null;let pendingFactorId='';
+let pendingFactorId='';
 function setStatus(id,msg,type){const el=document.getElementById(id);el.textContent=msg;el.className='status '+(type||'ok')}
-async function init(){const {data,error}=await sb.auth.getUser();if(error||!data.user){setStatus('account-status','Please sign in to manage your account.','bad');document.getElementById('account-email').textContent='Not signed in';return}currentUser=data.user;document.getElementById('account-email').textContent=currentUser.email||'Account';document.getElementById('account-created').textContent=currentUser.created_at?'Account created '+new Date(currentUser.created_at).toLocaleDateString():'';loadFactors()}
+async function init(){const {data,error}=await sb.auth.getUser();if(error||!data.user){document.getElementById('account-email').textContent='Not signed in';setStatus('account-status','Please sign in to manage your account.','bad');return}document.getElementById('account-email').textContent=data.user.email||'Account';document.getElementById('account-created').textContent=data.user.created_at?'Created '+new Date(data.user.created_at).toLocaleDateString():'';loadFactors()}
 async function changePassword(){const p=document.getElementById('new-password').value,c=document.getElementById('confirm-password').value;if(p.length<8)return setStatus('password-status','Password should be at least 8 characters.','bad');if(p!==c)return setStatus('password-status','Passwords do not match.','bad');const {error}=await sb.auth.updateUser({password:p});if(error)return setStatus('password-status',error.message,'bad');document.getElementById('new-password').value='';document.getElementById('confirm-password').value='';setStatus('password-status','Password updated.','ok')}
-async function startMfa(){const {data,error}=await sb.auth.mfa.enroll({factorType:'totp',friendlyName:'SimchaMap'});if(error)return setStatus('mfa-status',error.message,'bad');pendingFactorId=data.id;const qr=data.totp&&data.totp.qr_code;document.getElementById('mfa-qr').style.display='block';document.getElementById('mfa-qr').innerHTML=qr?'<img alt="Authenticator QR code" src="'+qr+'"><p class="muted">Scan this in your authenticator app.</p>':'<p class="muted">Use your authenticator app to add the new TOTP factor.</p>';document.getElementById('mfa-code-wrap').style.display='block';document.getElementById('verify-mfa-btn').style.display='inline-block';setStatus('mfa-status','Enter the 6-digit code from your authenticator app.','ok')}
-async function verifyMfa(){const code=document.getElementById('mfa-code').value.trim();if(!pendingFactorId||code.length<6)return setStatus('mfa-status','Enter the 6-digit authenticator code.','bad');const challenge=await sb.auth.mfa.challenge({factorId:pendingFactorId});if(challenge.error)return setStatus('mfa-status',challenge.error.message,'bad');const verified=await sb.auth.mfa.verify({factorId:pendingFactorId,challengeId:challenge.data.id,code});if(verified.error)return setStatus('mfa-status',verified.error.message,'bad');setStatus('mfa-status','Two-step authentication is enabled.','ok');document.getElementById('mfa-code').value='';document.getElementById('verify-mfa-btn').style.display='none';loadFactors()}
-async function loadFactors(){const {data,error}=await sb.auth.mfa.listFactors();const list=document.getElementById('factor-list');if(error){list.innerHTML='<p class="muted">'+error.message+'</p>';return}const factors=(data&&data.totp)||[];list.innerHTML=factors.length?factors.map(f=>'<div class="factor"><div><strong>'+f.friendly_name+'</strong><br><span class="muted">'+f.status+'</span></div><button class="btn danger" onclick="removeFactor(\\''+f.id+'\\')">Remove</button></div>').join(''):'<p class="muted" style="margin-top:1rem">No authenticator factor enabled yet.</p>'}
+async function startMfa(){const {data,error}=await sb.auth.mfa.enroll({factorType:'totp',friendlyName:'SimchaMap'});if(error)return setStatus('mfa-status',error.message,'bad');pendingFactorId=data.id;const qr=data.totp&&data.totp.qr_code;document.getElementById('mfa-qr').style.display='block';document.getElementById('mfa-qr').innerHTML=qr?'<img alt="Authenticator QR code" src="'+qr+'"><p>Scan this in your authenticator app.</p>':'<p>Add the new TOTP factor in your authenticator app.</p>';document.getElementById('mfa-code-wrap').style.display='grid';document.getElementById('verify-mfa-btn').style.display='inline-flex';setStatus('mfa-status','Enter the 6-digit code from your app.','ok')}
+async function verifyMfa(){const code=document.getElementById('mfa-code').value.trim();if(!pendingFactorId||code.length<6)return setStatus('mfa-status','Enter the 6-digit authenticator code.','bad');const challenge=await sb.auth.mfa.challenge({factorId:pendingFactorId});if(challenge.error)return setStatus('mfa-status',challenge.error.message,'bad');const verified=await sb.auth.mfa.verify({factorId:pendingFactorId,challengeId:challenge.data.id,code});if(verified.error)return setStatus('mfa-status',verified.error.message,'bad');setStatus('mfa-status','Two-step authentication is enabled.','ok');document.getElementById('verify-mfa-btn').style.display='none';loadFactors()}
+async function loadFactors(){const {data,error}=await sb.auth.mfa.listFactors();const list=document.getElementById('factor-list');if(error){list.innerHTML='<p>'+error.message+'</p>';return}const factors=(data&&data.totp)||[];list.innerHTML=factors.length?factors.map(f=>'<div class="factor"><div><strong>'+f.friendly_name+'</strong><br><span>'+f.status+'</span></div><button class="btn danger" onclick="removeFactor(\\''+f.id+'\\')">Remove</button></div>').join(''):'<p>No authenticator factor enabled yet.</p>'}
 async function removeFactor(id){const {error}=await sb.auth.mfa.unenroll({factorId:id});if(error)return setStatus('mfa-status',error.message,'bad');setStatus('mfa-status','Two-step factor removed.','ok');loadFactors()}
 async function signOut(){await sb.auth.signOut();window.location.href='login.html'}
 init();

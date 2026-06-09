@@ -1,125 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Organizer - SimchaMap</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<style>
-:root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-pale:#F7EDD4;--deep:#1A1209;--cream:#FAF6EE;--warm:#F2E8D0;--text:#2C1F0A;--muted:#8A7355;--green:#2A7A5A;--red:#9B2C2C;--line:rgba(201,168,76,.22);--white:#FEFCF7}
-*{box-sizing:border-box;margin:0;padding:0}body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}
-.topbar{align-items:center;background:rgba(250,246,238,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;gap:1rem;justify-content:space-between;left:0;padding:.85rem clamp(1rem,3vw,2rem);position:fixed;right:0;top:0;z-index:50}.brand{align-items:center;display:flex;gap:.65rem;text-decoration:none}.brand-name{font-family:'Playfair Display',serif;font-size:1.22rem;font-weight:900}.brand-tag{color:var(--gold);display:block;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase}.main-nav{align-items:center;display:flex;gap:.4rem}.nav-pill{border-radius:999px;color:var(--muted);font-size:.85rem;font-weight:700;padding:.55rem .9rem;text-decoration:none}.nav-pill.active,.nav-pill:hover{background:var(--gold-pale);color:var(--deep)}.nav-right{align-items:center;display:flex;gap:.75rem}.user-email{color:var(--muted);font-size:.82rem}.ghost-btn{background:#fff;border:1px solid var(--line);border-radius:6px;color:var(--muted);padding:.48rem .8rem}.layout{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh;padding-top:66px}.side{background:#fff;border-right:1px solid var(--line);padding:1.25rem;position:sticky;top:66px;height:calc(100vh - 66px);overflow:auto}.side h2{font-family:'Playfair Display',serif;font-size:1.25rem;margin-bottom:.35rem}.side p{color:var(--muted);font-size:.84rem;line-height:1.55;margin-bottom:1.25rem}.section-tabs{display:flex;flex-direction:column;gap:.45rem}.tab{align-items:center;background:transparent;border:1px solid transparent;border-radius:8px;color:var(--text);display:flex;gap:.7rem;padding:.75rem;text-align:left}.tab span:first-child{align-items:center;background:var(--gold-pale);border-radius:6px;color:var(--gold);display:flex;font-size:.75rem;font-weight:800;height:28px;justify-content:center;min-width:28px}.tab.active{background:var(--deep);color:var(--cream)}.tab.active span:first-child{background:var(--gold);color:var(--deep)}.content{padding:2rem clamp(1rem,3vw,2.5rem) 4rem}.hero{align-items:end;display:flex;gap:1.5rem;justify-content:space-between;margin-bottom:1.6rem}.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);line-height:1.05}.hero h1 em{color:var(--gold);font-style:italic}.hero p{color:var(--muted);line-height:1.6;margin-top:.6rem;max-width:650px}.hero-actions{display:flex;gap:.7rem;white-space:nowrap}.primary-btn,.small-btn{background:var(--gold);border:0;border-radius:6px;color:var(--deep);font-weight:800;padding:.75rem 1rem}.small-btn{font-size:.84rem;padding:.55rem .75rem}.secondary-btn{background:#fff;border:1px solid var(--line);border-radius:6px;color:var(--deep);font-weight:700;padding:.75rem 1rem;text-decoration:none}.summary-grid{display:grid;gap:1rem;grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:1.4rem}.summary-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:1.15rem}.summary-label{color:var(--muted);font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.summary-value{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;margin-top:.35rem}.panel{display:none}.panel.active{display:block}.tool-card{background:#fff;border:1px solid var(--line);border-radius:8px;margin-bottom:1.25rem;overflow:hidden}.tool-head{align-items:center;border-bottom:1px solid var(--line);display:flex;gap:1rem;justify-content:space-between;padding:1rem 1.1rem}.tool-head h2{font-family:'Playfair Display',serif;font-size:1.2rem}.tool-head p{color:var(--muted);font-size:.84rem;margin-top:.2rem}.form-grid{display:grid;gap:.75rem;grid-template-columns:repeat(5,minmax(0,1fr));padding:1rem}.field{display:flex;flex-direction:column;gap:.3rem}.field label{color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase}.field input,.field select,.field textarea{background:var(--white);border:1px solid var(--line);border-radius:6px;color:var(--text);padding:.65rem;width:100%}.field textarea{min-height:82px;resize:vertical}.field.wide{grid-column:span 2}.field.full{grid-column:1/-1}.table-wrap{overflow:auto}.data-table{border-collapse:collapse;width:100%}.data-table th{background:var(--white);color:var(--muted);font-size:.72rem;letter-spacing:.08em;padding:.8rem;text-align:left;text-transform:uppercase;white-space:nowrap}.data-table td{border-top:1px solid rgba(201,168,76,.14);padding:.75rem;vertical-align:top}.data-table input,.data-table select,.data-table textarea{background:#fff;border:1px solid var(--line);border-radius:5px;padding:.55rem;width:100%}.data-table textarea{min-height:62px;resize:vertical}.checkbox-cell{text-align:center}.delete-btn{background:rgba(155,44,44,.08);border:1px solid rgba(155,44,44,.18);border-radius:5px;color:var(--red);font-weight:800;padding:.45rem .6rem}.badge{border-radius:999px;display:inline-block;font-size:.72rem;font-weight:800;padding:.25rem .55rem}.badge.booked{background:rgba(42,122,90,.12);color:var(--green)}.badge.waiting{background:var(--gold-pale);color:#8A641C}.badge.reached{background:#F0E8D9;color:var(--muted)}.calendar-layout{display:grid;gap:1rem;grid-template-columns:minmax(0,1.25fr) 330px;padding:1rem}.calendar{border:1px solid var(--line);border-radius:8px;overflow:hidden}.calendar-head{align-items:center;background:var(--deep);color:var(--cream);display:flex;justify-content:space-between;padding:.9rem}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr)}.day-name{background:var(--gold-pale);color:var(--muted);font-size:.7rem;font-weight:800;padding:.55rem;text-align:center;text-transform:uppercase}.day{background:#fff;border-right:1px solid rgba(201,168,76,.12);border-top:1px solid rgba(201,168,76,.12);min-height:92px;padding:.45rem}.day:nth-child(7n){border-right:0}.day-num{color:var(--muted);font-size:.78rem;font-weight:800}.event-chip{background:var(--gold-pale);border-left:3px solid var(--gold);border-radius:3px;font-size:.72rem;line-height:1.25;margin-top:.35rem;padding:.3rem}.event-list{display:flex;flex-direction:column;gap:.65rem}.event-item{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:.75rem}.event-item strong{display:block}.event-item span{color:var(--muted);font-size:.82rem}.checklist{display:grid;gap:.65rem;grid-template-columns:repeat(2,minmax(0,1fr));padding:1rem}.check{align-items:flex-start;background:var(--white);border:1px solid rgba(201,168,76,.14);border-radius:6px;display:flex;gap:.7rem;padding:.75rem}.check input{margin-top:.2rem}.check.done{opacity:.62}.check.done label{text-decoration:line-through}.save-note{color:var(--green);font-size:.8rem;font-weight:800;opacity:0;transition:.2s}.save-note.show{opacity:1}.empty{color:var(--muted);font-size:.9rem;padding:1rem}.mobile-tabbar{display:none}
-@media(max-width:960px){.layout{grid-template-columns:1fr}.side{display:none}.mobile-tabbar{background:var(--cream);border-bottom:1px solid var(--line);display:flex;gap:.5rem;overflow:auto;padding:.75rem 1rem;position:sticky;top:66px;z-index:20}.mobile-tabbar button{background:#fff;border:1px solid var(--line);border-radius:999px;flex:0 0 auto;padding:.55rem .75rem}.mobile-tabbar button.active{background:var(--deep);color:var(--cream)}.content{padding-top:1rem}.hero{align-items:start;flex-direction:column}.summary-grid{grid-template-columns:1fr}.form-grid,.calendar-layout{grid-template-columns:1fr}.field.wide{grid-column:1}.checklist{grid-template-columns:1fr}.main-nav{display:none}.user-email{display:none}}
-@media(max-width:620px){.topbar{padding:.75rem 1rem}.brand-tag{display:none}.nav-right{gap:.4rem}.hero-actions{flex-direction:column;width:100%}.hero-actions>*{text-align:center;width:100%}.day{min-height:74px;padding:.3rem}.event-chip{font-size:.66rem}.calendar-head{align-items:flex-start;flex-direction:column;gap:.5rem}}
-</style>
-<style>
-@media (min-width: 900px) {
-  body { font-size: 17px; }
-  .nav-pill { font-size: .92rem; }
-  .side h2 { font-size: 1.45rem; }
-  .side p, .tool-head p, .event-item span { font-size: .95rem; }
-  .tool-head h2 { font-size: 1.42rem; }
-  .summary-value { font-size: 2rem; }
-  .data-table th { font-size: .78rem; }
-  .data-table td, .field input, .field select, .field textarea { font-size: .96rem; }
-}
-.upcoming-item{align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:7px;display:grid;gap:.25rem;padding:.75rem}.upcoming-date{color:var(--gold);font-size:.76rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.upcoming-title{font-weight:900}.upcoming-meta{color:var(--muted);font-size:.84rem}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Organizer - SimchaMap</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
 </head>
 <body>
-<nav class="topbar">
-  <a href="index.html" class="brand">
-    <svg width="30" height="36" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg"><path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/><circle cx="44" cy="34" r="14" fill="#FAF6EE"/><circle cx="44" cy="34" r="5" fill="#C9A84C"/></svg>
-    <span><span class="brand-name">SimchaMap</span><span class="brand-tag">Every Detail. One Place.</span></span>
-  </a>
-  <div class="main-nav">
-    <a class="nav-pill" href="rockland.html">Vendor Directory</a>
-    <a class="nav-pill active" href="dashboard.html">My Organizer</a>
-    <a class="nav-pill" href="account.html">My Account</a>
-    <a class="nav-pill" href="resources.html">Resource Hub</a>
-    <a class="nav-pill" href="vendor-standards.html">Vendor Standards</a>
+<div class="app-shell">
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="index.html"><span class="brand-mark"></span><span><span class="brand-name">SimchaMap</span><span class="brand-tag">Every detail. One place.</span></span></a>
+      <div class="nav-links">
+        <a href="rockland.html">Vendors</a>
+        <a class="active" href="dashboard.html">Organizer</a>
+        <a href="account.html">Account</a>
+        <a href="resources.html">Resources</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <p class="eyebrow">My Organizer</p>
+      <div class="tabs">
+        <button class="tab active" data-panel="overview" onclick="showPanel('overview')">Overview</button>
+        <button class="tab" data-panel="budget" onclick="showPanel('budget')">Budget</button>
+        <button class="tab" data-panel="vendors" onclick="showPanel('vendors')">Vendor CRM</button>
+        <button class="tab" data-panel="calendar" onclick="showPanel('calendar')">Calendar</button>
+        <button class="tab" data-panel="checklist" onclick="showPanel('checklist')">Checklist</button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section id="overview" class="tab-panel active">
+        <p class="eyebrow">Planning dashboard</p>
+        <h1>Everything in one place.</h1>
+        <p class="lead">Use this dashboard instead of scattered notes: money, vendor conversations, appointments, and tasks all stay together on this device.</p>
+        <div class="summary-grid">
+          <div class="summary"><span>Total Budget</span><strong id="sum-budget">$0</strong></div>
+          <div class="summary"><span>Paid</span><strong id="sum-paid">$0</strong></div>
+          <div class="summary"><span>Outstanding</span><strong id="sum-outstanding">$0</strong></div>
+          <div class="summary"><span>To Hall</span><strong id="sum-hall">$0</strong></div>
+        </div>
+        <div class="grid two">
+          <article class="card">
+            <div class="toolbar"><h3>Upcoming calendar items</h3><button class="btn ghost" onclick="showPanel('calendar')">Add date</button></div>
+            <div id="upcoming-list" class="event-list"></div>
+          </article>
+          <article class="card">
+            <div class="toolbar"><h3>Vendor progress</h3><button class="btn ghost" onclick="showPanel('vendors')">Update vendors</button></div>
+            <p><strong id="sum-vendors">0</strong> vendors tracked. <strong id="sum-booked">0</strong> booked.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="budget" class="tab-panel">
+        <div class="section-head"><div><p class="eyebrow">Budget</p><h2>Financial tracker</h2><p>Track total cost, deposit paid, remaining balance, and what has to be brought to the hall.</p></div></div>
+        <div class="panel panel-pad">
+          <div class="form-grid">
+            <div class="field"><label>Vendor service</label><input id="expense-service" placeholder="Photographer"></div>
+            <div class="field"><label>Total cost</label><input id="expense-cost" type="number" min="0" placeholder="2500"></div>
+            <div class="field"><label>Deposit paid</label><input id="expense-paid" type="number" min="0" placeholder="500"></div>
+            <div class="field"><label>Bring balance?</label><select id="expense-hall"><option value="yes">Yes</option><option value="no">No</option></select></div>
+          </div>
+          <div class="actions"><button class="btn sage" onclick="addExpenseFromForm()">Save expense</button><button class="btn secondary" onclick="addExpense()">Add blank row</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Vendor service</th><th>Total</th><th>Paid</th><th>Remaining</th><th>Bring to hall</th><th></th></tr></thead><tbody id="expense-body"></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="vendors" class="tab-panel">
+        <div class="section-head"><div><p class="eyebrow">Vendor CRM</p><h2>Communication log</h2><p>Track who you contacted, where things stand, and the important notes from each conversation.</p></div></div>
+        <div class="panel panel-pad">
+          <div class="form-grid">
+            <div class="field"><label>Vendor name</label><input id="vendor-name" placeholder="Vendor name"></div>
+            <div class="field"><label>Category</label><input id="vendor-category" placeholder="Caterer"></div>
+            <div class="field"><label>Status</label><select id="vendor-status"><option>Reached Out</option><option>Waiting for Reply</option><option>Booked</option></select></div>
+            <div class="field full"><label>Meeting notes / messages</label><textarea id="vendor-notes" placeholder="Package details, questions, next steps..."></textarea></div>
+          </div>
+          <div class="actions"><button class="btn sage" onclick="addVendorFromForm()">Save vendor</button><button class="btn secondary" onclick="addVendor()">Add blank row</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Name</th><th>Category</th><th>Status</th><th>Notes</th><th></th></tr></thead><tbody id="vendor-body"></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="calendar" class="tab-panel">
+        <div class="section-head"><div><p class="eyebrow">Calendar</p><h2>Appointments and due dates</h2><p>Keep vendor meetings, payment dates, and family reminders in one calendar.</p></div></div>
+        <div class="calendar-layout">
+          <div>
+            <div class="calendar-head"><button class="btn ghost" onclick="moveMonth(-1)">Prev</button><strong id="calendar-title"></strong><button class="btn ghost" onclick="moveMonth(1)">Next</button></div>
+            <div class="calendar-grid" id="calendar-grid"></div>
+          </div>
+          <aside class="panel panel-pad">
+            <div class="field"><label>Title</label><input id="event-title" placeholder="Meeting with caterer"></div>
+            <div class="field"><label>Date</label><input id="event-date" type="date"></div>
+            <div class="field"><label>Type</label><select id="event-type"><option>Vendor Appointment</option><option>Payment Due</option><option>Family Meeting</option><option>Reminder</option></select></div>
+            <div class="field"><label>Notes</label><textarea id="event-notes" placeholder="Bring contract, menu questions..."></textarea></div>
+            <div class="actions"><button class="btn sage" onclick="addEventFromForm()">Save event</button></div>
+            <h3 style="margin-top:20px">All items</h3>
+            <div id="all-events" class="event-list" style="margin-top:10px"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="checklist" class="tab-panel">
+        <div class="section-head"><div><p class="eyebrow">Checklist</p><h2>Planning tasks</h2><p>Simple local checklist for the main moving pieces.</p></div></div>
+        <div class="checklist" id="checklist-grid"></div>
+      </section>
+    </main>
   </div>
-  <div class="nav-right"><span id="user-email" class="user-email"></span><button class="ghost-btn" onclick="signOut()">Sign Out</button></div>
-</nav>
-<div class="layout">
-  <aside class="side">
-    <h2>My Organizer</h2>
-    <p>Track the moving pieces of your simcha from one calm command center.</p>
-    <div class="section-tabs">
-      <button class="tab active" data-panel="overview"><span>O</span>Overview</button>
-      <button class="tab" data-panel="budget"><span>$</span>Budget & Balances</button>
-      <button class="tab" data-panel="crm"><span>C</span>Vendor CRM</button>
-      <button class="tab" data-panel="calendar"><span>D</span>Calendar</button>
-      <button class="tab" data-panel="checklist"><span>L</span>Checklist</button>
-    </div>
-  </aside>
-  <main>
-    <div class="mobile-tabbar">
-      <button class="active" data-panel="overview">Overview</button><button data-panel="budget">Budget</button><button data-panel="crm">CRM</button><button data-panel="calendar">Calendar</button><button data-panel="checklist">Checklist</button>
-    </div>
-    <div class="content">
-      <section class="hero">
-        <div><h1>Your <em>Simcha Organizer</em></h1><p>Replace the notebook, loose papers, and scattered texts with one organized place for money, vendors, meetings, due dates, and planning notes.</p></div>
-        <div class="hero-actions"><a class="secondary-btn" href="rockland.html">Vendor Directory</a><a class="secondary-btn" href="resources.html">Resource Hub</a></div>
-      </section>
-      <section class="summary-grid">
-        <div class="summary-card"><div class="summary-label">Total Budget</div><div class="summary-value" id="sum-budget">$0</div></div>
-        <div class="summary-card"><div class="summary-label">Total Paid</div><div class="summary-value" id="sum-paid">$0</div></div>
-        <div class="summary-card"><div class="summary-label">Outstanding</div><div class="summary-value" id="sum-outstanding">$0</div></div>
-      </section>
-      <div id="overview" class="panel active">
-        <div class="tool-card"><div class="tool-head"><div><h2>Planner Snapshot</h2><p>Your next decisions, unpaid balances, and vendor conversations at a glance.</p></div><span class="save-note" id="save-note">Saved locally</span></div><div class="summary-grid" style="padding:1rem;margin:0"><div class="summary-card"><div class="summary-label">Vendors Tracked</div><div class="summary-value" id="sum-vendors">0</div></div><div class="summary-card"><div class="summary-label">Booked Vendors</div><div class="summary-value" id="sum-booked">0</div></div><div class="summary-card"><div class="summary-label">Balance To Bring</div><div class="summary-value" id="sum-hall">$0</div></div></div></div>
-        <div class="tool-card"><div class="tool-head"><div><h2>Upcoming Calendar Items</h2><p>Appointments, meetings, and payment dates.</p></div><button class="small-btn" onclick="showPanel('calendar')">Add Date</button></div><div id="upcoming-list" class="event-list" style="padding:1rem"></div></div>
-      </div>
-      <div id="budget" class="panel">
-        <div class="tool-card"><div class="tool-head"><div><h2>Financial & Logistics Tracker</h2><p>Track vendor costs, deposits, remaining balances, and what needs to come to the hall.</p></div><button class="small-btn" onclick="addExpense()">Add Row</button></div>
-          <div class="form-grid"><div class="field"><label>Vendor Service</label><input id="expense-service" placeholder="Photographer"></div><div class="field"><label>Total Cost</label><input id="expense-cost" type="number" min="0" placeholder="2500"></div><div class="field"><label>Deposit Paid</label><input id="expense-paid" type="number" min="0" placeholder="500"></div><div class="field"><label>Bring Balance?</label><select id="expense-hall"><option value="yes">Yes</option><option value="no">No</option></select></div><div class="field"><label>&nbsp;</label><button class="primary-btn" onclick="addExpenseFromForm()">Save Expense</button></div></div>
-          <div class="table-wrap"><table class="data-table"><thead><tr><th>Vendor Service</th><th>Total Cost</th><th>Deposit Paid</th><th>Remaining Balance</th><th>Bring balance to the hall</th><th></th></tr></thead><tbody id="expense-body"></tbody></table></div>
-        </div>
-      </div>
-      <div id="crm" class="panel">
-        <div class="tool-card"><div class="tool-head"><div><h2>Vendor CRM & Communication Log</h2><p>Track every vendor conversation, status, and important message.</p></div><button class="small-btn" onclick="addVendor()">Add Vendor</button></div>
-          <div class="form-grid"><div class="field"><label>Vendor Name</label><input id="vendor-name" placeholder="ABC Photography"></div><div class="field"><label>Category</label><input id="vendor-category" placeholder="Photographer"></div><div class="field"><label>Status</label><select id="vendor-status"><option>Reached Out</option><option>Waiting for Reply</option><option>Booked</option></select></div><div class="field wide"><label>Meeting Notes / Messages</label><textarea id="vendor-notes" placeholder="Discussed package, waiting on contract..."></textarea></div><div class="field"><label>&nbsp;</label><button class="primary-btn" onclick="addVendorFromForm()">Save Vendor</button></div></div>
-          <div class="table-wrap"><table class="data-table"><thead><tr><th>Vendor Name</th><th>Service</th><th>Contact Status</th><th>Meeting Notes / Messages</th><th></th></tr></thead><tbody id="vendor-body"></tbody></table></div>
-        </div>
-      </div>
-      <div id="calendar" class="panel">
-        <div class="tool-card"><div class="tool-head"><div><h2>Calendar</h2><p>Booked vendor appointments, meetings, and payment due dates in one place.</p></div><button class="small-btn" onclick="addEvent()">Add Event</button></div>
-          <div class="calendar-layout"><div class="calendar"><div class="calendar-head"><button class="ghost-btn" onclick="moveMonth(-1)">Prev</button><strong id="calendar-title"></strong><button class="ghost-btn" onclick="moveMonth(1)">Next</button></div><div class="calendar-grid" id="calendar-grid"></div></div><div><div class="form-grid" style="grid-template-columns:1fr;padding:0 0 1rem"><div class="field"><label>Title</label><input id="event-title" placeholder="Meeting with caterer"></div><div class="field"><label>Date</label><input id="event-date" type="date"></div><div class="field"><label>Type</label><select id="event-type"><option>Vendor Appointment</option><option>Payment Due</option><option>Family Meeting</option><option>Reminder</option></select></div><div class="field"><label>Notes</label><textarea id="event-notes" placeholder="Bring contract, menu questions..."></textarea></div><button class="primary-btn" onclick="addEventFromForm()">Save Event</button></div><h3 style="font-family:'Playfair Display',serif;margin-bottom:.75rem">All Calendar Items</h3><div id="all-events" class="event-list"></div></div></div>
-        </div>
-      </div>
-      <div id="checklist" class="panel">
-        <div class="tool-card"><div class="tool-head"><div><h2>Planning Checklist</h2><p>A clean checklist for the basics while the detailed tools handle money, vendors, and dates.</p></div></div><div id="checklist-grid" class="checklist"></div></div>
-      </div>
-    </div>
-  </main>
 </div>
+
 <script>
-const SUPABASE_URL='https://gzbcwzjxycbyzpqhpdgx.supabase.co';
-const SUPABASE_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M';
-var supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON);
-var state=JSON.parse(localStorage.getItem('simchamap_organizer')||'null')||{expenses:[{service:'Hall / Venue',cost:0,paid:0,hall:true},{service:'Photographer',cost:0,paid:0,hall:false}],vendors:[{name:'',category:'Photographer',status:'Reached Out',notes:''},{name:'',category:'Caterer',status:'Waiting for Reply',notes:''}],events:[],checks:{}};
-var viewDate=new Date();var checklistItems=['Book hall','Book caterer','Book photographer','Book music','Order invitations','Finalize guest list','Plan seating chart','Prepare vendor payment envelopes','Confirm timeline with hall','Pack balance checks for hall'];
-function money(n){return '$'+(Number(n)||0).toLocaleString()}function persist(){localStorage.setItem('simchamap_organizer',JSON.stringify(state))}function flashSaved(){var n=document.getElementById('save-note');if(n){n.classList.add('show');setTimeout(()=>n.classList.remove('show'),1200)}}function save(){persist();flashSaved();renderAll()}
-function showPanel(id){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('[data-panel]').forEach(b=>b.classList.toggle('active',b.dataset.panel===id))}
-document.querySelectorAll('[data-panel]').forEach(b=>b.addEventListener('click',()=>showPanel(b.dataset.panel)));
-function addExpense(){state.expenses.push({service:'',cost:0,paid:0,hall:false});save()}function addExpenseFromForm(){state.expenses.push({service:val('expense-service')||'New Vendor',cost:num('expense-cost'),paid:num('expense-paid'),hall:val('expense-hall')==='yes'});['expense-service','expense-cost','expense-paid'].forEach(id=>document.getElementById(id).value='');save()}function updateExpense(i,k,v){state.expenses[i][k]=k==='hall'?v.checked:(k==='cost'||k==='paid'?Number(v.value)||0:v.value);persist();flashSaved();renderSummary();var rem=document.getElementById('expense-rem-'+i);if(rem)rem.textContent=money((state.expenses[i].cost||0)-(state.expenses[i].paid||0))}function deleteExpense(i){state.expenses.splice(i,1);save()}
-function addVendor(){state.vendors.push({name:'',category:'',status:'Reached Out',notes:''});save()}function addVendorFromForm(){state.vendors.push({name:val('vendor-name')||'New Vendor',category:val('vendor-category')||'Vendor',status:val('vendor-status'),notes:val('vendor-notes')});['vendor-name','vendor-category','vendor-notes'].forEach(id=>document.getElementById(id).value='');save()}function updateVendor(i,k,v){state.vendors[i][k]=v.value;persist();flashSaved();renderSummary();if(k==='status')renderVendors()}function deleteVendor(i){state.vendors.splice(i,1);save()}
-function addEvent(){state.events.push({title:'New Event',date:new Date().toISOString().slice(0,10),type:'Reminder',notes:''});save()}function addEventFromForm(){if(!val('event-title')||!val('event-date'))return alert('Please add a title and date.');state.events.push({title:val('event-title'),date:val('event-date'),type:val('event-type'),notes:val('event-notes')});['event-title','event-date','event-notes'].forEach(id=>document.getElementById(id).value='');save()}function deleteEvent(i){state.events.splice(i,1);save()}function moveMonth(n){viewDate.setMonth(viewDate.getMonth()+n);renderCalendar()}
-function val(id){return document.getElementById(id).value.trim()}function num(id){return Number(document.getElementById(id).value)||0}
-function renderExpenses(){var body=document.getElementById('expense-body');body.innerHTML=state.expenses.map((e,i)=>'<tr><td><input value="'+esc(e.service)+'" oninput="updateExpense('+i+',\\'service\\',this)"></td><td><input type="number" value="'+(e.cost||0)+'" oninput="updateExpense('+i+',\\'cost\\',this)"></td><td><input type="number" value="'+(e.paid||0)+'" oninput="updateExpense('+i+',\\'paid\\',this)"></td><td><strong id="expense-rem-'+i+'">'+money((e.cost||0)-(e.paid||0))+'</strong></td><td class="checkbox-cell"><input type="checkbox" '+(e.hall?'checked':'')+' onchange="updateExpense('+i+',\\'hall\\',this)"></td><td><button class="delete-btn" onclick="deleteExpense('+i+')">Delete</button></td></tr>').join('')||'<tr><td colspan="6" class="empty">No expenses yet.</td></tr>'}
-function renderVendors(){var body=document.getElementById('vendor-body');body.innerHTML=state.vendors.map((v,i)=>'<tr><td><input value="'+esc(v.name)+'" oninput="updateVendor('+i+',\\'name\\',this)"></td><td><input value="'+esc(v.category)+'" oninput="updateVendor('+i+',\\'category\\',this)"></td><td><select onchange="updateVendor('+i+',\\'status\\',this)">'+['Reached Out','Waiting for Reply','Booked'].map(s=>'<option '+(v.status===s?'selected':'')+'>'+s+'</option>').join('')+'</select><div style="margin-top:.35rem">'+badge(v.status)+'</div></td><td><textarea oninput="updateVendor('+i+',\\'notes\\',this)">'+esc(v.notes)+'</textarea></td><td><button class="delete-btn" onclick="deleteVendor('+i+')">Delete</button></td></tr>').join('')||'<tr><td colspan="5" class="empty">No vendors yet.</td></tr>'}
-function badge(s){var c=s==='Booked'?'booked':s==='Waiting for Reply'?'waiting':'reached';return '<span class="badge '+c+'">'+s+'</span>'}
-function renderCalendar(){var grid=document.getElementById('calendar-grid');var y=viewDate.getFullYear(),m=viewDate.getMonth();document.getElementById('calendar-title').textContent=viewDate.toLocaleString('default',{month:'long',year:'numeric'});var first=new Date(y,m,1).getDay();var days=new Date(y,m+1,0).getDate();var html=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>'<div class="day-name">'+d+'</div>').join('');for(var b=0;b<first;b++)html+='<div class="day"></div>';for(var d=1;d<=days;d++){var ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');var evs=state.events.filter(e=>e.date===ds);html+='<div class="day"><div class="day-num">'+d+'</div>'+evs.slice(0,2).map(e=>'<div class="event-chip">'+esc(e.title)+'</div>').join('')+'</div>'}grid.innerHTML=html;renderEvents()}
-function renderEvents(){var today=new Date().toISOString().slice(0,10);var sorted=state.events.map((e,i)=>({...e,i})).sort((a,b)=>(a.date||'').localeCompare(b.date||''));var item=e=>'<div class="event-item"><strong>'+esc(e.title)+'</strong><span>'+esc(e.date)+' - '+esc(e.type)+'</span><p style="color:var(--muted);font-size:.82rem;line-height:1.5;margin-top:.35rem">'+esc(e.notes||'')+'</p><button class="delete-btn" onclick="deleteEvent('+e.i+')">Delete</button></div>';var upcoming=e=>'<div class="upcoming-item"><div class="upcoming-date">'+esc(formatDate(e.date))+'</div><div class="upcoming-title">'+esc(e.title)+'</div><div class="upcoming-meta">'+esc(e.type)+(e.notes?' - '+esc(e.notes):'')+'</div></div>';document.getElementById('all-events').innerHTML=sorted.map(item).join('')||'<div class="empty">No calendar items yet.</div>';document.getElementById('upcoming-list').innerHTML=sorted.filter(e=>e.date>=today).slice(0,6).map(upcoming).join('')||'<div class="empty">No upcoming items yet.</div>'}
-function formatDate(d){if(!d)return '';var parts=d.split('-');return new Date(Number(parts[0]),Number(parts[1])-1,Number(parts[2])).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}
-function renderChecklist(){document.getElementById('checklist-grid').innerHTML=checklistItems.map((t,i)=>'<div class="check '+(state.checks[i]?'done':'')+'"><input type="checkbox" '+(state.checks[i]?'checked':'')+' onchange="state.checks['+i+']=this.checked;save()"><label>'+t+'</label></div>').join('')}
-function renderSummary(){var total=state.expenses.reduce((s,e)=>s+(Number(e.cost)||0),0),paid=state.expenses.reduce((s,e)=>s+(Number(e.paid)||0),0),hall=state.expenses.reduce((s,e)=>s+(e.hall?Math.max((Number(e.cost)||0)-(Number(e.paid)||0),0):0),0),booked=state.vendors.filter(v=>v.status==='Booked').length;document.getElementById('sum-budget').textContent=money(total);document.getElementById('sum-paid').textContent=money(paid);document.getElementById('sum-outstanding').textContent=money(Math.max(total-paid,0));document.getElementById('sum-vendors').textContent=state.vendors.length;document.getElementById('sum-booked').textContent=booked;document.getElementById('sum-hall').textContent=money(hall)}
-function renderAll(){renderSummary();renderExpenses();renderVendors();renderCalendar();renderChecklist()}function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-async function signOut(){try{await supabaseClient.auth.signOut()}catch(e){}window.location.href='login.html'}
-supabaseClient.auth.getSession().then(function(r){var u=r.data&&r.data.session&&r.data.session.user;if(u){document.getElementById('user-email').textContent=u.email}else{document.getElementById('user-email').textContent='Local organizer'}});renderAll();
+const STORAGE_KEY = 'simchamap_organizer';
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || {
+  expenses: [{service:'Hall / Venue', cost:0, paid:0, hall:true}, {service:'Music', cost:0, paid:0, hall:false}],
+  vendors: [{name:'', category:'Hall', status:'Reached Out', notes:''}],
+  events: [],
+  checks: {}
+};
+let viewDate = new Date();
+const checklistItems = ['Choose date', 'Book hall', 'Confirm caterer', 'Book music', 'Review photographer for tznius', 'Order invitations', 'Track deposits', 'Prepare final hall payments', 'Confirm seating/headcount', 'Pack day-of envelope'];
+
+function persist(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function money(n){ return '$' + (Number(n) || 0).toLocaleString(); }
+function val(id){ return document.getElementById(id).value.trim(); }
+function num(id){ return Number(document.getElementById(id).value) || 0; }
+function esc(s){ return String(s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+function showPanel(id){
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === id));
+  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.panel === id));
+  if (id === 'calendar') renderCalendar();
+}
+
+function addExpense(){ state.expenses.push({service:'', cost:0, paid:0, hall:false}); save(); }
+function addExpenseFromForm(){
+  state.expenses.push({service:val('expense-service') || 'New vendor', cost:num('expense-cost'), paid:num('expense-paid'), hall:val('expense-hall') === 'yes'});
+  ['expense-service','expense-cost','expense-paid'].forEach(id => document.getElementById(id).value = '');
+  save();
+}
+function updateExpense(i,k,el){ state.expenses[i][k] = k === 'hall' ? el.checked : (k === 'cost' || k === 'paid' ? Number(el.value) || 0 : el.value); persist(); renderSummary(); renderExpenses(); }
+function deleteExpense(i){ state.expenses.splice(i,1); save(); }
+
+function addVendor(){ state.vendors.push({name:'', category:'', status:'Reached Out', notes:''}); save(); }
+function addVendorFromForm(){
+  state.vendors.push({name:val('vendor-name') || 'New vendor', category:val('vendor-category') || 'Vendor', status:val('vendor-status'), notes:val('vendor-notes')});
+  ['vendor-name','vendor-category','vendor-notes'].forEach(id => document.getElementById(id).value = '');
+  save();
+}
+function updateVendor(i,k,el){ state.vendors[i][k] = el.value; persist(); renderSummary(); if(k === 'status') renderVendors(); }
+function deleteVendor(i){ state.vendors.splice(i,1); save(); }
+
+function addEventFromForm(){
+  if (!val('event-title') || !val('event-date')) return alert('Please add a title and date.');
+  state.events.push({title:val('event-title'), date:val('event-date'), type:val('event-type'), notes:val('event-notes')});
+  ['event-title','event-date','event-notes'].forEach(id => document.getElementById(id).value = '');
+  save();
+}
+function deleteEvent(i){ state.events.splice(i,1); save(); }
+function moveMonth(n){ viewDate.setMonth(viewDate.getMonth() + n); renderCalendar(); }
+
+function renderSummary(){
+  const total = state.expenses.reduce((s,e)=>s+(Number(e.cost)||0),0);
+  const paid = state.expenses.reduce((s,e)=>s+(Number(e.paid)||0),0);
+  const hall = state.expenses.reduce((s,e)=>s+(e.hall ? Math.max((Number(e.cost)||0)-(Number(e.paid)||0),0) : 0),0);
+  document.getElementById('sum-budget').textContent = money(total);
+  document.getElementById('sum-paid').textContent = money(paid);
+  document.getElementById('sum-outstanding').textContent = money(Math.max(total-paid,0));
+  document.getElementById('sum-hall').textContent = money(hall);
+  document.getElementById('sum-vendors').textContent = state.vendors.length;
+  document.getElementById('sum-booked').textContent = state.vendors.filter(v=>v.status === 'Booked').length;
+}
+function renderExpenses(){
+  document.getElementById('expense-body').innerHTML = state.expenses.map((e,i)=>'<tr><td><input value="'+esc(e.service)+'" oninput="updateExpense('+i+',\\'service\\',this)"></td><td><input type="number" value="'+(e.cost||0)+'" oninput="updateExpense('+i+',\\'cost\\',this)"></td><td><input type="number" value="'+(e.paid||0)+'" oninput="updateExpense('+i+',\\'paid\\',this)"></td><td><strong>'+money((e.cost||0)-(e.paid||0))+'</strong></td><td><input type="checkbox" '+(e.hall?'checked':'')+' onchange="updateExpense('+i+',\\'hall\\',this)"></td><td><button class="delete" onclick="deleteExpense('+i+')">Delete</button></td></tr>').join('') || '<tr><td colspan="6">No expenses yet.</td></tr>';
+}
+function renderVendors(){
+  const statuses = ['Reached Out','Waiting for Reply','Booked'];
+  document.getElementById('vendor-body').innerHTML = state.vendors.map((v,i)=>'<tr><td><input value="'+esc(v.name)+'" oninput="updateVendor('+i+',\\'name\\',this)"></td><td><input value="'+esc(v.category)+'" oninput="updateVendor('+i+',\\'category\\',this)"></td><td><select onchange="updateVendor('+i+',\\'status\\',this)">'+statuses.map(s=>'<option '+(v.status===s?'selected':'')+'>'+s+'</option>').join('')+'</select></td><td><textarea oninput="updateVendor('+i+',\\'notes\\',this)">'+esc(v.notes)+'</textarea></td><td><button class="delete" onclick="deleteVendor('+i+')">Delete</button></td></tr>').join('') || '<tr><td colspan="5">No vendors yet.</td></tr>';
+}
+function renderCalendar(){
+  const grid = document.getElementById('calendar-grid');
+  const y = viewDate.getFullYear(), m = viewDate.getMonth();
+  document.getElementById('calendar-title').textContent = viewDate.toLocaleString(undefined,{month:'long',year:'numeric'});
+  let html = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>'<div class="day-name">'+d+'</div>').join('');
+  const first = new Date(y,m,1).getDay(), days = new Date(y,m+1,0).getDate();
+  for(let b=0;b<first;b++) html += '<div class="day"></div>';
+  for(let d=1;d<=days;d++){
+    const ds = y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const evs = state.events.filter(e=>e.date===ds);
+    html += '<div class="day"><div class="day-num">'+d+'</div>'+evs.slice(0,2).map(e=>'<div class="event-chip">'+esc(e.title)+'</div>').join('')+'</div>';
+  }
+  grid.innerHTML = html;
+  renderEvents();
+}
+function renderEvents(){
+  const today = new Date().toISOString().slice(0,10);
+  const sorted = state.events.map((e,i)=>({...e,i})).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  const item = e => '<div class="event-item"><strong>'+esc(e.title)+'</strong><span>'+esc(e.date)+' - '+esc(e.type)+'</span><p>'+esc(e.notes||'')+'</p><button class="delete" onclick="deleteEvent('+e.i+')">Delete</button></div>';
+  const upcoming = e => '<div class="event-item"><strong>'+esc(e.title)+'</strong><span>'+esc(formatDate(e.date))+' - '+esc(e.type)+'</span></div>';
+  document.getElementById('all-events').innerHTML = sorted.map(item).join('') || '<p>No calendar items yet.</p>';
+  document.getElementById('upcoming-list').innerHTML = sorted.filter(e=>e.date>=today).slice(0,5).map(upcoming).join('') || '<p>No upcoming items yet.</p>';
+}
+function renderChecklist(){
+  document.getElementById('checklist-grid').innerHTML = checklistItems.map((t,i)=>'<label class="check '+(state.checks[i]?'done':'')+'"><input type="checkbox" '+(state.checks[i]?'checked':'')+' onchange="state.checks['+i+']=this.checked;save()"><span>'+esc(t)+'</span></label>').join('');
+}
+function formatDate(d){ if(!d) return ''; const p=d.split('-'); return new Date(Number(p[0]),Number(p[1])-1,Number(p[2])).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}); }
+function save(){ persist(); renderAll(); }
+function renderAll(){ renderSummary(); renderExpenses(); renderVendors(); renderCalendar(); renderChecklist(); }
+renderAll();
 </script>
 </body>
 </html>

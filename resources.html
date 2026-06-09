@@ -1,38 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resource Hub - SimchaMap</title>
-<meta name="description" content="SimchaMap planning resources, checklists, and tefillos for families preparing for a simcha.">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-pale:#F7EDD4;--deep:#1A1209;--cream:#FAF6EE;--warm:#F2E8D0;--text:#2C1F0A;--muted:#8A7355;--line:rgba(201,168,76,.22);--white:#FEFCF7}
-*{box-sizing:border-box;margin:0;padding:0}body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif}.topbar{align-items:center;background:rgba(250,246,238,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;gap:1rem;justify-content:space-between;left:0;padding:.85rem clamp(1rem,3vw,2rem);position:fixed;right:0;top:0;z-index:50}.brand{align-items:center;display:flex;gap:.65rem;text-decoration:none}.brand-name{font-family:'Playfair Display',serif;font-size:1.22rem;font-weight:900}.brand-tag{color:var(--gold);display:block;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase}.main-nav{display:flex;gap:.45rem}.nav-pill{border-radius:999px;color:var(--muted);font-size:.85rem;font-weight:700;padding:.55rem .9rem;text-decoration:none}.nav-pill.active,.nav-pill:hover{background:var(--gold-pale);color:var(--deep)}.hero{background:radial-gradient(ellipse 80% 70% at 50% 0,rgba(201,168,76,.14),transparent 70%),var(--cream);padding:8rem 1.5rem 4rem;text-align:center}.eyebrow{color:var(--gold);font-size:.75rem;font-weight:800;letter-spacing:.18em;margin-bottom:1rem;text-transform:uppercase}.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,5rem);line-height:1.04}.hero h1 em{color:var(--gold);font-style:italic}.hero p{color:var(--muted);font-size:1.05rem;line-height:1.7;margin:1rem auto 0;max-width:680px}.main{margin:0 auto;max-width:1180px;padding:3rem 1.5rem 5rem}.resource-grid{display:grid;gap:1.25rem;grid-template-columns:repeat(3,minmax(0,1fr))}.resource-card{background:#fff;border:1px solid var(--line);border-radius:8px;display:flex;flex-direction:column;min-height:260px;overflow:hidden}.card-top{background:var(--deep);color:var(--cream);padding:1.35rem}.card-top span{background:var(--gold);border-radius:999px;color:var(--deep);display:inline-block;font-size:.7rem;font-weight:900;margin-bottom:.8rem;padding:.25rem .55rem;text-transform:uppercase}.card-top h2{font-family:'Playfair Display',serif;font-size:1.45rem}.card-body{display:flex;flex:1;flex-direction:column;padding:1.25rem}.card-body p{color:var(--muted);font-size:.92rem;line-height:1.65}.placeholder-list{display:grid;gap:.55rem;margin:1rem 0}.placeholder-list div{background:var(--white);border:1px solid rgba(201,168,76,.14);border-radius:6px;color:var(--muted);font-size:.86rem;padding:.7rem}.resource-btn{background:var(--gold-pale);border:1px solid rgba(201,168,76,.35);border-radius:6px;color:var(--deep);font-weight:800;margin-top:auto;padding:.75rem;text-align:center;text-decoration:none}.note-band{background:var(--deep);border-radius:8px;color:var(--cream);margin-top:1.5rem;padding:1.5rem}.note-band h2{font-family:'Playfair Display',serif;margin-bottom:.4rem}.note-band p{color:rgba(250,246,238,.65);line-height:1.6}.footer{align-items:center;background:var(--deep);display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;padding:2.5rem 1.5rem}.footer-logo{color:var(--cream);font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900}.footer-logo span{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;gap:1.25rem;list-style:none}.footer-links a{color:rgba(250,246,238,.55);font-size:.86rem;text-decoration:none}.footer-copy{color:rgba(250,246,238,.3);font-size:.8rem}@media(max-width:860px){.main-nav{display:none}.resource-grid{grid-template-columns:1fr}.hero{padding-top:7rem}.footer{flex-direction:column;text-align:center}.footer-links{justify-content:center}}@media(max-width:520px){.brand-tag{display:none}}
-</style>
-<style>
-.resource-btn.disabled{background:#f2eadc;color:var(--muted);cursor:default}
-@media (min-width:900px){body{font-size:17px}.card-body p,.placeholder-list div{font-size:1rem}.nav-pill{font-size:.92rem}.card-top h2{font-size:1.65rem}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources - SimchaMap</title>
+  <meta name="description" content="SimchaMap resource hub for checklists, tefillos, and simcha planning support.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
 </head>
 <body>
-<nav class="topbar">
-  <a href="index.html" class="brand">
-    <svg width="30" height="36" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg"><path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/><circle cx="44" cy="34" r="14" fill="#FAF6EE"/><circle cx="44" cy="34" r="5" fill="#C9A84C"/></svg>
-    <span><span class="brand-name">SimchaMap</span><span class="brand-tag">Every Detail. One Place.</span></span>
-  </a>
-  <div class="main-nav"><a class="nav-pill" href="rockland.html">Vendor Directory</a><a class="nav-pill" href="dashboard.html">My Organizer</a><a class="nav-pill" href="account.html">My Account</a><a class="nav-pill active" href="resources.html">Resource Hub</a><a class="nav-pill" href="vendor-standards.html">Vendor Standards</a></div>
-</nav>
-<header class="hero"><p class="eyebrow">Resource Hub</p><h1>Helpful Planning Resources<br><em>In One Place</em></h1><p>Use this page as the home for checklists, tefillos, and family preparation resources. These sections are ready for real downloads or text content when you want to add them.</p></header>
-<main class="main">
-  <section class="resource-grid">
-    <article class="resource-card"><div class="card-top"><span>Checklist</span><h2>Chasunah Checklists</h2></div><div class="card-body"><p>Placeholder area for wedding planning lists, week-of reminders, vendor payment notes, and family logistics.</p><div class="placeholder-list"><div>Kallah-side planning checklist</div><div>Chosson-side planning checklist</div><div>Week-of packing and payments list</div></div><a class="resource-btn" href="dashboard.html">Use My Organizer</a></div></article>
-    <article class="resource-card" id="kallah-tefillos"><div class="card-top"><span>Tefillos</span><h2>Tefillos for the Kallah</h2></div><div class="card-body"><p>Placeholder area for tefillos, preparation notes, and meaningful readings for the kallah.</p><div class="placeholder-list"><div>Before the chuppah</div><div>Personal bakashos</div><div>Names and reminders list</div></div><span class="resource-btn disabled">Content Pending</span></div></article>
-    <article class="resource-card" id="parents-tefillos"><div class="card-top"><span>Tefillos</span><h2>Tefillos for Parents</h2></div><div class="card-body"><p>Placeholder area for parents' tefillos, family notes, and emotional preparation before the simcha.</p><div class="placeholder-list"><div>Parents of the kallah</div><div>Parents of the chosson</div><div>Family simcha reminders</div></div><span class="resource-btn disabled">Content Pending</span></div></article>
-  </section>
-  <section class="note-band"><h2>Built To Grow</h2><p>This Resource Hub can later host downloadable PDFs, printable lists, Hebrew/English text, or private organizer templates connected to each user's account.</p></section>
-</main>
-<footer class="footer"><div class="footer-logo">Simcha<span>Map</span></div><ul class="footer-links"><li><a href="rockland.html">Vendor Directory</a></li><li><a href="dashboard.html">My Organizer</a></li><li><a href="account.html">My Account</a></li><li><a href="vendor-standards.html">Vendor Standards</a></li><li><a href="privacy.html">Privacy Policy</a></li></ul><div class="footer-copy">&copy; 2026 SimchaMap. All rights reserved.</div></footer>
+<div class="app-shell">
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="index.html"><span class="brand-mark"></span><span><span class="brand-name">SimchaMap</span><span class="brand-tag">Every detail. One place.</span></span></a>
+      <div class="nav-links">
+        <a href="rockland.html">Vendors</a>
+        <a href="dashboard.html">Organizer</a>
+        <a class="active" href="resources.html">Resources</a>
+        <a href="account.html">Account</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Resource hub</p>
+        <h1>Helpful planning resources.</h1>
+        <p class="lead">A simple home for checklists, tefillos, and family preparation resources. Content can grow here without crowding the vendor directory or organizer.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container grid three">
+        <article class="card">
+          <span class="badge gold">Ready</span>
+          <h3>Chasunah checklists</h3>
+          <p>Use the organizer checklist for the practical planning flow: bookings, deposits, meetings, and final payments.</p>
+          <div class="actions"><a class="btn sage" href="dashboard.html">Open Organizer</a></div>
+        </article>
+        <article class="card">
+          <span class="badge blue">Content pending</span>
+          <h3>Tefillos for the kallah</h3>
+          <p>Placeholder for tefillos, names, reminders, and preparation notes. No dead button here until content is ready.</p>
+        </article>
+        <article class="card">
+          <span class="badge blue">Content pending</span>
+          <h3>Tefillos for parents</h3>
+          <p>Placeholder for parents' tefillos and family preparation notes before the simcha.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="footer-inner"><div><strong>SimchaMap</strong><br>Resources that stay organized.</div><div><a href="rockland.html">Vendors</a><a href="dashboard.html">Organizer</a><a href="privacy.html">Privacy</a></div></div></footer>
+</div>
 </body>
 </html>

@@ -1,990 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SimchaMap — Your Complete Simcha Planning Guide</title>
-<meta name="description" content="Plan your Bar Mitzvah, wedding, or any simcha with SimchaMap. Find venues, caterers, photographers, and more in Rockland County, Monsey, and beyond.">
-<meta name="keywords" content="bar mitzvah planning, kosher venues Monsey, simcha planning, Rockland County Jewish events, wedding halls Monsey">
-<meta property="og:title" content="SimchaMap — Your Complete Simcha Planning Guide">
-<meta property="og:description" content="Plan your Bar Mitzvah, wedding, or any simcha with SimchaMap. Find venues, caterers, photographers, and more in Rockland County, Monsey, and beyond.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://simchamap.com">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SimchaMap — Your Complete Simcha Planning Guide">
-<meta name="twitter:description" content="Plan your Bar Mitzvah, wedding, or any simcha with SimchaMap. Find venues, caterers, photographers, and more in Rockland County, Monsey, and beyond.">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="shortcut icon" href="favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --gold: #C9A84C;
-    --gold-light: #E8C97A;
-    --gold-pale: #F7EDD4;
-    --deep: #1A1209;
-    --cream: #FAF6EE;
-    --warm: #F2E8D0;
-    --text: #2C1F0A;
-    --muted: #8A7355;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--cream);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    overflow-x: hidden;
-  }
-
-  /*  NAV  */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 3rem;
-    background: rgba(250,246,238,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(201,168,76,0.2);
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem; font-weight: 900;
-    color: var(--deep);
-    letter-spacing: -0.02em;
-  }
-  .nav-logo span { color: var(--gold); }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    text-decoration: none; color: var(--muted);
-    font-size: 0.875rem; font-weight: 500;
-    letter-spacing: 0.04em; text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta {
-    background: var(--gold); color: var(--deep);
-    border: none; padding: 0.6rem 1.4rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem; font-weight: 500;
-    border-radius: 2px; cursor: pointer;
-    letter-spacing: 0.03em;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
-
-  /*  HERO  */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding: 8rem 2rem 4rem;
-    position: relative;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%),
-      var(--cream);
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image: radial-gradient(circle, rgba(201,168,76,0.08) 1px, transparent 1px);
-    background-size: 36px 36px;
-    pointer-events: none;
-  }
-  .hero-eyebrow {
-    font-size: 0.75rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--gold);
-    font-weight: 500; margin-bottom: 1.5rem;
-    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
-  }
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 8vw, 7rem);
-    font-weight: 900; line-height: 1.0;
-    color: var(--deep); margin-bottom: 1rem;
-    opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
-  }
-  .hero h1 em {
-    font-style: italic; color: var(--gold);
-  }
-  .hero-sub {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    color: var(--muted); max-width: 560px;
-    line-height: 1.7; margin-bottom: 2.5rem;
-    opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
-  }
-  .hero-btns {
-    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
-    opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
-  }
-  .btn-primary {
-    background: var(--gold); color: var(--deep);
-    border: none; padding: 0.9rem 2.2rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem; font-weight: 500;
-    border-radius: 2px; cursor: pointer;
-    transition: all 0.2s;
-  }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
-  .btn-secondary {
-    background: transparent; color: var(--deep);
-    border: 1.5px solid rgba(44,31,10,0.25);
-    padding: 0.9rem 2.2rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem; font-weight: 500;
-    border-radius: 2px; cursor: pointer;
-    transition: all 0.2s;
-  }
-  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
-
-  .hero-divider {
-    width: 80px; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 3rem auto 0;
-    opacity: 0; animation: fadeUp 0.8s 1s forwards;
-  }
-
-  /*  OCCASIONS  */
-  .occasions {
-    padding: 5rem 2rem;
-    text-align: center;
-    background: #F5EDD8;
-    border-top: 1px solid rgba(201,168,76,0.15);
-  }
-  .occasions-label {
-    font-size: 0.7rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--muted);
-    margin-bottom: 2rem;
-  }
-  .occasions-grid {
-    display: flex; flex-wrap: wrap;
-    gap: 0.75rem; justify-content: center;
-    max-width: 800px; margin: 0 auto;
-  }
-  .occasion-pill {
-    background: white; border: 1px solid rgba(201,168,76,0.3);
-    padding: 0.5rem 1.2rem; border-radius: 100px;
-    font-size: 0.9rem; color: var(--text);
-    transition: all 0.2s; cursor: default;
-  }
-  .occasion-pill:hover { background: var(--gold); color: var(--deep); border-color: var(--gold); }
-
-  /*  SECTION COMMON  */
-  .section { padding: 6rem 2rem; }
-  .section-inner { max-width: 1200px; margin: 0 auto; }
-  .section-header { text-align: center; margin-bottom: 4rem; }
-  .section-eyebrow {
-    font-size: 0.7rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--gold);
-    font-weight: 500; margin-bottom: 0.75rem;
-  }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700; color: var(--deep);
-    line-height: 1.2;
-  }
-  .section-title em { font-style: italic; color: var(--gold); }
-  .section-desc {
-    color: var(--muted); margin-top: 1rem;
-    font-size: 1.05rem; max-width: 500px;
-    margin-left: auto; margin-right: auto;
-    line-height: 1.7;
-  }
-
-  /*  CATEGORY GRID  */
-  .categories { background: #FEFCF7; }
-  .cat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.5rem;
-  }
-  .cat-card {
-    background: white;
-    border: 1px solid rgba(201,168,76,0.15);
-    border-radius: 4px;
-    padding: 2rem 1.75rem;
-    transition: all 0.25s;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .cat-card::after {
-    content: '';
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--gold), var(--gold-light));
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.3s;
-  }
-  .cat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(201,168,76,0.12); border-color: rgba(201,168,76,0.35); }
-  .cat-card:hover::after { transform: scaleX(1); }
-  .cat-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
-  .cat-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem; font-weight: 700;
-    color: var(--deep); margin-bottom: 0.4rem;
-  }
-  .cat-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
-  .cat-count {
-    display: inline-block; margin-top: 1rem;
-    font-size: 0.75rem; color: var(--gold);
-    font-weight: 500; letter-spacing: 0.05em;
-  }
-
-  /*  TIMELINE  */
-  .timeline-section { background: var(--deep); }
-  .timeline-section .section-title { color: var(--cream); }
-  .timeline-section .section-eyebrow { color: var(--gold); }
-  .timeline-section .section-desc { color: rgba(250,246,238,0.6); }
-
-  .timeline {
-    position: relative;
-    max-width: 780px; margin: 0 auto;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute; left: 50%; top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-    transform: translateX(-50%);
-  }
-  .tl-item {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 3rem; margin-bottom: 3rem;
-    position: relative;
-  }
-  .tl-item:nth-child(even) .tl-content { grid-column: 2; }
-  .tl-item:nth-child(even) .tl-time { grid-column: 1; grid-row: 1; text-align: right; }
-  .tl-dot {
-    position: absolute; left: 50%; top: 0.4rem;
-    width: 10px; height: 10px;
-    background: var(--gold); border-radius: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
-  }
-  .tl-time {
-    font-size: 0.75rem; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--gold);
-    font-weight: 500; padding-top: 0.2rem;
-  }
-  .tl-content h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem; color: var(--cream);
-    margin-bottom: 0.4rem;
-  }
-  .tl-content p { font-size: 0.875rem; color: rgba(250,246,238,0.55); line-height: 1.6; }
-
-  /*  HOW IT WORKS  */
-  .how { background: var(--gold-pale); }
-  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
-  .step { text-align: center; padding: 1.5rem; }
-  .step-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem; font-weight: 900;
-    color: rgba(201,168,76,0.25); line-height: 1;
-    margin-bottom: 1rem;
-  }
-  .step h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem; color: var(--deep);
-    margin-bottom: 0.5rem;
-  }
-  .step p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
-
-  /*  PLANNER  */
-  .planner-section { background: #FEFCF7; }
-  .planner-panel {
-    max-width: 760px; margin: 0 auto;
-    background: white; border: 1px solid rgba(201,168,76,0.2);
-    border-radius: 8px; padding: 1.5rem;
-  }
-  .planner-input {
-    width: 100%; min-height: 130px; resize: vertical;
-    border: 1px solid rgba(201,168,76,0.3); border-radius: 6px;
-    padding: 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
-    line-height: 1.6; color: var(--text); background: var(--cream); outline: none;
-  }
-  .planner-input:focus { border-color: var(--gold); background: white; }
-  .planner-actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; margin-top: 1rem; }
-  .planner-status { font-size: 0.85rem; color: var(--muted); min-height: 1.3rem; }
-  .planner-result {
-    display: none; margin-top: 1.25rem; padding: 1rem;
-    background: var(--gold-pale); border-left: 3px solid var(--gold);
-    border-radius: 4px; color: var(--text); line-height: 1.65; white-space: pre-wrap;
-  }
-
-  /*  CTA  */
-  .cta-section {
-    background: linear-gradient(135deg, var(--deep) 0%, #2C1F0A 100%);
-    text-align: center; padding: 6rem 2rem;
-    position: relative; overflow: hidden;
-  }
-  .cta-section::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(201,168,76,0.08), transparent);
-  }
-  .cta-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 900; color: var(--cream);
-    margin-bottom: 1rem; position: relative;
-  }
-  .cta-section h2 em { color: var(--gold); font-style: italic; }
-  .cta-section p {
-    color: rgba(250,246,238,0.6); font-size: 1.1rem;
-    margin-bottom: 2.5rem; position: relative;
-  }
-
-  /*  FOOTER  */
-  footer {
-    background: var(--deep); border-top: 1px solid rgba(201,168,76,0.1);
-    padding: 3rem 2rem;
-    display: flex; flex-wrap: wrap;
-    align-items: center; justify-content: space-between;
-    gap: 1.5rem;
-  }
-  .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem; font-weight: 900; color: var(--cream);
-  }
-  .footer-logo span { color: var(--gold); }
-  .footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
-  .footer-links a { color: rgba(250,246,238,0.4); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--gold); }
-  .footer-copy { color: rgba(250,246,238,0.25); font-size: 0.8rem; }
-
-  /*  ANIMATIONS  */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  
-  @media (max-width:768px) {
-    nav { padding:0.9rem 1rem; }
-    .nav-links { display:none; }
-    .nav-cta { padding:0.5rem 0.9rem; font-size:0.8rem; }
-    .hero { padding:6.5rem 1.2rem 3rem; min-height:auto; }
-    .hero h1 { font-size:2.2rem; }
-    .hero-sub { font-size:0.92rem; }
-    .hero-btns { flex-direction:column; align-items:center; }
-    .btn-primary,.btn-secondary { width:100%; max-width:280px; text-align:center; }
-    .section { padding:3rem 1.2rem; }
-    .section-title { font-size:1.7rem; }
-    .cat-grid { grid-template-columns:1fr 1fr; gap:0.75rem; }
-    .cat-card { padding:1.1rem; }
-    .cat-icon { font-size:1.4rem; margin-bottom:0.4rem; }
-    .cat-name { font-size:0.9rem; }
-    .cat-desc { font-size:0.75rem; display:none; }
-    .steps { grid-template-columns:1fr; }
-    .planner-panel { padding:1rem; }
-    .planner-actions { align-items:stretch; flex-direction:column; }
-    .timeline::before { left:1.5rem; }
-    .tl-item { grid-template-columns:1fr; padding-left:3.5rem; }
-    .tl-item:nth-child(even) .tl-content { grid-column:1; }
-    .tl-item:nth-child(even) .tl-time { grid-column:1; grid-row:auto; text-align:left; }
-    .tl-dot { left:1.5rem; }
-    .ai-box { padding:1.2rem; }
-    .ai-chips { gap:0.4rem; }
-    footer { flex-direction:column; text-align:center; padding:2rem 1.2rem; gap:1rem; }
-    .footer-links { justify-content:center; }
-  }
-
-</style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SimchaMap - Simcha Planning Made Simple</title>
+  <meta name="description" content="Find frum-reviewed Rockland vendors and organize your simcha budget, calendar, vendor notes, and checklist in one clean dashboard.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
 </head>
 <body>
+<div class="app-shell">
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"></span>
+        <span><span class="brand-name">SimchaMap</span><span class="brand-tag">Every detail. One place.</span></span>
+      </a>
+      <div class="nav-links">
+        <a class="active" href="index.html">Home</a>
+        <a href="rockland.html">Vendors</a>
+        <a href="dashboard.html">Organizer</a>
+        <a href="resources.html">Resources</a>
+        <a href="account.html">Account</a>
+      </div>
+    </nav>
+  </header>
 
-<nav style="display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1.5rem;position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(250,246,238,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);">
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">For frum families planning a simcha</p>
+          <h1>Find the right vendors. Keep every detail organized.</h1>
+          <p class="lead">A simpler way to plan a chasunah, bar mitzvah, vort, bris, or family simcha: Rockland-area vendors on one side, your private planning dashboard on the other.</p>
+          <div class="actions">
+            <a class="btn sage" href="rockland.html">Find Vendors</a>
+            <a class="btn" href="dashboard.html">Open Organizer</a>
+            <a class="btn secondary" href="vendor-standards.html">Vendor Standards</a>
+          </div>
+        </div>
+        <aside class="panel quick-card" aria-label="Planning snapshot">
+          <div class="quick-row"><strong>Vendor Directory</strong><span>Rockland first</span></div>
+          <div class="quick-row"><strong>Organizer</strong><span>Budget, CRM, calendar</span></div>
+          <div class="quick-row"><strong>Standards</strong><span>Frum reviewed</span></div>
+          <div class="quick-row"><strong>Resources</strong><span>Checklists & tefillos</span></div>
+        </aside>
+      </div>
+    </section>
 
-  <!-- LOGO -->
-  <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.65rem;flex-shrink:0;">
-    <svg width="32" height="38" viewBox="0 0 88 104" xmlns="http://www.w3.org/2000/svg">
-      <path d="M44 0 C24 0 8 16 8 36 C8 60 44 104 44 104 C44 104 80 60 80 36 C80 16 64 0 44 0Z" fill="#C9A84C"/>
-      <circle cx="44" cy="34" r="14" fill="#FAF6EE"/>
-      <circle cx="44" cy="34" r="5" fill="#C9A84C"/>
-    </svg>
-    <div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:#2C1F0A;line-height:1.1;">SimchaMap</div>
-      <div id="nav-tagline" style="font-size:0.55rem;color:#C9A84C;letter-spacing:0.1em;text-transform:uppercase;">Every Detail. One Place.</div>
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Choose a path</p>
+            <h2>What do you need right now?</h2>
+          </div>
+        </div>
+        <div class="grid three">
+          <article class="card clickable" onclick="location.href='rockland.html'" role="link" tabindex="0">
+            <p class="meta">Directory</p>
+            <h3>Browse Rockland vendors</h3>
+            <p>Start with halls, catering leads, music, and review queues for photo, styling, and other visual categories.</p>
+          </article>
+          <article class="card clickable" onclick="location.href='dashboard.html'" role="link" tabindex="0">
+            <p class="meta">Organizer</p>
+            <h3>Replace the notebook</h3>
+            <p>Track costs, deposits, balances, vendor status, notes, appointments, and checklist items.</p>
+          </article>
+          <article class="card clickable" onclick="location.href='resources.html'" role="link" tabindex="0">
+            <p class="meta">Resources</p>
+            <h3>Use planning resources</h3>
+            <p>Keep checklists and tefillah resources in one place as the site grows.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Rockland vendor areas</p>
+            <h2>Simple categories, no clutter.</h2>
+          </div>
+          <a class="btn secondary" href="rockland.html">Open Directory</a>
+        </div>
+        <div class="grid four">
+          <article class="card clickable" onclick="location.href='rockland.html?tab=venues'" role="link" tabindex="0"><span class="badge gold">Live</span><h3>Venues & Halls</h3><p>Rockland halls with phone numbers, addresses, and directions.</p></article>
+          <article class="card clickable" onclick="location.href='rockland.html?tab=catering'" role="link" tabindex="0"><span class="badge blue">Leads</span><h3>Catering</h3><p>Kosher food vendors with confirmation reminders.</p></article>
+          <article class="card clickable" onclick="location.href='rockland.html?tab=music'" role="link" tabindex="0"><span class="badge blue">Leads</span><h3>Music</h3><p>Jewish music and simcha entertainment leads.</p></article>
+          <article class="card clickable" onclick="location.href='rockland.html?tab=photo'" role="link" tabindex="0"><span class="badge review">Review</span><h3>Photo & Styling</h3><p>No listings until public photos are checked for tznius.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container panel panel-pad">
+        <p class="eyebrow">Important standard</p>
+        <h2>Not an open vendor board.</h2>
+        <p class="lead">SimchaMap is meant to serve frum families. Vendors should fit community expectations, and photographers, videographers, clothing, styling, beauty, and decor vendors require review of public photos and promotional materials before being listed.</p>
+        <div class="actions">
+          <a class="btn sage" href="vendor-standards.html">Read Vendor Standards</a>
+          <a class="btn secondary" href="rockland.html?tab=photo">View Review Queues</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><strong>SimchaMap</strong><br>Plan with less stress.</div>
+      <div>
+        <a href="rockland.html">Vendors</a>
+        <a href="dashboard.html">Organizer</a>
+        <a href="privacy.html">Privacy</a>
+      </div>
     </div>
-  </a>
-
-  <!-- DESKTOP LINKS -->
-  <ul id="nav-desktop-links" style="display:flex;gap:2rem;list-style:none;margin:0;padding:0;">
-    <li><a href="rockland.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Vendor Directory</a></li>
-    <li><a href="dashboard.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">My Organizer</a></li>
-    <li><a href="account.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">My Account</a></li>
-        <li><a href="index.html#timeline" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Timeline</a></li>
-    <li><a href="resources.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Resources</a></li>
-    <li><a href="vendor-standards.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">Standards</a></li>
-    <li><a href="about.html" style="text-decoration:none;color:#8A7355;font-size:0.82rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;">About</a></li>
-  </ul>
-
-  <!-- DESKTOP BUTTONS -->
-  <div id="nav-desktop-btns" style="display:flex;gap:0.5rem;align-items:center;">
-    <a href="login.html" id="nav-login-btn" style="background:none;border:1.5px solid rgba(201,168,76,0.4);color:#2C1F0A;text-decoration:none;padding:0.5rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;">Sign In</a>
-    <a href="dashboard.html" id="nav-dash-btn" style="display:none;background:none;border:1.5px solid rgba(201,168,76,0.4);color:#2C1F0A;text-decoration:none;padding:0.5rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;border-radius:2px;white-space:nowrap;">My Dashboard</a>
-    <a href="dashboard.html" style="background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.55rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;border-radius:2px;white-space:nowrap;">Open Organizer</a>
-  </div>
-
-  <!-- HAMBURGER -->
-  <button id="hamburger-btn" onclick="simchaToggleMenu()" style="display:none;background:none;border:none;cursor:pointer;padding:0.5rem;flex-direction:column;gap:5px;z-index:1001;">
-    <span style="display:block;width:22px;height:2px;background:#2C1F0A;border-radius:2px;"></span>
-    <span style="display:block;width:22px;height:2px;background:#2C1F0A;border-radius:2px;"></span>
-    <span style="display:block;width:22px;height:2px;background:#2C1F0A;border-radius:2px;"></span>
-  </button>
-
-</nav>
-
-<!-- MOBILE DROPDOWN -->
-<div id="simcha-mobile-menu" style="display:none;position:fixed;top:62px;left:0;right:0;z-index:999;background:#FAF6EE;border-bottom:2px solid rgba(201,168,76,0.2);padding:0.5rem 1.5rem 1.5rem;flex-direction:column;">
-  <a href="rockland.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Vendor Directory</a>
-  <a href="dashboard.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">My Organizer</a>
-  <a href="account.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">My Account</a>
-    <a href="index.html#timeline" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Timeline</a>
-  <a href="resources.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Resource Hub</a>
-  <a href="vendor-standards.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Vendor Standards</a>
-  <a href="about.html" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">About</a>
-  <a href="login.html" id="mobile-login-link" onclick="simchaCloseMenu()" style="display:block;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">Sign In</a>
-  <a href="dashboard.html" id="mobile-dash-link" onclick="simchaCloseMenu()" style="display:none;padding:0.9rem 0;text-decoration:none;color:#2C1F0A;font-size:1rem;font-weight:500;border-bottom:1px solid rgba(201,168,76,0.1);">My Dashboard</a>
-  <a href="dashboard.html" onclick="simchaCloseMenu()" style="display:block;margin-top:1rem;background:#C9A84C;color:#1A1209;text-decoration:none;padding:0.9rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border-radius:4px;text-align:center;">Open Organizer</a>
+  </footer>
 </div>
-
-<style>
-@media (max-width: 768px) {
-  #nav-desktop-links { display: none !important; }
-  #nav-desktop-btns { display: none !important; }
-  #nav-tagline { display: none !important; }
-  #hamburger-btn { display: flex !important; }
-}
-
-@media (min-width: 769px) {
-  #nav-desktop-links { display: flex !important; }
-  #nav-desktop-btns { display: flex !important; }
-  #nav-tagline { display: block !important; }
-  #hamburger-btn,
-  #simcha-mobile-menu { display: none !important; }
-  .cat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-
-@media (max-width: 768px) {
-  #nav-desktop-links { display: none !important; }
-  #nav-desktop-btns { display: none !important; }
-  #nav-tagline { display: none !important; }
-  #hamburger-btn { display: flex !important; }
-}
-
-/* Final responsive layout guardrails. These override the mixed inline styles above. */
-@media (min-width: 769px) {
-  nav {
-    padding: 0.95rem clamp(1.5rem, 3vw, 3rem) !important;
-  }
-  #nav-desktop-links {
-    display: flex !important;
-    align-items: center !important;
-    gap: clamp(1rem, 2vw, 2rem) !important;
-  }
-  #nav-desktop-btns {
-    display: flex !important;
-    align-items: center !important;
-  }
-  #nav-tagline {
-    display: block !important;
-  }
-  #hamburger-btn,
-  #simcha-mobile-menu {
-    display: none !important;
-  }
-  .hero {
-    min-height: 92vh !important;
-    padding: 8rem 2rem 4rem !important;
-  }
-  .hero h1 {
-    font-size: clamp(4rem, 7vw, 7rem) !important;
-  }
-  .section {
-    padding: 6rem 2rem !important;
-  }
-  .cat-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 1.5rem !important;
-  }
-  .cat-card {
-    padding: 2rem 1.75rem !important;
-  }
-  .cat-desc {
-    display: block !important;
-  }
-  .steps {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  }
-  footer {
-    flex-direction: row !important;
-    text-align: left !important;
-  }
-  .footer-links {
-    justify-content: flex-start !important;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1100px) {
-  .cat-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  }
-}
-
-@media (max-width: 640px) {
-  nav {
-    padding: 0.9rem 1rem !important;
-  }
-  #nav-desktop-links,
-  #nav-desktop-btns,
-  #nav-tagline {
-    display: none !important;
-  }
-  #hamburger-btn {
-    display: flex !important;
-  }
-  .hero {
-    min-height: auto !important;
-    padding: 6.5rem 1.2rem 3rem !important;
-  }
-  .cat-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-</style>
-
 <script>
-function simchaToggleMenu() {
-  var menu = document.getElementById('simcha-mobile-menu');
-  if (!menu) return;
-  if (menu.style.display === 'flex') {
-    menu.style.display = 'none';
-  } else {
-    menu.style.display = 'flex';
-  }
-}
-function simchaCloseMenu() {
-  var menu = document.getElementById('simcha-mobile-menu');
-  if (menu) menu.style.display = 'none';
-}
-// Close on outside click
-document.addEventListener('click', function(e) {
-  var menu = document.getElementById('simcha-mobile-menu');
-  var btn = document.getElementById('hamburger-btn');
-  if (menu && btn && menu.style.display === 'flex') {
-    if (!menu.contains(e.target) && !btn.contains(e.target)) {
-      menu.style.display = 'none';
-    }
-  }
-});
-// Auth check
-(function() {
-  try {
-    var sb = window.supabase.createClient('https://gzbcwzjxycbyzpqhpdgx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6YmN3emp4eWNieXpwcWhwZGd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NzY1NTIsImV4cCI6MjA5NjI1MjU1Mn0.ahiv-HbHJ0ttc-9PfaRPxGdeGuuULc3WpLQbSn_cu7M');
-    sb.auth.getSession().then(function(r) {
-      if (r.data && r.data.session) {
-        var l = document.getElementById('nav-login-btn');
-        var d = document.getElementById('nav-dash-btn');
-        var ml = document.getElementById('mobile-login-link');
-        var md = document.getElementById('mobile-dash-link');
-        if (l) l.style.display = 'none';
-        if (d) d.style.display = 'inline-block';
-        if (ml) ml.style.display = 'none';
-        if (md) md.style.display = 'block';
-      }
-    });
-  } catch(e) {}
-})();
-</script>
-
-<!-- HERO -->
-<section class="hero">
-  <p class="hero-eyebrow"> Your Complete Simcha Guide </p>
-  <h1>Every Detail.<br><em>One Place.</em></h1>
-  <p class="hero-sub">From the first invitation to the last dance, Simcha Map connects you with everything you need to celebrate life's most meaningful moments.</p>
-  <div class="hero-btns">
-    <button class="btn-primary" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">Explore Services</button>
-    <button class="btn-secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How It Works</button>
-  </div>
-  <div style="margin-top:1.5rem;opacity:0;animation:fadeUp 0.8s 1s forwards;">
-    <p style="font-size:0.85rem;color:rgba(44,31,10,0.5);margin-bottom:0.6rem;">Already have an account?</p>
-    <a href="login.html" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;color:#2C1F0A;font-size:0.9rem;font-weight:600;border-bottom:1.5px solid #C9A84C;padding-bottom:0.1rem;transition:opacity 0.2s;">
-      Sign in to track your progress →
-    </a>
-  </div>
-  <div class="hero-divider"></div>
-</section>
-
-
-<!-- AREAS -->
-<section style="padding:4rem 2rem; background:#2C1F0A; text-align:center;" id="areas">
-  <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Choose Your Area</p>
-  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:var(--cream);margin-bottom:0.75rem;">Where Is Your <em style="color:var(--gold);font-style:italic;">Simcha?</em></h2>
-  <p style="color:rgba(250,246,238,0.5);margin-bottom:2.5rem;font-size:0.95rem;">Select your area to find local vendors and venues</p>
-  <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;max-width:900px;margin:0 auto;">
-    <a href="rockland.html" style="background:var(--gold);color:var(--deep);text-decoration:none;padding:1rem 2rem;border-radius:4px;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;transition:all 0.2s;"> Rockland County / Monsey</a>
-    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;"> Williamsburg <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
-    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;"> Boro Park <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
-    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;"> Lakewood <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
-    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;"> Crown Heights <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
-    <div style="background:rgba(255,255,255,0.05);border:1px dashed rgba(201,168,76,0.3);padding:1rem 2rem;border-radius:4px;color:rgba(250,246,238,0.3);font-size:0.95rem;"> Five Towns <span style="font-size:0.7rem;background:rgba(201,168,76,0.2);color:var(--gold);padding:0.1rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Coming Soon</span></div>
-  </div>
-</section>
-
-<!-- OCCASIONS -->
-<section class="occasions">
-  <p class="occasions-label">We cover every occasion</p>
-  <div class="occasions-grid">
-    <span class="occasion-pill"> Bar Mitzvah</span>
-    <span class="occasion-pill"> Bat Mitzvah</span>
-    <span class="occasion-pill"> Wedding</span>
-    <span class="occasion-pill"> Bris</span>
-    <span class="occasion-pill"> Vort / L'chaim</span>
-    <span class="occasion-pill"> Sheva Brachos</span>
-    <span class="occasion-pill"> Baby Naming</span>
-    <span class="occasion-pill"> Graduation Party</span>
-    <span class="occasion-pill"> Shalom Zachor</span>
-    <span class="occasion-pill"> Upsherin</span>
-    <span class="occasion-pill"> Birthday Celebration</span>
-    <span class="occasion-pill"> Chanukah Party</span>
-  </div>
-</section>
-
-<!-- CATEGORIES -->
-<section class="section categories" style="background:#FEFCF7;" id="categories">
-  <div class="section-inner">
-    <div class="section-header">
-      <p class="section-eyebrow">Everything You Need</p>
-      <h2 class="section-title">Your Complete<br><em>Simcha Directory</em></h2>
-      <p class="section-desc" style="font-weight:600;color:#4b3927;">SimchaMap is a curated frum directory. Vendors are reviewed for community fit, tznius, kashrus relevance, and appropriate public portfolios before being listed. <a href="vendor-standards.html" style="color:#9a7a2b;font-weight:700;">Read our vendor standards</a>.</p>
-      <p class="section-desc">Every vendor, every service - carefully reviewed so you can focus on celebrating.</p>
-    </div>
-    <div class="cat-grid">
-      <a href="bar-mitzvah-guide.html" style="text-decoration:none;">
-      <div class="cat-card" style="border:1.5px solid rgba(201,168,76,0.5);position:relative;">
-        
-        <span class="cat-icon"></span>
-        <div class="cat-name">Bar Mitzvah Guide</div>
-        <div class="cat-desc">Complete step-by-step planning guide with checklists, timeline, budget tips, and Monsey-specific advice.</div>
-        <span class="cat-count" style="color:#C9A84C;font-weight:600;">→ Read the Full Guide</span>
-      </div>
-      </a>
-
-      <a href="rockland.html?tab=venues" style="text-decoration:none;">
-      <div class="cat-card" style="border:1.5px solid rgba(201,168,76,0.5); position:relative;">
-        
-        <span class="cat-icon"></span>
-        <div class="cat-name">Venues & Halls</div>
-        <div class="cat-desc">Elegant ballrooms, banquet halls, synagogue spaces, and outdoor venues for every size and style.</div>
-        <span class="cat-count" style="color:#C9A84C;font-weight:600;">Browse Rockland County</span>
-      </div>
-      </a>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=catering'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Catering & Food</div>
-        <div class="cat-desc">Kosher caterers, sushi stations, dessert tables, candy buffets, and full-service dining.</div>
-        <span class="cat-count">Browse Rockland</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=photo'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Photography & Video</div>
-        <div class="cat-desc">Photographers and videographers specializing in simcha moments, with modest portfolios appropriate for frum families.</div>
-        <span class="cat-count">Review Queue</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=music'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Music & Entertainment</div>
-        <div class="cat-desc">DJs, live bands, hora leaders, kaparot, and entertainment that keeps the simcha going.</div>
-        <span class="cat-count">Browse Rockland</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Invitations & Stationery</div>
-        <div class="cat-desc">Custom invitation design, printing, calligraphy, benchers, and seating chart design.</div>
-        <span class="cat-count">Review Queue</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Flowers & Décor</div>
-        <div class="cat-desc">Floral arrangements, centerpieces, room transformation, balloon art, and themed décor.</div>
-        <span class="cat-count">Review Queue</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Gifts & Favors</div>
-        <div class="cat-desc">Kippot, personalized gifts, party favors, gift registries, and Judaica.</div>
-        <span class="cat-count">Review Queue</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Clothing & Styling</div>
-        <div class="cat-desc">Boys' suits, girls' dresses, tuxedo rental, hair and makeup, and family wardrobe coordination.</div>
-        <span class="cat-count">Review Queue</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Theme & Design</div>
-        <div class="cat-desc">Event designers, theme consultants, lighting specialists, and creative directors.</div>
-        <span class="cat-count">Review Queue</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Transportation</div>
-        <div class="cat-desc">Shuttle services, limo rentals, party buses, and guest transportation coordination.</div>
-        <span class="cat-count">Review Queue</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=music'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Kids' Activities</div>
-        <div class="cat-desc">Face painters, magicians, bounce houses, game stations, and child entertainment.</div>
-        <span class="cat-count">Review Queue</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Rabbinical Services</div>
-        <div class="cat-desc">Bar/Bat Mitzvah tutors, officiants, cantors, and religious coordination.</div>
-        <span class="cat-count">Review Queue</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=catering'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Cakes & Desserts</div>
-        <div class="cat-desc">Custom kosher cakes, pastry chefs, donut walls, macaron towers, and dessert catering.</div>
-        <span class="cat-count">Browse Rockland</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Accommodations</div>
-        <div class="cat-desc">Hotel blocks, Shabbos-friendly lodging, and out-of-town guest coordination.</div>
-        <span class="cat-count">Review Queue</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Event Planning</div>
-        <div class="cat-desc">Full-service simcha planners and coordinators who handle every detail for you.</div>
-        <span class="cat-count">Review Queue</span>
-      </div>
-      <div class="cat-card" onclick="location.href='rockland.html?tab=more'" role="link" tabindex="0">
-        <span class="cat-icon"></span>
-        <div class="cat-name">Printing & Signage</div>
-        <div class="cat-desc">Custom banners, photo booths, welcome signs, menus, and printed programs.</div>
-        <span class="cat-count">Review Queue</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TIMELINE -->
-<section class="section timeline-section" id="timeline">
-  <div class="section-inner">
-    <div class="section-header">
-      <p class="section-eyebrow">Planning Guide</p>
-      <h2 class="section-title" style="color:var(--cream)">Your <em>Simcha</em> Timeline</h2>
-      <p class="section-desc">A Bar Mitzvah takes about 12–18 months to plan. Here's when to book what.</p>
-    </div>
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-time">18 Months Before</div>
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <h3>Set the Date & Book the Hall</h3>
-          <p>Confirm the Bar Mitzvah date with your rabbi. Reserve your venue — the best halls fill up fast.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">12 Months Before</div>
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <h3>Photographer, Band & Caterer</h3>
-          <p>Book your photographer, videographer, band or DJ, and caterer. These vendors book out a year in advance.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">9 Months Before</div>
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <h3>Invitations & Guest List</h3>
-          <p>Finalize your guest list, design your invitations, and begin addressing. Order benchers and kippot.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">6 Months Before</div>
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <h3>Décor, Theme & Clothing</h3>
-          <p>Lock in your theme and décor. Start shopping for the Bar Mitzvah boy's suit and family outfits.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">3 Months Before</div>
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <h3>Send Invitations</h3>
-          <p>Mail invitations 6–8 weeks before the event. Book transportation and hotel room blocks for guests.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">1 Month Before</div>
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <h3>Final Confirmations</h3>
-          <p>Confirm headcount with caterer, finalize seating chart, confirm all vendors, and prepare payments.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-time">The Big Day</div>
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <h3>Celebrate! </h3>
-          <p>You've planned everything. Now enjoy every moment of this incredible milestone. Mazel Tov!</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="section how" id="how">
-  <div class="section-inner">
-    <div class="section-header">
-      <p class="section-eyebrow">How It Works</p>
-      <h2 class="section-title">Simple as<br><em>One, Two, Three</em></h2>
-      <p class="section-desc">Simcha Map makes finding the right vendors effortless.</p>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h3>Tell Us Your Simcha</h3>
-        <p>Share your occasion, date, and vision. We'll help you understand exactly what you need.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h3>Browse & Compare</h3>
-        <p>Explore our curated directory of trusted vendors across every category. Read reviews and compare.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h3>Connect & Book</h3>
-        <p>Reach out directly to vendors — and soon, book your hall right here on Simcha Map.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PLANNER -->
-<section class="section planner-section" id="planner">
-  <div class="section-inner">
-    <div class="section-header">
-      <p class="section-eyebrow">Organizer Starter</p>
-      <h2 class="section-title">Plan With<br><em>One Clean Dashboard</em></h2>
-      <p class="section-desc">Use My Organizer to track budget, vendors, notes, calendar items, and family tasks.</p>
-    </div>
-    <div class="planner-panel">
-      <textarea id="planner-prompt" class="planner-input" placeholder="Jot a quick planning note here, then open the organizer to turn it into budget items, vendor notes, and calendar dates."></textarea>
-      <div class="planner-actions">
-        <button class="btn-primary" id="planner-submit" onclick="window.location.href='dashboard.html'">Open Organizer</button>
-        <span class="planner-status" id="planner-status"></span>
-      </div>
-      <div class="planner-result" id="planner-result"></div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section" id="contact">
-  <h2>Ready to Plan Your<br><em>Perfect Simcha?</em></h2>
-  <p>Join our waitlist and be the first to access Simcha Map when we launch.</p>
-  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;">
-    <input type="email" id="waitlist-email" placeholder="Your email address" style="
-      padding: 0.9rem 1.5rem; border: 1px solid rgba(201,168,76,0.3);
-      background: rgba(255,255,255,0.05); color: white; border-radius: 2px;
-      font-family: 'DM Sans', sans-serif; font-size: 1rem; width: 280px;
-      outline: none;
-    ">
-    <button class="btn-primary" onclick="joinWaitlist()">Notify Me</button>
-  </div>
-  <p id="waitlist-status" style="position:relative;margin-top:1rem;font-size:0.9rem;color:rgba(250,246,238,0.75);"></p>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Simcha<span>Map</span></div>
-  <ul class="footer-links">
-    <li><a href="#categories">Services</a></li>
-    <li><a href="#timeline">Planning Guide</a></li>
-    <li><a href="#how">How It Works</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="privacy.html">Privacy Policy</a></li>
-  </ul>
-  <div class="footer-copy">© 2026 SimchaMap. All rights reserved.</div>
-</footer>
-
-<script>
-async function runPlanner() {
-  var prompt = document.getElementById('planner-prompt').value.trim();
-  var status = document.getElementById('planner-status');
-  var result = document.getElementById('planner-result');
-  var button = document.getElementById('planner-submit');
-  if (!prompt) {
-    status.textContent = 'Add a few details first.';
-    result.style.display = 'none';
-    return;
-  }
-  status.textContent = 'Creating your plan...';
-  button.disabled = true;
-  result.style.display = 'none';
-  try {
-    var response = await fetch('/api/planner', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt: prompt })
-    });
-    if (!response.ok) throw new Error('Planner API unavailable');
-    var data = await response.json();
-    result.textContent = data.result || 'No plan was returned. Please try again.';
-    result.style.display = 'block';
-    status.textContent = 'Plan ready.';
-  } catch (error) {
-    result.innerHTML = 'The AI planner is not connected yet. Use <a href="dashboard.html" style="color:#C9A84C;font-weight:800;">My Organizer</a> to track budget, vendors, calendar items, and checklist details right now.';
-    result.style.display = 'block';
-    status.textContent = 'Fallback shown.';
-  } finally {
-    button.disabled = false;
-  }
-}
-
-function joinWaitlist() {
-  var input = document.getElementById('waitlist-email');
-  var status = document.getElementById('waitlist-status');
-  var email = input.value.trim();
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    status.textContent = 'Please enter a valid email address.';
-    return;
-  }
-  var signups = JSON.parse(localStorage.getItem('simchamap_waitlist') || '[]');
-  if (signups.indexOf(email) === -1) {
-    signups.push(email);
-    localStorage.setItem('simchamap_waitlist', JSON.stringify(signups));
-  }
-  input.value = '';
-  status.textContent = 'Thanks. You are on the local waitlist.';
-}
-document.querySelectorAll('.cat-card[role="link"]').forEach(function(card){
+document.querySelectorAll('[role="link"]').forEach(function(card){
   card.addEventListener('keydown', function(e){
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      card.click();
-    }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
   });
 });
 </script>
-
 </body>
 </html>
