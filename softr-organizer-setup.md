@@ -76,3 +76,15 @@ const SOFTR_ORGANIZER_URL = 'https://organizer.simchamap.com';
 ```
 
 Then upload the site again.
+
+## 7. Add Back Link To Main Site
+
+In Softr, add the contents of `softr-back-to-simchamap-snippet.html` to:
+
+`Settings -> Custom Code -> Code Inside Footer`
+
+Then publish the Softr app.
+
+This adds a fixed `Back to SimchaMap` link on `https://organizer.simchamap.com/` that points to:
+
+`https://simchamap.com`

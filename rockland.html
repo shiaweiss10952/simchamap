@@ -56,19 +56,9 @@
 
         <div id="venues" class="tab-panel active">
           <div class="section-head">
-            <div><h2>Venues & halls</h2><p>Core Rockland listings. Families should confirm pricing, package details, caterer rules, and availability directly.</p></div>
+            <div><h2>Venues & halls</h2><p id="venue-count">Updated Rockland hall leads. Families should confirm pricing, package details, caterer rules, and availability directly.</p></div>
           </div>
-          <div class="grid three">
-            <article class="card vendor-card"><span class="badge gold">Monsey</span><h3>Ahavas Yitzchok</h3><p>73 Forshay Road, Monsey, NY 10952</p><div class="vendor-actions"><a class="small-link" href="tel:8453202590">Call</a><a class="small-link" target="_blank" href="https://maps.google.com?q=73+Forshay+Road,+Monsey,+NY+10952">Directions</a><a class="small-link" target="_blank" href="https://www.ahavasyitzchok.org/">Website</a></div></article>
-            <article class="card vendor-card"><span class="badge gold">Monsey</span><h3>Alfei Menashe Ballroom</h3><p>244 Viola Rd, Monsey, NY 10952</p><div class="vendor-actions"><a class="small-link" href="tel:8454742425">Call</a><a class="small-link" target="_blank" href="https://maps.google.com?q=244+Viola+Rd,+Monsey,+NY+10952">Directions</a></div></article>
-            <article class="card vendor-card"><span class="badge gold">Spring Valley</span><h3>Ateres Charna</h3><p>790 N Main St, Spring Valley, NY 10977</p><div class="vendor-actions"><a class="small-link" href="tel:8453627800">Call</a><a class="small-link" target="_blank" href="https://maps.google.com?q=790+N+Main+St,+Spring+Valley,+NY+10977">Directions</a></div></article>
-            <article class="card vendor-card"><span class="badge gold">Monsey</span><h3>The Atrium Ballroom</h3><p>401 NY Route 59, Monsey, NY 10952</p><div class="vendor-actions"><a class="small-link" href="tel:8453560000">Call</a><a class="small-link" target="_blank" href="https://maps.google.com?q=401+NY+Route+59,+Monsey,+NY+10952">Directions</a></div></article>
-            <article class="card vendor-card"><span class="badge gold">Suffern</span><h3>Bais Avigdor</h3><p>57 Lime Kiln Rd, Suffern, NY 10901</p><div class="vendor-actions"><a class="small-link" href="tel:7733185502">Call</a><a class="small-link" target="_blank" href="https://maps.google.com?q=57+Lime+Kiln+Rd,+Suffern,+NY+10901">Directions</a><a class="small-link" target="_blank" href="https://www.baisavigdorwesleyhills.org/">Website</a></div></article>
-            <article class="card vendor-card"><span class="badge gold">Monsey</span><h3>Borov Hall</h3><p>4 Parker Blvd, Monsey, NY 10952</p><div class="vendor-actions"><a class="small-link" href="tel:3474607543">Call</a><a class="small-link" target="_blank" href="https://maps.google.com?q=4+Parker+Blvd,+Monsey,+NY+10952">Directions</a><a class="small-link" target="_blank" href="https://www.borov.org/">Website</a></div></article>
-            <article class="card vendor-card"><span class="badge gold">Spring Valley</span><h3>Monsey Palace Halls</h3><p>575 Chestnut Ridge Road, Spring Valley, NY 10977</p><div class="vendor-actions"><a class="small-link" href="tel:8456415062">Call</a><a class="small-link" target="_blank" href="https://maps.google.com?q=575+Chestnut+Ridge+Road,+Spring+Valley,+NY+10977">Directions</a></div></article>
-            <article class="card vendor-card"><span class="badge gold">Monsey</span><h3>Ribnitz Hall</h3><p>55 Old Nyack Turnpike, Monsey, NY 10952</p><div class="vendor-actions"><a class="small-link" href="tel:8454262056">Call</a><a class="small-link" target="_blank" href="https://maps.google.com?q=55+Old+Nyack+Turnpike,+Monsey,+NY+10952">Directions</a></div></article>
-            <article class="card vendor-card"><span class="badge gold">Spring Valley</span><h3>The Legacy</h3><p>36 Scotland Hill Rd, Spring Valley, NY 10977</p><div class="vendor-actions"><a class="small-link" href="tel:8453524683">Call</a><a class="small-link" target="_blank" href="https://maps.google.com?q=36+Scotland+Hill+Rd,+Spring+Valley,+NY+10977">Directions</a></div></article>
-          </div>
+          <div class="grid three" id="venues-grid"></div>
         </div>
 
         <div id="catering" class="tab-panel">
@@ -118,7 +108,100 @@
   </footer>
 </div>
 
+<script src="venues.js"></script>
 <script>
+function firstSourceUrl(raw) {
+  if (!raw) return '';
+  return raw.split('|').map(function(part) { return part.trim(); }).filter(Boolean)[0] || '';
+}
+function firstDialablePhone(raw) {
+  if (!raw) return '';
+  var match = raw.match(/(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/);
+  return match ? match[0].replace(/\D/g, '') : '';
+}
+function locationLabel(cityArea) {
+  if (!cityArea) return 'Rockland';
+  return cityArea.split('/')[0].split(',')[0].trim() || 'Rockland';
+}
+function confidenceClass(confidence) {
+  if (!confidence) return 'blue';
+  if (/low/i.test(confidence)) return 'review';
+  if (/high/i.test(confidence)) return 'gold';
+  return 'blue';
+}
+function appendBadge(parent, text, className) {
+  if (!text) return;
+  var badge = document.createElement('span');
+  badge.className = 'badge ' + (className || '');
+  badge.textContent = text;
+  parent.appendChild(badge);
+}
+function appendAction(parent, label, href, external) {
+  if (!href) return;
+  var link = document.createElement('a');
+  link.className = 'small-link';
+  link.href = href;
+  link.textContent = label;
+  if (external) {
+    link.target = '_blank';
+    link.rel = 'noopener';
+  }
+  parent.appendChild(link);
+}
+function renderVenues() {
+  var venues = window.simchaMapVenueLeads || [];
+  var grid = document.getElementById('venues-grid');
+  var count = document.getElementById('venue-count');
+  if (!grid) return;
+  grid.innerHTML = '';
+  if (count) {
+    count.textContent = venues.length + ' Rockland hall and venue leads from the updated research workbook. Confirm pricing, capacity, caterer rules, parking, and availability directly.';
+  }
+
+  venues.forEach(function(venue) {
+    var card = document.createElement('article');
+    card.className = 'card vendor-card';
+
+    var badges = document.createElement('div');
+    badges.className = 'vendor-badges';
+    appendBadge(badges, locationLabel(venue.cityArea), 'gold');
+    appendBadge(badges, venue.confidence || 'Review', confidenceClass(venue.confidence));
+    card.appendChild(badges);
+
+    var title = document.createElement('h3');
+    title.textContent = venue.name;
+    card.appendChild(title);
+
+    var address = document.createElement('p');
+    address.textContent = [venue.address, venue.cityArea].filter(Boolean).join(', ') || 'Rockland area - verify address';
+    card.appendChild(address);
+
+    var category = document.createElement('p');
+    category.className = 'vendor-meta-line';
+    category.textContent = venue.category || 'Hall lead';
+    card.appendChild(category);
+
+    if (venue.verify) {
+      var verify = document.createElement('p');
+      verify.className = 'vendor-note';
+      verify.textContent = 'Verify: ' + venue.verify;
+      card.appendChild(verify);
+    }
+
+    var actions = document.createElement('div');
+    actions.className = 'vendor-actions';
+    var phone = firstDialablePhone(venue.phone);
+    appendAction(actions, 'Call', phone ? 'tel:' + phone : '');
+    appendAction(actions, 'Email', venue.email ? 'mailto:' + venue.email : '');
+    var mapsQuery = [venue.address, venue.cityArea].filter(Boolean).join(', ');
+    appendAction(actions, 'Directions', mapsQuery ? 'https://maps.google.com?q=' + encodeURIComponent(mapsQuery) : '', true);
+    appendAction(actions, 'Website', venue.website, true);
+    appendAction(actions, 'Source', firstSourceUrl(venue.sourceUrls), true);
+    card.appendChild(actions);
+
+    grid.appendChild(card);
+  });
+}
 function switchTab(name) {
   document.querySelectorAll('.tab').forEach(function(btn){ btn.classList.toggle('active', btn.dataset.tab === name); });
   document.querySelectorAll('.tab-panel').forEach(function(panel){ panel.classList.toggle('active', panel.id === name); });
@@ -149,6 +232,7 @@ function addOrganizerSaveButtons() {
     actions.appendChild(link);
   });
 }
+renderVenues();
 openInitialTab();
 addOrganizerSaveButtons();
 </script>

@@ -171,6 +171,9 @@ h3 { font-size: 1.08rem; font-weight: 900; }
 .tab-panel.active { display: block; }
 
 .vendor-card { display: grid; gap: 10px; }
+.vendor-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.vendor-meta-line { font-weight: 800; color: var(--sage) !important; }
+.vendor-note { font-size: .9rem; line-height: 1.45; }
 .vendor-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .small-link {
   display: inline-flex;
