@@ -387,6 +387,69 @@ td textarea { min-height: 70px; resize: vertical; }
   cursor: pointer;
 }
 
+.portal-hero {
+  padding: 76px 0 44px;
+  background:
+    linear-gradient(120deg, rgba(231, 238, 233, .9), rgba(242, 231, 200, .55)),
+    var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+.portal-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 32px;
+  align-items: center;
+}
+.portal-status h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2rem;
+  line-height: 1;
+  margin-top: 16px;
+}
+.portal-status p {
+  color: var(--muted);
+  margin: 12px 0 0;
+}
+.portal-frame {
+  width: 100%;
+  min-height: 760px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+.setup-steps .card {
+  min-height: 220px;
+}
+.setup-steps .badge {
+  margin-bottom: 18px;
+}
+.schema-panel {
+  margin-top: 18px;
+}
+.schema-table {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.schema-table div {
+  display: grid;
+  gap: 5px;
+  min-height: 112px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+.schema-table strong {
+  color: var(--ink);
+}
+.schema-table span {
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.45;
+}
+
 .footer { margin-top: auto; background: var(--ink); color: rgba(255,255,255,.68); padding: 32px 0; }
 .footer-inner { width: min(1180px, calc(100% - 40px)); margin: 0 auto; display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
 .footer a { color: rgba(255,255,255,.76); text-decoration: none; font-weight: 800; margin-right: 14px; }
@@ -407,6 +470,7 @@ td textarea { min-height: 70px; resize: vertical; }
   .form-grid { grid-template-columns: 1fr; }
   .checklist { grid-template-columns: 1fr; }
   .organizer-hero, .profile-form, .stage-grid, .notes-grid { grid-template-columns: 1fr; }
+  .portal-hero-grid, .schema-table { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 560px) {

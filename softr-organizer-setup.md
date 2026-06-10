@@ -1,0 +1,78 @@
+# SimchaMap Softr Organizer Setup
+
+Use Softr as the logged-in organizer portal. The live organizer created in Softr is:
+
+`https://elnora22778.softr.app`
+
+Note: the current Softr app was generated with Softr's own internal database so it is usable right away. The Supabase tables are also ready if you later want to connect Softr directly to Supabase.
+
+## 1. Run Supabase SQL
+
+Run `supabase-vendor-admin-setup.sql` in Supabase SQL Editor.
+
+This creates:
+
+- `organizer_events`
+- `organizer_tasks`
+- `organizer_budget_items`
+- `organizer_vendor_contacts`
+- `organizer_calendar_items`
+- `organizer_notes`
+- `organizer_saved_vendors`
+
+## 2. Connect Softr to Supabase
+
+In Softr, add Supabase as a data source. Softr says Supabase data sources are available on Professional and higher plans.
+
+## 3. Create Softr Pages
+
+Recommended pages:
+
+- Dashboard
+- Checklist
+- Budget
+- Vendor CRM
+- Calendar
+- Notes
+- Saved Vendors
+
+## 4. Checklist Table Fields
+
+Use `organizer_tasks`.
+
+Important fields:
+
+- `owner_email`
+- `task_title`
+- `category`
+- `stage`
+- `due_date`
+- `actual_date`
+- `status`
+- `assigned_to`
+- `vendor_name`
+- `notes`
+
+The important new field the website needs is `actual_date`.
+
+## 5. User Privacy Filter
+
+Every Softr block should filter records where:
+
+`owner_email` equals the logged-in user's email.
+
+Every create form should set:
+
+`owner_email` to the logged-in user's email.
+
+## 6. Connect To Website
+
+After Softr publishes the organizer, copy the Softr app URL.
+
+Open `dashboard.html` and set:
+
+```js
+const SOFTR_ORGANIZER_URL = 'https://elnora22778.softr.app';
+```
+
+Then upload the site again.
