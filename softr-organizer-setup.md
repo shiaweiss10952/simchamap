@@ -2,7 +2,7 @@
 
 Use Softr as the logged-in organizer portal. The live organizer created in Softr is:
 
-`https://elnora22778.softr.app`
+`https://organizer.simchamap.com`
 
 Note: the current Softr app was generated with Softr's own internal database so it is usable right away. The Supabase tables are also ready if you later want to connect Softr directly to Supabase.
 
@@ -67,12 +67,12 @@ Every create form should set:
 
 ## 6. Connect To Website
 
-After Softr publishes the organizer, copy the Softr app URL.
+After Softr publishes the organizer, use the organizer custom domain.
 
 Open `dashboard.html` and set:
 
 ```js
-const SOFTR_ORGANIZER_URL = 'https://elnora22778.softr.app';
+const SOFTR_ORGANIZER_URL = 'https://organizer.simchamap.com';
 ```
 
 Then upload the site again.
